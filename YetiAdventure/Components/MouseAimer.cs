@@ -15,6 +15,8 @@ namespace YetiAdventure.Components
     {
         public MouseAimer(Texture2D texture) :base(texture)
         {
+
+            _position = new Vector2();
         }
 
         public override bool IsShooting()
@@ -22,13 +24,27 @@ namespace YetiAdventure.Components
             return Mouse.GetState().LeftButton == ButtonState.Pressed;
         }
 
+        private Vector2 _position;
+
         public override Vector2 Position
         {
             get
             {
-                var mouse = Mouse.GetState();
-                return new Vector2((mouse.X - (Texture.Width / 2)), (mouse.Y - (Texture.Height / 2)));
+                return _position;
+            }
+            set
+            {
+                _position = value;
             }
         }
+
+        public override void Update(GameTime gameTime)
+        {
+
+            var mouse = Mouse.GetState();
+            Position = new Vector2((mouse.X - (Texture.Width / 2)), (mouse.Y - (Texture.Height / 2)));
+        }
+
+        
     }
 }

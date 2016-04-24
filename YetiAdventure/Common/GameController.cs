@@ -34,10 +34,12 @@ namespace YetiAdventure.Common
             if (IsButtonDown(ButtonRight))
             {
                 player.Velocity = new Vector2(Player.WalkSpeed, player.Velocity.Y);
+                player.Direction = Direction.East;
             }
             if (IsButtonDown(ButtonLeft))
             {
                 player.Velocity = new Vector2(Player.WalkSpeed * -1, player.Velocity.Y);
+                player.Direction = Direction.West;
             }
 
             //jump on push, but you cant jump again until you have released jump

@@ -5,16 +5,42 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YetiAdventure", "YetiAdventure\YetiAdventure.csproj", "{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YetiAdventure.Droid", "YetiAdventure.Droid\YetiAdventure.Droid.csproj", "{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YetiAdventure.Desktop", "YetiAdventure.Desktop\YetiAdventure.Desktop.csproj", "{A221483E-0162-44AC-8E9C-F5A48EBC376F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}.Debug|x86.ActiveCfg = Debug|x86
 		{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}.Debug|x86.Build.0 = Debug|x86
+		{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}.Release|Any CPU.ActiveCfg = Release|x86
 		{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}.Release|x86.ActiveCfg = Release|x86
 		{AD2D80FC-A669-4BD0-8919-42A3BE0FC681}.Release|x86.Build.0 = Release|x86
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Debug|x86.Build.0 = Debug|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Release|x86.Build.0 = Release|Any CPU
+		{AE622BF0-3EB0-479A-ABA6-35D4ECFFBD70}.Release|x86.Deploy.0 = Release|Any CPU
+		{A221483E-0162-44AC-8E9C-F5A48EBC376F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A221483E-0162-44AC-8E9C-F5A48EBC376F}.Debug|x86.ActiveCfg = Debug|x86
+		{A221483E-0162-44AC-8E9C-F5A48EBC376F}.Debug|x86.Build.0 = Debug|x86
+		{A221483E-0162-44AC-8E9C-F5A48EBC376F}.Release|Any CPU.ActiveCfg = Release|x86
+		{A221483E-0162-44AC-8E9C-F5A48EBC376F}.Release|x86.ActiveCfg = Release|x86
+		{A221483E-0162-44AC-8E9C-F5A48EBC376F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

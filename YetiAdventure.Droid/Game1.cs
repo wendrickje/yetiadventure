@@ -1,29 +1,26 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using YetiAdventure.Common;
-using YetiAdventure.Components;
-using YetiAdventure.Interfaces;
-using YetiAdventure.Levels;
 
-namespace YetiAdventure
+namespace YetiAdventure.Droid
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for your game.
     /// </summary>
-    public class YetiGame : Game
+    public class Game1 : Game
     {
-        GraphicsDeviceManager _graphics;
-        SpriteBatch _spriteBatch;
-        Level _currentLevel;
-        IGameController _gameController;
-        GameAimer _gameAimer;
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
 
-        public YetiGame()
+        public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            _gameController = new KeyboardController();
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 480;
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
         /// <summary>
@@ -36,16 +33,7 @@ namespace YetiAdventure
         {
             // TODO: Add your initialization logic here
 
-
-            _currentLevel = LoadLevel();
-            
-            _currentLevel.Initalize();
             base.Initialize();
-        }
-
-        Level LoadLevel()
-        {
-            return new DemoLevel();
         }
 
         /// <summary>
@@ -55,27 +43,18 @@ namespace YetiAdventure
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var pointTexture = Content.Load<Texture2D>("mousepointer");
-            _gameAimer = new MouseAimer(pointTexture);
-            
-
-            _currentLevel.LoadContent(_spriteBatch, Content);
-            _currentLevel.Player.Texture = Content.Load<Texture2D>("player");
-            var start = _currentLevel.StartPosition;
-            var playerPosition = new Vector2(start.X, start.Y - (Player.Height / 2));
-            _currentLevel.Player.Position = playerPosition;
-            _gameAimer.Position = playerPosition;
+            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
+        /// game-specific content.
         /// </summary>
         protected override void UnloadContent()
         {
-            _currentLevel.UnloadContent();
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -85,14 +64,11 @@ namespace YetiAdventure
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            var player = _currentLevel.Player;
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                Exit();
 
-            _gameController.HandleInputOnPlayer(player);
+            // TODO: Add your update logic here
 
-            _currentLevel.Update(gameTime);
-            _gameAimer.Update(gameTime);
-            _gameAimer.ClampToBounds(player, player.Direction);
-            _gameAimer.HandleInputOnPlayer(player);
             base.Update(gameTime);
         }
 
@@ -104,12 +80,7 @@ namespace YetiAdventure
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
-            
-            _currentLevel.Draw(gameTime, _spriteBatch);
-            _gameAimer.Draw(gameTime, _spriteBatch);
-            _spriteBatch.End();
-
+            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

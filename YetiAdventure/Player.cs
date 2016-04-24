@@ -108,7 +108,12 @@ namespace YetiAdventure
 
             Velocity = new Vector2(Velocity.X, velocityY);
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
-
+            foreach (var bullet in Bullets)
+            {
+                bullet.Update(gameTime);
+                if (bullet.IsDead)
+                    Bullets.Remove(bullet);
+            }
 
         }
 
@@ -121,7 +126,7 @@ namespace YetiAdventure
           
 
             spriteBatch.Draw(Texture, Position, Container, Color.White, 0.0f, new Vector2(), 1.0f, SpriteEffect, 0.0f);
-            
+            Bullets.ForEach(bullet => bullet.Draw(gameTime, spriteBatch));
         }
 
         private SpriteEffects _spriteEffect = SpriteEffects.None;
@@ -138,5 +143,39 @@ namespace YetiAdventure
             return !IsJumping && jumpTime == 0.0f && IsOnGround;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public Direction Direction { get; set; }
+
+        public void Shoot(Vector2 target)
+        {
+            //add a new Projectile to bullets
+            //get ammo type
+            var ammoType = GetAmmoType();
+            var projectile = Activator.CreateInstance(ammoType, DrawableObjectType.Friendly) as Projectile;
+            Bullets.Add(projectile);
+
+
+        }
+
+
+        private Type GetAmmoType()
+        {
+            //based on currently equipped weapon get ammo type
+            return AmmoTypeMapper[AmmoType.Snowball];
+        }
+
+        Dictionary<AmmoType, Type> AmmoTypeMapper = new Dictionary<AmmoType, Type>()
+        {
+            {AmmoType.Snowball, typeof(Snowball) },
+        };
+
+        List<Projectile> _bullets;
+
+        public List<Projectile> Bullets
+        {
+            get { return _bullets ?? (_bullets = new List<Projectile>()); }
+        }
     }
 }

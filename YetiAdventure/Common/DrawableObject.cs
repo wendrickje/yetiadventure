@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace YetiAdventure.Common
         public DrawableObject(DrawableObjectType ot)
         {
             DrawableObjectType = ot;
+        }
+        public virtual void LoadContent(SpriteBatch spriteBatch, ContentManager content)
+        {
         }
 
         public DrawableObjectType DrawableObjectType { get; private set; }

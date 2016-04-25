@@ -20,7 +20,8 @@ namespace YetiAdventure
         Level _currentLevel;
         GameController _gameController;
         GameAimer _gameAimer;
-        
+        Camera _camera;
+		
         public YetiGameBootstrapper(ContentManager content, GraphicsDeviceManager graphics, GameController controller, GameAimer aimer)
         {
             _graphics = graphics;
@@ -47,6 +48,9 @@ namespace YetiAdventure
             _currentLevel = LoadLevel();
 
             _currentLevel.Initalize();
+            _camera = new Camera(_graphics.GraphicsDevice);
+            _camera.Target = _currentLevel.Player;
+            _camera.Zoom = 1.0f;
         }
 
         Level LoadLevel()
@@ -71,6 +75,8 @@ namespace YetiAdventure
             var playerPosition = new Vector2(start.X, start.Y - (Player.Height / 2));
             _currentLevel.Player.Position = playerPosition;
             _gameAimer.Position = playerPosition;
+			var levelBounds = new Rectangle(0, 0, _currentLevel.LevelWidth, _currentLevel.LevelHeight);
+            _camera.BoundingRectangle = levelBounds;
         }
 
         /// <summary>
@@ -97,6 +103,7 @@ namespace YetiAdventure
             _gameAimer.Update(gameTime);
             _gameAimer.ClampToBounds(player, player.Direction);
             _gameAimer.HandleInputOnPlayer(player);
+			_camera.Update(gameTime);
            
         }
 
@@ -107,14 +114,25 @@ namespace YetiAdventure
         public void Draw(GameTime gameTime)
         {
             _graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+			// This is some garbage to test texture filtering modes to see if we can remove the gross borders @ tile edges.
+            var samplerStates = new Microsoft.Xna.Framework.Graphics.SamplerState()
+            {
+                Filter = TextureFilter.PointMipLinear
+            };
+            _graphics.GraphicsDevice.SamplerStates[0] = samplerStates;
+            
 
-            _spriteBatch.Begin();
-
+            // Draw the game world using the camera's transform.
+            _spriteBatch.Begin(SpriteSortMode.Texture, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
             _currentLevel.Draw(gameTime, _spriteBatch);
+            _spriteBatch.End();
+
+            // Draw all the screenspace elements (UI, text, etc) on top of the world in a new batch.
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             _gameAimer.Draw(gameTime, _spriteBatch);
             _spriteBatch.End();
 
-            
+
         }
     }
 }

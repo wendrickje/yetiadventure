@@ -45,6 +45,7 @@
     <Compile Include="Common\GameControllerType.cs" />
     <Compile Include="Common\Projectile.cs" />
     <Compile Include="Common\Utilities.cs" />
+    <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\KeyboardController.cs" />
     <Compile Include="Components\Layer.cs" />
     <Compile Include="Components\MouseAimer.cs" />

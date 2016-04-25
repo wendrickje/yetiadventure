@@ -11,6 +11,7 @@ namespace YetiAdventure.Droid
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        YetiGameBootstrapper yetigame;
 
         public Game1()
         {
@@ -21,6 +22,7 @@ namespace YetiAdventure.Droid
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+
         }
 
         /// <summary>
@@ -42,9 +44,14 @@ namespace YetiAdventure.Droid
         /// </summary>
         protected override void LoadContent()
         {
+            var pointTexture = Content.Load<Texture2D>("mousepointer");
+            var controller = new TouchController();
+            var aimer = new TouchAimer(pointTexture);
+            yetigame = new YetiGameBootstrapper(Content, graphics, controller, aimer);
+            yetigame.Initialize();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            yetigame.LoadContent(spriteBatch);
             // TODO: use this.Content to load your game content here
         }
 
@@ -55,6 +62,7 @@ namespace YetiAdventure.Droid
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            yetigame.UnloadContent();
         }
 
         /// <summary>
@@ -70,6 +78,7 @@ namespace YetiAdventure.Droid
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+            yetigame.Update(gameTime);
         }
 
         /// <summary>
@@ -78,11 +87,12 @@ namespace YetiAdventure.Droid
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+            yetigame.Draw(gameTime);
         }
     }
 }

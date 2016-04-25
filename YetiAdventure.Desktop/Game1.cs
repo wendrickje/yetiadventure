@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using YetiAdventure.Components;
 
 namespace YetiAdventure.Desktop
 {
@@ -11,11 +12,12 @@ namespace YetiAdventure.Desktop
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        YetiGameBootstrapper yetigame;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -37,9 +39,16 @@ namespace YetiAdventure.Desktop
         /// </summary>
         protected override void LoadContent()
         {
+            var pointTexture = Content.Load<Texture2D>("mousepointer");
+            var gameAimer = new MouseAimer(pointTexture);
+
+            var gameController = new KeyboardController();
+            yetigame = new YetiGameBootstrapper(Content, graphics, gameController, gameAimer);
+
+            yetigame.Initialize();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            yetigame.LoadContent(spriteBatch);
             // TODO: use this.Content to load your game content here
         }
 
@@ -50,6 +59,7 @@ namespace YetiAdventure.Desktop
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            yetigame.UnloadContent();
         }
 
         /// <summary>
@@ -65,6 +75,7 @@ namespace YetiAdventure.Desktop
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+            yetigame.Update(gameTime);
         }
 
         /// <summary>
@@ -73,11 +84,12 @@ namespace YetiAdventure.Desktop
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+           // GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+            yetigame.Draw(gameTime);
         }
     }
 }

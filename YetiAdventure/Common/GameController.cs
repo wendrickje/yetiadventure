@@ -11,7 +11,7 @@ namespace YetiAdventure.Common
 {
 
 
-    public abstract class GameController<T> : IGameController
+    public abstract class GameController : IGameController
     {
 
         public GameController(GameControllerType controllerType)
@@ -23,34 +23,34 @@ namespace YetiAdventure.Common
 
         public void HandleInputOnPlayer(Player player)
         {
-            if (IsButtonDown(ButtonReset))
+            if (IsButtonDown(GameButton.Reset))
                 player.Position = new Vector2();
 
-            if (!player.IsJumping || !IsButtonDown(ButtonRight) || !IsButtonDown(ButtonLeft))
+            if (!player.IsJumping || !IsButtonDown(GameButton.Right) || !IsButtonDown(GameButton.Left))
             {
                 player.Velocity = new Vector2();
             }
 
-            if (IsButtonDown(ButtonRight))
+            if (IsButtonDown(GameButton.Right))
             {
                 player.Velocity = new Vector2(Player.WalkSpeed, player.Velocity.Y);
                 player.Direction = Direction.East;
             }
-            if (IsButtonDown(ButtonLeft))
+            if (IsButtonDown(GameButton.Left))
             {
                 player.Velocity = new Vector2(Player.WalkSpeed * -1, player.Velocity.Y);
                 player.Direction = Direction.West;
             }
 
             //jump on push, but you cant jump again until you have released jump
-            if (IsButtonDown(ButtonJump) && player.CanJump() && isjumpreleased)
+            if (IsButtonDown(GameButton.Jump) && player.CanJump() && isjumpreleased)
             {
                 isjumppressed = true;
                 player.IsJumping = true;
                 isjumpreleased = false;
             }
 
-            if (isjumppressed && IsButtonUp(ButtonJump) && player.CanJump())
+            if (isjumppressed && IsButtonUp(GameButton.Jump) && player.CanJump())
             {
                 isjumpreleased = true;
                 isjumppressed = false;
@@ -65,26 +65,23 @@ namespace YetiAdventure.Common
         bool isjumppressed = false;
         bool isjumpreleased = true;
 
-        protected void Aim()
-        {
+    
 
-        }
+        //public abstract GameButton ButtonReset { get; }
 
-        public abstract T ButtonReset { get; }
+        public abstract bool IsButtonUp(GameButton button);
 
-        public abstract bool IsButtonUp(T button);
+        public abstract bool IsButtonDown(GameButton button);
 
-        public abstract bool IsButtonDown(T button);
+        //public abstract GameButton ButtonRight { get; }
 
-        public abstract T ButtonRight { get; }
+        //public abstract GameButton ButtonLeft { get; }
 
-        public abstract T ButtonLeft { get; }
+        //public abstract GameButton ButtonUp { get; }
 
-        public abstract T ButtonUp { get; }
+        //public abstract GameButton ButtonDown { get; }
 
-        public abstract T ButtonDown { get; }
-
-        public abstract T ButtonJump { get; }
+        //public abstract GameButton ButtonJump { get; }
         
 
     }

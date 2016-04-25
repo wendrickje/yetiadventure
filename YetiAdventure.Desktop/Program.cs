@@ -13,7 +13,7 @@ namespace YetiAdventure.Desktop
         [STAThread]
         static void Main()
         {
-            using (var game = new YetiGame())
+            using (var game = new Game1())
                 game.Run();
         }
     }

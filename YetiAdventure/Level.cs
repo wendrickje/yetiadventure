@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using YetiAdventure.Common;
 using YetiAdventure.Components;
@@ -99,46 +100,53 @@ namespace YetiAdventure
             _tileset = content.Load<Texture2D>(Manager.TileSet.Resource);
 
             //open level file
-            var stream = Manager.LevelLayout;
-            var reader = new StreamReader(stream);
+            //var stream = TitleContainer.OpenStream(Manager.LevelLayout);
+
+            var assembly = typeof(LevelManager).GetTypeInfo().Assembly;
+            Stream stream = assembly.GetManifestResourceStream(Manager.LevelLayout);
 
             _tileSize = Manager.TileSet.TileSize;
             var yindex = 0f;
             var xindex = 0f;
-            //read level file
-            while (!reader.EndOfStream)
+            using (var reader = new StreamReader(stream))
             {
-                xindex = 0f;
-                //parse level file for the objects to create
-                var line = reader.ReadLine();
-                foreach (var item in line)
+
+                //read level file
+                while (!reader.EndOfStream)
                 {
-                    //get the legend key
-                    var legendkey = Manager.Legend.FirstOrDefault(key => key.Id.First() == item);
-                    //if legend key is not defined for this character then move on
-                    if (legendkey == null) { xindex++; continue; }
+                    xindex = 0f;
+                    //parse level file for the objects to create
+                    var line = reader.ReadLine();
+                    foreach (var item in line)
+                    {
+                        //get the legend key
+                        var legendkey = Manager.Legend.FirstOrDefault(key => key.Id[0] == item);
+                        //if legend key is not defined for this character then move on
+                        if (legendkey == null) { xindex++; continue; }
 
-                    var tilename = legendkey.Value;
-                    //get the tile
-                    var tile = Manager.TileMaps.FirstOrDefault(map => String.Compare(map.Id, tilename, true) == 0);
-                    //if the tile is not defined for this character then move on
-                    if (tile == null) { xindex++; continue; }
+                        var tilename = legendkey.Value;
+                        //get the tile
+                        var tile = Manager.TileMaps.FirstOrDefault(map => String.Compare(map.Id.ToLower(), tilename.ToLower()) == 0);
+                        //if the tile is not defined for this character then move on
+                        if (tile == null) { xindex++; continue; }
 
-                    var tileposition = new Vector2(xindex * TileSize, yindex * TileSize);
-                    //save the start positon
-                    if (String.Compare(tilename, "start", true) == 0)
-                        _startPosition = tileposition;
+                        var tileposition = new Vector2(xindex * TileSize, yindex * TileSize);
+                        //save the start positon
+                        if (String.Compare(tilename.ToLower(), "start") == 0)
+                            _startPosition = tileposition;
 
-                    //if the tile does not have a column or row within the tile set then move on
-                    if (!tile.Row.HasValue || !tile.Column.HasValue) { xindex++; continue; }
+                        //if the tile does not have a column or row within the tile set then move on
+                        if (!tile.Row.HasValue || !tile.Column.HasValue) { xindex++; continue; }
 
-                    var tilecontainer = new Rectangle(tile.Column.Value * TileSize, tile.Row.Value * TileSize, TileSize, TileSize);
+                        var tilecontainer = new Rectangle(tile.Column.Value * TileSize, tile.Row.Value * TileSize, TileSize, TileSize);
 
-                    //todo: for now add everything to the middle layer
-                    MiddlegroundLayer.Children.Add(new Tile() { Texture = TileSet, Position = tileposition, Container = tilecontainer });
-                    xindex++;
+                        //todo: for now add everything to the middle layer
+                        MiddlegroundLayer.Children.Add(new Tile() { Texture = TileSet, Position = tileposition, Container = tilecontainer });
+                        xindex++;
+                    }
+                    yindex++;
                 }
-                yindex++;
+
             }
             _levelHeight = (int)yindex * TileSize;
             _levelWidth = (int)xindex * TileSize;
@@ -169,13 +177,14 @@ namespace YetiAdventure
 
             foreach (var layer in Layers)
             {
-                layer.Children.ForEach(c =>
-                    {
-                        if (layer.LayerIndex == LayerIndex.Middleground)
-                            HandleCollisionDetection(gameTime, c);
-                        c.Update(gameTime);
-                    }
-                );
+
+                foreach (var child in layer.Children)
+                {
+                    if (layer.LayerIndex == LayerIndex.Middleground)
+                        HandleCollisionDetection(gameTime, child);
+                    child.Update(gameTime);
+                }
+            
             }
         }
 
@@ -187,7 +196,10 @@ namespace YetiAdventure
         {
             foreach (var layer in Layers)
             {
-                layer.Children.ForEach(c => c.Draw(gameTime, spriteBatch));
+                foreach (var child in layer.Children)
+                {
+                    child.Draw(gameTime, spriteBatch);
+                }
             }
         }
         #endregion

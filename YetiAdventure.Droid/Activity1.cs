@@ -3,7 +3,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using YetiAdventure;
-
 namespace YetiAdventure.Droid
 {
     [Activity(Label = "YetiAdventure.Droid"
@@ -19,7 +18,7 @@ namespace YetiAdventure.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var g = new YetiGame();
+            var g = new Game1();
             SetContentView((View)g.Services.GetService(typeof(View)));
             g.Run();
         }

@@ -119,14 +119,17 @@ namespace YetiAdventure
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if(Velocity.X > 0)
+            if (Velocity.X > 0)
                 SpriteEffect = SpriteEffects.None;
             else if (Velocity.X < 0)
                 SpriteEffect = SpriteEffects.FlipHorizontally;
-          
+
 
             spriteBatch.Draw(Texture, Position, Container, Color.White, 0.0f, new Vector2(), 1.0f, SpriteEffect, 0.0f);
-            Bullets.ForEach(bullet => bullet.Draw(gameTime, spriteBatch));
+            foreach (var bullet in Bullets)
+            {
+                bullet.Draw(gameTime, spriteBatch);
+            }
         }
 
         private SpriteEffects _spriteEffect = SpriteEffects.None;

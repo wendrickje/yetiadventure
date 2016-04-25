@@ -9,7 +9,7 @@ using YetiAdventure.Common;
 namespace YetiAdventure.Components
 {
 
-    public class KeyboardController : GameController<Keys>
+    public class KeyboardController : GameController
     {
 
         public KeyboardController()
@@ -18,27 +18,27 @@ namespace YetiAdventure.Components
 
         }
 
-        public override Keys ButtonReset { get { return Keys.Enter; } }
-
-        public override Keys ButtonJump { get { return Keys.Space; } }
-
-        public override Keys ButtonRight { get { return Keys.D; } }
-
-        public override Keys ButtonLeft { get { return Keys.A; } }
-
-        public override Keys ButtonUp { get { return Keys.W; } }
-
-        public override Keys ButtonDown { get { return Keys.S; } }
-
-
-        public override bool IsButtonDown(Keys button)
+        Dictionary<GameButton, Keys> ButtonToKeyboardMapper = new Dictionary<GameButton, Keys>
         {
-            return Keyboard.GetState().IsKeyDown(button);
+            { GameButton.Reset, Keys.Enter},
+            { GameButton.Jump, Keys.Space},
+            { GameButton.Right, Keys.D},
+            { GameButton.Left, Keys.A},
+            { GameButton.Up, Keys.W},
+            { GameButton.Down, Keys.S},
+        };
+
+
+        public override bool IsButtonDown(GameButton button)
+        {
+            var key = ButtonToKeyboardMapper[button];
+            return Keyboard.GetState().IsKeyDown(key);
         }
 
-        public override bool IsButtonUp(Keys button)
+        public override bool IsButtonUp(GameButton button)
         {
-            return Keyboard.GetState().IsKeyUp(button);
+            var key = ButtonToKeyboardMapper[button];
+            return Keyboard.GetState().IsKeyUp(key);
         }
 
 

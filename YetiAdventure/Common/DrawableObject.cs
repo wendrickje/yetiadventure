@@ -15,9 +15,7 @@ namespace YetiAdventure.Common
         {
             DrawableObjectType = ot;
         }
-        public virtual void LoadContent(SpriteBatch spriteBatch, ContentManager content)
-        {
-        }
+
 
         public DrawableObjectType DrawableObjectType { get; private set; }
 

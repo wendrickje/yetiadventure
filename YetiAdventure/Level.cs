@@ -17,6 +17,10 @@ namespace YetiAdventure
     public class Level
     {
 
+        public const float GravityAcceleration = 7f;
+        public const float GroundDragFactor = 0.58f;
+        public const float AirDragFactor = 0.3f;
+        public const float MaxMoveSpeed = 1500.0f;
         public Level(string name = null)
         {
             Name = name;
@@ -204,10 +208,6 @@ namespace YetiAdventure
         }
         #endregion
 
-        private const float GravityAcceleration = 7f;
-        private const float GroundDragFactor = 0.58f;
-        private const float AirDragFactor = 0.3f;
-        private const float MaxMoveSpeed = 1500.0f;
 
         /// <summary>
         /// applies gravity

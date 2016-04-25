@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,8 @@ namespace YetiAdventure.Common
     public abstract class GameAimer : IDrawableObject, IGameController
     {
 
-        private const float AimingRadius = 50;
-        private const float ReloadTime = 5;
+        private const float AimingRadius = 100;
+        private const float ReloadTime = 50;
 
         public GameAimer(Texture2D texture)
         {
@@ -22,14 +23,19 @@ namespace YetiAdventure.Common
 
         public abstract bool IsShooting();
 
+        public Vector2 Target { get; set; }
         public abstract void Update(GameTime gameTime);
+
+        private Vector2 _oldPosition;
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.White);
+
+            
         }
 
-        public abstract Vector2 Position { get; set; }
+        public Vector2 Position { get; set; }
 
         public Texture2D Texture { get; set; }
 
@@ -37,15 +43,22 @@ namespace YetiAdventure.Common
 
         public void ClampToBounds(IDrawableObject drawable, Direction direction)
         {
-            var directionAdjustment = direction == Direction.West ? -1 : 1;
-            //get center point of bounds
             var bindingVector = drawable.Position;
-            var center = new Vector2(bindingVector.X / 2, bindingVector.Y / 2);
-
-            var currentPosistion = Position;
             
+            
+            //get top left of binding vector
+            var center = new Vector2(bindingVector.X - (Texture.Width / 2), bindingVector.Y - (Texture.Height / 2));
+            //add half width and height of binding vectors texture for the actual center
+            center.X = center.X + drawable.Container.Width / 2;
+            center.Y = center.Y + drawable.Container.Height / 2;
+
+            //clamp position
+
+            
+
+
             // Calculate the offset vector from the center of the circle to our position
-            Vector2 offset = currentPosistion - center;
+            Vector2 offset = Target - center;
             // Calculate the linear distance of this offset vector
             float distance = offset.Length();
             if (distance != AimingRadius)
@@ -56,8 +69,8 @@ namespace YetiAdventure.Common
                 // Calculate our new position using the direction to our old position and our radius
                 Position = center + dir * AimingRadius;
             }
-            
-            
+
+
 
         }
 

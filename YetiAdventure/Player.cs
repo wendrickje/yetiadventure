@@ -26,7 +26,7 @@ namespace YetiAdventure
 
 
 
-        private float jumpTime;
+        private float _jumpTime;
         protected int CurrentFrame = 0;
         protected int Tick = 0;
 
@@ -50,27 +50,27 @@ namespace YetiAdventure
             if (IsJumping)
             {
                 IsOnGround = false;
-                if (jumpTime == 0.0f) { /*jumpSound.Play(); */}
+                if (_jumpTime == 0.0f) { /*jumpSound.Play(); */}
 
-                jumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                _jumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 // If we are in the ascent of the jump
-                if (0.0f < jumpTime && jumpTime <= MaxJumpTime)
+                if (0.0f < _jumpTime && _jumpTime <= MaxJumpTime)
                 {
                     // Fully override the vertical velocity with a power curve that gives players more control over the top of the jump
-                    var jumpvar = (float)Math.Pow(jumpTime / MaxJumpTime, JumpControlPower);
+                    var jumpvar = (float)Math.Pow(_jumpTime / MaxJumpTime, JumpControlPower);
                     velocityY = JumpSpeed * (1.0f - jumpvar);
                 }
                 else
                 {
                     // Reached the apex of the jump
-                    jumpTime = 0.0f;
+                    _jumpTime = 0.0f;
                 }
             }
             else
             {
                 // Continues not jumping or cancels a jump in progress
-                jumpTime = 0.0f;
+                _jumpTime = 0.0f;
             }
 
 
@@ -108,6 +108,7 @@ namespace YetiAdventure
 
             Velocity = new Vector2(Velocity.X, velocityY);
             Position = new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y);
+
             foreach (var bullet in Bullets)
             {
                 bullet.Update(gameTime);
@@ -126,6 +127,7 @@ namespace YetiAdventure
 
 
             spriteBatch.Draw(Texture, Position, Container, Color.White, 0.0f, new Vector2(), 1.0f, SpriteEffect, 0.0f);
+
             foreach (var bullet in Bullets)
             {
                 bullet.Draw(gameTime, spriteBatch);
@@ -143,7 +145,7 @@ namespace YetiAdventure
 
         public bool CanJump()
         {
-            return !IsJumping && jumpTime == 0.0f && IsOnGround;
+            return !IsJumping && _jumpTime == 0.0f && IsOnGround;
         }
 
         /// <summary>
@@ -157,6 +159,15 @@ namespace YetiAdventure
             //get ammo type
             var ammoType = GetAmmoType();
             var projectile = Activator.CreateInstance(ammoType, DrawableObjectType.Friendly) as Projectile;
+
+            //starting point of the bullet is players position
+            //direction is which way player is facing
+            //angle is where aimer is aiming
+
+            //force is player's strength
+            var force = 25f;
+            projectile.Initalize(new Vector2(Position.X + (Container.Width / 2), Position.Y + (Container.Height / 2)), target, force);
+
             Bullets.Add(projectile);
 
 

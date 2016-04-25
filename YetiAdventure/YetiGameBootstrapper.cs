@@ -21,7 +21,8 @@ namespace YetiAdventure
         GameController _gameController;
         GameAimer _gameAimer;
         Camera _camera;
-		
+        public static SharedTexturesContainer SharedTextures;
+
         public YetiGameBootstrapper(ContentManager content, GraphicsDeviceManager graphics, GameController controller, GameAimer aimer)
         {
             _graphics = graphics;
@@ -66,7 +67,7 @@ namespace YetiAdventure
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = spriteBatch;
-
+            SharedTexturesContainer.Create(Content);
 
 
             _currentLevel.LoadContent(_spriteBatch, Content);
@@ -120,7 +121,7 @@ namespace YetiAdventure
                 Filter = TextureFilter.PointMipLinear
             };
             _graphics.GraphicsDevice.SamplerStates[0] = samplerStates;
-            
+
 
             // Draw the game world using the camera's transform.
             _spriteBatch.Begin(SpriteSortMode.Texture, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
@@ -128,7 +129,7 @@ namespace YetiAdventure
             _spriteBatch.End();
 
             // Draw all the screenspace elements (UI, text, etc) on top of the world in a new batch.
-            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
             _gameAimer.Draw(gameTime, _spriteBatch);
             _spriteBatch.End();
 

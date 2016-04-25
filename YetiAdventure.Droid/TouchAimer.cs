@@ -21,12 +21,7 @@ namespace YetiAdventure.Droid
         {
         }
 
-        public override Vector2 Position
-        {
-            get;
 
-            set;
-        }
 
         public override bool IsShooting()
         {

@@ -15,34 +15,62 @@ namespace YetiAdventure.Components
     {
         public MouseAimer(Texture2D texture) :base(texture)
         {
-
-            _position = new Vector2();
+            Target = new Vector2();
         }
+
+        bool _isMouseDown;
+        bool _isMouseUp;
+        bool _hasClicked;
+        bool _isClicking;
 
         public override bool IsShooting()
         {
-            return Mouse.GetState().LeftButton == ButtonState.Pressed;
-        }
-
-        private Vector2 _position;
-
-        public override Vector2 Position
-        {
-            get
+            if (!_isClicking)
             {
-                return _position;
+                _isMouseDown = Mouse.GetState().LeftButton == ButtonState.Pressed;
             }
-            set
+
+            if(_isMouseDown)
             {
-                _position = value;
+                _isClicking = true;
             }
+
+            if(_isClicking)
+            {
+                _isMouseUp = Mouse.GetState().LeftButton == ButtonState.Released;
+
+            }
+
+            if(_isMouseUp)
+            {
+                _hasClicked = true;
+            }
+
+
+            if (_hasClicked)
+            {
+                //reset
+                _isClicking = false;
+                _isMouseUp = false;
+                _isMouseDown = false;
+                _hasClicked = false;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+
+            
         }
 
         public override void Update(GameTime gameTime)
         {
 
             var mouse = Mouse.GetState();
-            Position = new Vector2((mouse.X - (Texture.Width / 2)), (mouse.Y - (Texture.Height / 2)));
+            Target = new Vector2(mouse.X - (Texture.Width / 2), mouse.Y - (Texture.Height / 2));
         }
 
         

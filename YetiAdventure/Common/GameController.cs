@@ -43,45 +43,34 @@ namespace YetiAdventure.Common
             }
 
             //jump on push, but you cant jump again until you have released jump
-            if (IsButtonDown(GameButton.Jump) && player.CanJump() && isjumpreleased)
+            if (IsButtonDown(GameButton.Jump) && player.CanJump() && _isjumpreleased)
             {
-                isjumppressed = true;
+                _isjumppressed = true;
                 player.IsJumping = true;
-                isjumpreleased = false;
+                _isjumpreleased = false;
             }
 
-            if (isjumppressed && IsButtonUp(GameButton.Jump) && player.CanJump())
+            if (_isjumppressed && IsButtonUp(GameButton.Jump) && player.CanJump())
             {
-                isjumpreleased = true;
-                isjumppressed = false;
+                _isjumpreleased = true;
+                _isjumppressed = false;
             }
-            if (isjumpreleased && isjumppressed)
+            if (_isjumpreleased && _isjumppressed)
             {
-                isjumppressed = false;
-                isjumpreleased = false;
+                _isjumppressed = false;
+                _isjumpreleased = false;
             }
         }
 
-        bool isjumppressed = false;
-        bool isjumpreleased = true;
+        bool _isjumppressed = false;
+        bool _isjumpreleased = true;
 
     
-
-        //public abstract GameButton ButtonReset { get; }
+        
 
         public abstract bool IsButtonUp(GameButton button);
 
         public abstract bool IsButtonDown(GameButton button);
-
-        //public abstract GameButton ButtonRight { get; }
-
-        //public abstract GameButton ButtonLeft { get; }
-
-        //public abstract GameButton ButtonUp { get; }
-
-        //public abstract GameButton ButtonDown { get; }
-
-        //public abstract GameButton ButtonJump { get; }
         
 
     }

@@ -8,8 +8,8 @@
     <ProjectGuid>{D8DD6820-78DE-41D7-A983-0B61E59B8A01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LevelPackageProcessor</RootNamespace>
-    <AssemblyName>LevelPackageProcessor</AssemblyName>
+    <RootNamespace>LevelPackageFileProcessor</RootNamespace>
+    <AssemblyName>LevelPackageFileProcessor</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -47,13 +47,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompiledPackage.cs" />
-    <Compile Include="Importer.cs" />
-    <Compile Include="LevelPackage.cs" />
+    <Compile Include="LevelPackageImporter.cs" />
     <Compile Include="LevelPackageContentWriter.cs" />
-    <Compile Include="Processor.cs" />
+    <Compile Include="LevelPackageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LevelPackageFileReader\LevelPackageFileReader.csproj">
+      <Project>{f0b7cdbd-c9bf-44cd-8777-0921e01aa26b}</Project>
+      <Name>LevelPackageFileReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YetiAdventure\YetiAdventure.csproj">
+      <Project>{ecdfbc77-c008-4c2e-9301-d4f7e044ba17}</Project>
+      <Name>YetiAdventure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

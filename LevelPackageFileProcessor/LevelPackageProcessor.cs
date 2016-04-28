@@ -6,14 +6,15 @@ using TOutput = System.String;
 using System.IO.Compression;
 using System.IO;
 using System.Diagnostics;
+using YetiAdventure.Levels;
 
 namespace LevelPackageFileProcessor
 {
     [ContentProcessor(DisplayName = "Level Package Processor")]
-    class Processor : ContentProcessor<LevelPackage, CompiledPackage>
+    public class LevelPackageProcessor : ContentProcessor<CompiledPackage, LevelPackage>
     {
-        public override CompiledPackage Process(LevelPackage input,
-            ContentProcessorContext context)
+
+        public override LevelPackage Process(CompiledPackage input, ContentProcessorContext context)
         {
             //uncompress the pack into 
             //texture 2d
@@ -25,11 +26,11 @@ namespace LevelPackageFileProcessor
             var levellayoutbytes = new byte[] { };
 
             
-            var target = new FileInfo(input.File);
-
-            using (FileStream fileToDecompress = File.Open(target.FullName, FileMode.Open))
+            var target = input.Raw;
+            using (var memoryStream = new MemoryStream(target))
+            //using (FileStream fileToDecompress = File.Open(target.FullName, FileMode.Open))
             {
-                using (DeflateStream decompressionStream = new DeflateStream(fileToDecompress, CompressionMode.Decompress))
+                using (DeflateStream decompressionStream = new DeflateStream(memoryStream, CompressionMode.Decompress))
                 {
                     var streamreader = new StreamReader(decompressionStream);
                     while (!streamreader.EndOfStream)
@@ -50,10 +51,10 @@ namespace LevelPackageFileProcessor
             //content.EffectCode = input.SourceCode;
             //EffectProcessor compiler = new EffectProcessor();
             //CompiledEffectContent compiledContent = compiler.Process(content, context);
-            var bytes = new byte[]{};
+           
 
-            // Return the compiled effect code portion only
-            return new CompiledPackage(bytes);
+            // Return the levelpackage
+            return new LevelPackage(null,null,null);
         }
     }
 }

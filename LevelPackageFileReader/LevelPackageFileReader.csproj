@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ECDFBC77-C008-4C2E-9301-D4F7E044BA17}</ProjectGuid>
+    <ProjectGuid>{F0B7CDBD-C9BF-44CD-8777-0921E01AA26B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YetiAdventure</RootNamespace>
-    <AssemblyName>YetiAdventure</AssemblyName>
+    <RootNamespace>LevelPackageFileReader</RootNamespace>
+    <AssemblyName>LevelPackageFileReader</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,56 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Common\AmmoType.cs" />
-    <Compile Include="Common\CollidableObject.cs" />
-    <Compile Include="Common\Direction.cs" />
-    <Compile Include="Common\DrawableObject.cs" />
-    <Compile Include="Common\DrawableObjectType.cs" />
-    <Compile Include="Common\GameAimer.cs" />
-    <Compile Include="Common\GameButton.cs" />
-    <Compile Include="Common\GameController.cs" />
-    <Compile Include="Common\GameControllerType.cs" />
-    <Compile Include="Common\Projectile.cs" />
-    <Compile Include="Common\SharedTexturesContainer.cs" />
-    <Compile Include="Common\Utilities.cs" />
-    <Compile Include="Components\Camera.cs" />
-    <Compile Include="Components\KeyboardController.cs" />
-    <Compile Include="Components\Layer.cs" />
-    <Compile Include="Components\MouseAimer.cs" />
-    <Compile Include="Components\Tile.cs" />
-    <Compile Include="Interfaces\ICollidable.cs" />
-    <Compile Include="Interfaces\IDestructable.cs" />
-    <Compile Include="Interfaces\IDrawableObject.cs" />
-    <Compile Include="Interfaces\IGameController.cs" />
-    <Compile Include="Level.cs" />
-    <Compile Include="Levels\DemoLevel.cs" />
-    <Compile Include="Levels\LegendKey.cs" />
-    <Compile Include="Levels\LevelManager.cs" />
-    <Compile Include="Levels\LevelPackage.cs" />
-    <Compile Include="Levels\TileMap.cs" />
-    <Compile Include="Levels\TileSet.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="LevelPackageContentReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="YetiGameBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK">
-      <HintPath>..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\DesktopGL\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="NVorbis">
-      <HintPath>..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\DesktopGL\NVorbis.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Levels\Layouts\demo.lev">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Levels\Layouts\demo.lev.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <ProjectReference Include="..\YetiAdventure\YetiAdventure.csproj">
+      <Project>{ecdfbc77-c008-4c2e-9301-d4f7e044ba17}</Project>
+      <Name>YetiAdventure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

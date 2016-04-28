@@ -66,6 +66,14 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LevelPackageFileProcessor\LevelPackageFileProcessor.csproj">
+      <Project>{d8dd6820-78de-41d7-a983-0b61e59b8a01}</Project>
+      <Name>LevelPackageFileProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LevelPackageFileReader\LevelPackageFileReader.csproj">
+      <Project>{f0b7cdbd-c9bf-44cd-8777-0921e01aa26b}</Project>
+      <Name>LevelPackageFileReader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YetiAdventure\YetiAdventure.csproj">
       <Project>{ecdfbc77-c008-4c2e-9301-d4f7e044ba17}</Project>
       <Name>YetiAdventure</Name>

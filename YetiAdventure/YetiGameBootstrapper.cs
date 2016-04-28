@@ -56,6 +56,8 @@ namespace YetiAdventure
 
         Level LoadLevel()
         {
+            //return new DemoLevel();
+            var level = Content.Load<LevelPackage>("testproject");
             return new DemoLevel();
         }
 

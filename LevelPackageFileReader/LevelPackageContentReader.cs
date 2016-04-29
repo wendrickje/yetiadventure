@@ -13,5 +13,10 @@ namespace LevelPackageFileReader
         {
             return new LevelPackage(null, null, null);
         }
+
+        public LevelPackage ReadPublic(ContentReader input, LevelPackage existingInstance)
+        {
+            return Read(input, existingInstance);
+        }
     }
 }

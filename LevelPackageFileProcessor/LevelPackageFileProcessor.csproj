@@ -34,9 +34,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LevelManager">
-      <HintPath>..\..\Shared\LevelManager.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildExtensionsPath)\MonoGame\v3.0\Tools\MonoGame.Framework.dll</HintPath>
@@ -53,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LevelManager\LevelManager.csproj">
+      <Project>{10ddd4a9-e42f-45a4-98cc-ce4fb2681d60}</Project>
+      <Name>LevelManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LevelPackageFileReader\LevelPackageFileReader.csproj">
       <Project>{f0b7cdbd-c9bf-44cd-8777-0921e01aa26b}</Project>
       <Name>LevelPackageFileReader</Name>

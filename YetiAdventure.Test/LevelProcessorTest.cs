@@ -6,6 +6,11 @@ using LevelPackageFileProcessor;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
+using LevelPackageFileReader;
+using YetiAdventure.Levels;
+using YetiAdventure.Test.Tools;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 
 namespace YetiAdventure.Test
 {
@@ -13,174 +18,45 @@ namespace YetiAdventure.Test
     public class LevelProcessorTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Test_LevelProcessor_LevelImporter_LevelReader()
         {
-            byte[] raw;
-            string data;
-            var filestream = Assembly.GetExecutingAssembly().GetManifestResourceStream("YetiAdventure.Test.testproject.lpfx");
-            using (var reader = new StreamReader(filestream))
-            {
-                data = reader.ReadToEnd();
-                raw = Encoding.ASCII.GetBytes(data);
-                //raw = Convert.FromBase64String(data);
+            var assetName = "testproject";
+            var ext = ".lpfx";
+            var testfile = assetName + ext;
+            var raw = File.ReadAllBytes(testfile);
 
-            }
             var compiledPackage = new CompiledPackage(raw);
+            var levelpackage = new LevelPackage();
 
-            var testfile = "testfile.lpfx";
-            using (var writer = new StreamWriter(File.Create(testfile)))
-            {
-
-                writer.Write(data);
-            }
-
-            var processor = new LevelPackageProcessor();
+            //do importer
             var importer = new LevelPackageImporter();
-
-
             var actualCompiledPackage = importer.Import(testfile, new MockContentImporterContext());
-            //Assert.IsTrue(actual == compiledPackage);
+            //Assert.IsTrue(actualCompiledPackage == compiledPackage);
+
+            //do processor
+            var processor = new LevelPackageProcessor();
             var actualLevelPackage = processor.Process(actualCompiledPackage, new MockContentProcessorContext());
+            //Assert.IsTrue(actualLevelPackage == levelpackage);
 
 
-        }
-    }
-
-    public class MockContentProcessorContext : ContentProcessorContext
-    {
-        public override string BuildConfiguration
-        {
-            get
+            //do reader
+            var reader = new LevelPackageContentReader();
+            var graphicDeviceManager = new MockGraphicsDeviceManager();
+            var contentManager = new MockContentManager();
+            Action<IDisposable> action = (disposable) =>
             {
-                return "";
-            }
+
+            };
+            var pcr = new PrivateObject(typeof(ContentReader), contentManager, new MemoryStream(raw), graphicDeviceManager.GraphicsDevice, assetName, 1, action);
+
+            var contentReader = pcr.Target as ContentReader;
+            var readOutputPackage = reader.ReadPublic(contentReader, levelpackage);
+            //Assert.IsTrue(actualLevelPackage == readOutputPackage);
+
         }
 
-        public override string IntermediateDirectory
-        {
-            get
-            {
-                return "";
-            }
-        }
-        ContentBuildLogger _logger;
-        public override ContentBuildLogger Logger
-        {
-            get
-            {
-                return _logger ?? (_logger = new MockContentBuildLogger());
-            }
-        }
 
-        public override string OutputDirectory
-        {
-            get
-            {
-                return "";
-            }
-        }
 
-        public override string OutputFilename
-        {
-            get
-            {
-                return "";
-            }
-        }
 
-        public override OpaqueDataDictionary Parameters
-        {
-            get
-            {
-                return new OpaqueDataDictionary();
-            }
-        }
-
-        public override TargetPlatform TargetPlatform
-        {
-            get
-            {
-                return TargetPlatform.Windows;
-            }
-        }
-
-        public override GraphicsProfile TargetProfile
-        {
-            get
-            {
-                return GraphicsProfile.HiDef;
-            }
-        }
-
-        public override void AddDependency(string filename)
-        {
-        }
-
-        public override void AddOutputFile(string filename)
-        {
-        }
-
-        public override TOutput BuildAndLoadAsset<TInput, TOutput>(ExternalReference<TInput> sourceAsset, string processorName, OpaqueDataDictionary processorParameters, string importerName)
-        {
-            var obj = default(TOutput);
-            return obj;
-        }
-
-        public override ExternalReference<TOutput> BuildAsset<TInput, TOutput>(ExternalReference<TInput> sourceAsset, string processorName, OpaqueDataDictionary processorParameters, string importerName, string assetName)
-        {
-            var obj = default(ExternalReference<TOutput>);
-            return obj;
-        }
-
-        public override TOutput Convert<TInput, TOutput>(TInput input, string processorName, OpaqueDataDictionary processorParameters)
-        {
-            var obj = default(TOutput);
-            return obj;
-        }
-    }
-    public class MockContentImporterContext : ContentImporterContext
-    {
-        public override string IntermediateDirectory
-        {
-            get
-            {
-                return "";
-            }
-        }
-        ContentBuildLogger _logger;
-        public override ContentBuildLogger Logger
-        {
-            get
-            {
-                return _logger ?? (_logger = new MockContentBuildLogger());
-            }
-        }
-
-        public override string OutputDirectory
-        {
-            get
-            {
-                return "";
-            }
-        }
-
-        public override void AddDependency(string filename)
-        {
-        }
-    }
-
-    public class MockContentBuildLogger : ContentBuildLogger
-    {
-        public override void LogImportantMessage(string message, params object[] messageArgs)
-        {
-        }
-
-        public override void LogMessage(string message, params object[] messageArgs)
-        {
-        }
-
-        public override void LogWarning(string helpLink, ContentIdentity contentIdentity, string message, params object[] messageArgs)
-        {
-        }
     }
 }

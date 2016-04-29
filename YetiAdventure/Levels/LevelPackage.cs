@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YetiAdventure.Levels
 {
-    public class LevelPackage
+    public class LevelPackage 
     {
         public LevelPackage()
         {
@@ -21,11 +21,12 @@ namespace YetiAdventure.Levels
 
         public string Name { get; private set; }
 
-        public LevelManager LevelManager { get; set; }
-
         public object ImageSource { get; set; }
 
         public List<int[][]> LevelLayouts { get; set; }
+
+        
+
 
     }
 }

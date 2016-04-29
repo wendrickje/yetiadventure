@@ -66,6 +66,10 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LevelManager\LevelManager.csproj">
+      <Project>{10ddd4a9-e42f-45a4-98cc-ce4fb2681d60}</Project>
+      <Name>LevelManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LevelPackageFileProcessor\LevelPackageFileProcessor.csproj">
       <Project>{d8dd6820-78de-41d7-a983-0b61e59b8a01}</Project>
       <Name>LevelPackageFileProcessor</Name>

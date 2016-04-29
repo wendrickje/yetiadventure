@@ -4,22 +4,19 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace YetiAdventure.Levels
+namespace LevelManager
 {
     [DataContract]
-    public class TileSet
+    public class TileMap
     {
         [DataMember(Order = 0)]
-        public string Resource { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Order = 1)]
-        public int TileSize { get; set; }
+        public int? Row { get; set; }
 
         [DataMember(Order = 2)]
-        public int Rows { get; set; }
-
-        [DataMember(Order = 3)]
-        public int Columns { get; set; }
+        public int? Column { get; set; }
 
     }
 }

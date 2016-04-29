@@ -12,7 +12,7 @@
 
 /reference:..\bin\DesktopGL\x86\Debug\LevelPackageFileProcessor.dll
 /reference:..\bin\DesktopGL\x86\Debug\LevelPackageFileReader.dll
-/reference:..\bin\DesktopGL\x86\Debug\YetiAdventure.dll
+/reference:..\bin\DesktopGL\x86\Debug\LevelManager.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -65,7 +65,7 @@
 /build:snowball.png
 
 #begin testproject.lpfx
-/importer:
-/processor:
+/importer:LevelPackageImporter
+/processor:LevelPackageProcessor
 /build:testproject.lpfx
 

@@ -43,7 +43,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files (x86)\MSBuild\MonoGame\v3.0\Tools\MonoGame.Framework.Content.Pipeline.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\DesktopGL\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -60,11 +66,27 @@
   <ItemGroup>
     <Compile Include="LevelProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\MockGame.cs" />
+    <Compile Include="Tools\MockGameWindow.cs" />
+    <Compile Include="Tools\MockContentImporterContext.cs" />
+    <Compile Include="Tools\MockContentManager.cs" />
+    <Compile Include="Tools\MockContentProcessorContext.cs" />
+    <Compile Include="Tools\MockContentBuildLogger.cs" />
+    <Compile Include="Tools\MockGraphicsDeviceManager.cs" />
+    <Compile Include="Tools\MockServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LevelManager\LevelManager.csproj">
+      <Project>{10ddd4a9-e42f-45a4-98cc-ce4fb2681d60}</Project>
+      <Name>LevelManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LevelPackageFileProcessor\LevelPackageFileProcessor.csproj">
       <Project>{d8dd6820-78de-41d7-a983-0b61e59b8a01}</Project>
       <Name>LevelPackageFileProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LevelPackageFileReader\LevelPackageFileReader.csproj">
+      <Project>{f0b7cdbd-c9bf-44cd-8777-0921e01aa26b}</Project>
+      <Name>LevelPackageFileReader</Name>
     </ProjectReference>
     <ProjectReference Include="..\YetiAdventure.Desktop\YetiAdventure.Desktop.csproj">
       <Project>{a221483e-0162-44ac-8e9c-f5a48ebc376f}</Project>
@@ -76,7 +98,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="testproject.lpfx" />
+    <Content Include="testproject.lpfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

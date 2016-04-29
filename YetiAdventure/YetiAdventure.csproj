@@ -57,11 +57,7 @@
     <Compile Include="Interfaces\IGameController.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Levels\DemoLevel.cs" />
-    <Compile Include="Levels\LegendKey.cs" />
-    <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Levels\LevelPackage.cs" />
-    <Compile Include="Levels\TileMap.cs" />
-    <Compile Include="Levels\TileSet.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YetiGameBootstrapper.cs" />
@@ -84,6 +80,12 @@
     <EmbeddedResource Include="Levels\Layouts\demo.lev.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LevelManager\LevelManager.csproj">
+      <Project>{10ddd4a9-e42f-45a4-98cc-ce4fb2681d60}</Project>
+      <Name>LevelManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

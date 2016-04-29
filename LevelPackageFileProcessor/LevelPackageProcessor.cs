@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.IO;
 using System.Diagnostics;
 using YetiAdventure.Levels;
+using System.Text;
 
 namespace LevelPackageFileProcessor
 {
@@ -25,7 +26,10 @@ namespace LevelPackageFileProcessor
             var levelconfigbytes = new byte[] { };
             var levellayoutbytes = new byte[] { };
 
-            
+            var divider = "====";
+            var configHeader = String.Format("{0}{1}{0}", divider, ".config");
+            var levelHeader = String.Format("{0}{1}{0}", divider, ".lev");
+
             var target = input.Raw;
             using (var memoryStream = new MemoryStream(target))
             //using (FileStream fileToDecompress = File.Open(target.FullName, FileMode.Open))
@@ -33,13 +37,37 @@ namespace LevelPackageFileProcessor
                 using (DeflateStream decompressionStream = new DeflateStream(memoryStream, CompressionMode.Decompress))
                 {
                     var streamreader = new StreamReader(decompressionStream);
+                    
                     while (!streamreader.EndOfStream)
                     {
-                        //== .lev ==
-                        //      == layer {0} ==
-                        //== .lev.config ==
-                        //.png || .jpg || .bmp
+                        //====.config====000
+
+                        //==== .lev ====000
+                        //      == layer 0 ==
+                        //      == layer 1 ==
+                        //      == layer 2 ==
+                        //      == layer 3 ==
+                        
+                        //could be of any file type
+                        //====.png || .jpg || .bmp====000
+
                         var line = streamreader.ReadLine().Trim(null);
+                        //read to end of .config section
+                        if (line.Contains(configHeader))
+                        {
+                            var configSection = String.Empty;
+                            line = String.Empty;
+                            while (!line.Contains(levelHeader))
+                            {
+                                configSection = String.Join("\r\n", configSection + line);
+                                line = streamreader.ReadLine();
+                            }
+                            var raw = Encoding.Default.GetBytes(configSection);
+                            
+
+                        }
+
+
                         Debug.WriteLine("decompressed: " + line);
                     }
                 }

@@ -21,16 +21,15 @@ namespace YetiAdventure
         public const float GroundDragFactor = 0.58f;
         public const float AirDragFactor = 0.3f;
         public const float MaxMoveSpeed = 1500.0f;
-        public Level(string name = null)
+        public Level(string levelName)
         {
-            Name = name;
-            _manager = LevelManager.Create(name);
+            Name = levelName;
             _player = new Player();
         }
 
-        LevelManager _manager;
+        LevelManager.LevelManager _manager;
 
-        public LevelManager Manager
+        public LevelManager.LevelManager Manager
         {
             get { return _manager; }
         }
@@ -100,62 +99,65 @@ namespace YetiAdventure
         /// <param name="content"></param>
         public virtual void LoadContent(SpriteBatch spriteBatch, ContentManager content)
         {
+            //todo: load tile from manager
+            var package = content.Load<LevelPackage>(Name);
+            _manager = new LevelManager.LevelManager();
+            
+            //_tileset = content.Load<Texture2D>(Manager.TileSet.Resource);
 
-            _tileset = content.Load<Texture2D>(Manager.TileSet.Resource);
+            ////open level file
+            ////var stream = TitleContainer.OpenStream(Manager.LevelLayout);
 
-            //open level file
-            //var stream = TitleContainer.OpenStream(Manager.LevelLayout);
+            //var assembly = typeof(LevelManager.LevelManager).GetTypeInfo().Assembly;
+            //Stream stream = assembly.GetManifestResourceStream(Manager.LevelLayout);
 
-            var assembly = typeof(LevelManager).GetTypeInfo().Assembly;
-            Stream stream = assembly.GetManifestResourceStream(Manager.LevelLayout);
+            //_tileSize = Manager.TileSet.TileSize;
+            //var yindex = 0f;
+            //var xindex = 0f;
+            //using (var reader = new StreamReader(stream))
+            //{
 
-            _tileSize = Manager.TileSet.TileSize;
-            var yindex = 0f;
-            var xindex = 0f;
-            using (var reader = new StreamReader(stream))
-            {
+            //    //read level file
+            //    while (!reader.EndOfStream)
+            //    {
+            //        xindex = 0f;
+            //        //parse level file for the objects to create
+            //        var line = reader.ReadLine();
+            //        foreach (var item in line)
+            //        {
+            //            //get the legend key
+            //            var legendkey = Manager.Legend.FirstOrDefault(key => key.Id[0] == item);
+            //            //if legend key is not defined for this character then move on
+            //            if (legendkey == null) { xindex++; continue; }
 
-                //read level file
-                while (!reader.EndOfStream)
-                {
-                    xindex = 0f;
-                    //parse level file for the objects to create
-                    var line = reader.ReadLine();
-                    foreach (var item in line)
-                    {
-                        //get the legend key
-                        var legendkey = Manager.Legend.FirstOrDefault(key => key.Id[0] == item);
-                        //if legend key is not defined for this character then move on
-                        if (legendkey == null) { xindex++; continue; }
+            //            var tilename = legendkey.Value;
+            //            //get the tile
+            //            var tile = Manager.TileMaps.FirstOrDefault(map => String.Compare(map.Id.ToLower(), tilename.ToLower()) == 0);
+            //            //if the tile is not defined for this character then move on
+            //            if (tile == null) { xindex++; continue; }
 
-                        var tilename = legendkey.Value;
-                        //get the tile
-                        var tile = Manager.TileMaps.FirstOrDefault(map => String.Compare(map.Id.ToLower(), tilename.ToLower()) == 0);
-                        //if the tile is not defined for this character then move on
-                        if (tile == null) { xindex++; continue; }
+            //            var tileposition = new Vector2(xindex * TileSize, yindex * TileSize);
+            //            //save the start positon
+            //            if (String.Compare(tilename.ToLower(), "start") == 0)
+            //                _startPosition = tileposition;
 
-                        var tileposition = new Vector2(xindex * TileSize, yindex * TileSize);
-                        //save the start positon
-                        if (String.Compare(tilename.ToLower(), "start") == 0)
-                            _startPosition = tileposition;
+            //            //if the tile does not have a column or row within the tile set then move on
+            //            if (!tile.Row.HasValue || !tile.Column.HasValue) { xindex++; continue; }
 
-                        //if the tile does not have a column or row within the tile set then move on
-                        if (!tile.Row.HasValue || !tile.Column.HasValue) { xindex++; continue; }
+            //            var tilecontainer = new Rectangle(tile.Column.Value * TileSize, tile.Row.Value * TileSize, TileSize, TileSize);
 
-                        var tilecontainer = new Rectangle(tile.Column.Value * TileSize, tile.Row.Value * TileSize, TileSize, TileSize);
+            //            //todo: for now add everything to the middle layer
+            //            MiddlegroundLayer.Children.Add(new Tile() { Texture = TileSet, Position = tileposition, Container = tilecontainer });
+            //            xindex++;
+            //        }
+            //        yindex++;
+            //    }
 
-                        //todo: for now add everything to the middle layer
-                        MiddlegroundLayer.Children.Add(new Tile() { Texture = TileSet, Position = tileposition, Container = tilecontainer });
-                        xindex++;
-                    }
-                    yindex++;
-                }
+            //}
+            //_levelHeight = (int)yindex * TileSize;
+            //_levelWidth = (int)xindex * TileSize;
 
-            }
-            _levelHeight = (int)yindex * TileSize;
-            _levelWidth = (int)xindex * TileSize;
-
-            MiddlegroundLayer.Children.Add(Player);
+            //MiddlegroundLayer.Children.Add(Player);
 
         }
 

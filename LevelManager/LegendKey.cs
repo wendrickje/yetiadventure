@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace YetiAdventure.Levels
+namespace LevelManager
 {
     [DataContract]
     public class LegendKey

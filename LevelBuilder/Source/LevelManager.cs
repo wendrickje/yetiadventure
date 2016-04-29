@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
 using System.IO;
-using Microsoft.Xna.Framework;
-using System.Reflection;
+using System.Runtime.Serialization;
 
-namespace YetiAdventure.Levels
+namespace LevelBuilder.Source
 {
     [DataContract]
     public class LevelManager 
     {
 
-        private LevelManager()
+        public LevelManager()
         {
 
         }
@@ -26,13 +22,9 @@ namespace YetiAdventure.Levels
         public static LevelManager Create(string name)
         {
             var serializer = new System.Runtime.Serialization.DataContractSerializer(typeof(LevelManager));
+            var file = String.Format("levels/layouts/{0}.lev.xml", name);
+            var stream = new FileStream(file, FileMode.Open);
 
-            var assembly = typeof(LevelManager).GetTypeInfo().Assembly;
-            Stream stream = assembly.GetManifestResourceStream("YetiAdventure.Levels.Layouts."+ name+ ".lev.xml");
-
-            //var file = String.Format("levels/layouts/{0}.lev.xml", name);
-            //var stream = TitleContainer.OpenStream(file);
-            
             var manager = serializer.ReadObject(stream) as LevelManager;
 
             return manager;
@@ -41,7 +33,7 @@ namespace YetiAdventure.Levels
         /// <summary>
         /// 
         /// </summary>
-        public string LevelLayout { get { return String.Format("YetiAdventure.Levels.Layouts.{0}.lev", Name); } }//levels/layouts/
+        public string LevelLayout { get { return String.Format("levels/layouts/{0}.lev", Name); } }
 
 
         [DataMember(Order = 0)]

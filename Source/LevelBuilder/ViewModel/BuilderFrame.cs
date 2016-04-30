@@ -11,11 +11,13 @@ using System.Windows.Input;
 using LevelBuilder.Common;
 using Microsoft.Win32;
 using System.IO;
-using LevelBuilder.Source;
 using System.Xml;
 using System.IO.Packaging;
 using System.IO.Compression;
 using System.Diagnostics;
+using LevelBuilder.Navigation;
+using LevelBuilder.View;
+using System.Reflection;
 
 namespace LevelBuilder.ViewModel
 {
@@ -51,6 +53,7 @@ namespace LevelBuilder.ViewModel
 
             _project = new Project(newprojectwindow.ProjectName, canvasheight / tilesize, canvaswidth / tilesize, tilesize, newprojectwindow.TileSheetResource);
             OnPropertyChanged("Project");
+            Navigator.Navigate(new NavigationData<ProjectPage>(Project));
             newprojectwindow = null;
 
         }
@@ -238,6 +241,7 @@ namespace LevelBuilder.ViewModel
                     _project = new Project(proj.Name, proj.TileSize, proj.TileSheet, canvas);
                     
                     OnPropertyChanged("Project");
+                    Navigator.Navigate(new NavigationData<ProjectPage>(Project));
 
                 });
                 worker.RunWorkerAsync();
@@ -432,6 +436,7 @@ namespace LevelBuilder.ViewModel
             _project = null;
             Mapper.Mappings.Clear();
             OnPropertyChanged("Project");
+            Navigator.Navigate(new NavigationData<ProjectPage>(Project));
 
         }
 
@@ -456,6 +461,40 @@ namespace LevelBuilder.ViewModel
             if(CanSave(null)) DoSave(null);
 
             Application.Current.Shutdown();
+
+        }
+
+        #endregion
+
+
+        #region preview
+
+
+        private ICommand _previewLevelCommand;
+
+        public ICommand PreviewLevelCommand
+        {
+            get { return _previewLevelCommand ?? (_previewLevelCommand = new RelayCommand(DoPreviewLevel, CanPreviewLevel)); }
+        }
+
+        private bool CanPreviewLevel(object param)
+        {
+            return true;
+        }
+        private void DoPreviewLevel(object param)
+        {
+           
+            var isPreviewing = param as bool?;
+            if(isPreviewing == true)
+            {
+                //kill running game
+                //var gameAssembly = Assembly.GetAssembly(YetiAdventure.Desktop.Program);
+                var gameProcess = new ProcessStartInfo();
+            }
+            else
+            {
+                //when not previewing start a new game
+            }
 
         }
 

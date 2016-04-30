@@ -24,6 +24,8 @@ namespace LevelBuilder
         public MainWindow()
         {
             InitializeComponent();
+            System.Windows.Forms.Application.EnableVisualStyles();
+           
             DataContext = new BuilderFrame();
         }
 

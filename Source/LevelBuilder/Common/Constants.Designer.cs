@@ -394,6 +394,24 @@ namespace LevelBuilder.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to end.
+        /// </summary>
+        public static string LevelTest_EndTest {
+            get {
+                return ResourceManager.GetString("LevelTest_EndTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to preview.
+        /// </summary>
+        public static string LevelTest_StartTest {
+            get {
+                return ResourceManager.GetString("LevelTest_StartTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to canvas height:.
         /// </summary>
         public static string NewProject_CanvasHeight {
@@ -475,7 +493,7 @@ namespace LevelBuilder.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to s.
+        ///   Looks up a localized string similar to start.
         /// </summary>
         public static string starttilecaption {
             get {

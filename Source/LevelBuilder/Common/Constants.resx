@@ -175,7 +175,7 @@
     <value>!</value>
   </data>
   <data name="starttilecaption" xml:space="preserve">
-    <value>s</value>
+    <value>start</value>
   </data>
   <data name="FillBucketTileBrush_ToolTip" xml:space="preserve">
     <value>fill tool</value>
@@ -296,5 +296,11 @@
   </data>
   <data name="BrushTileBrush_ToolTip" xml:space="preserve">
     <value>brush</value>
+  </data>
+  <data name="LevelTest_EndTest" xml:space="preserve">
+    <value>end</value>
+  </data>
+  <data name="LevelTest_StartTest" xml:space="preserve">
+    <value>preview</value>
   </data>
 </root>

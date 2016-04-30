@@ -48,7 +48,7 @@
                                         Margin="1,1,0,0"
                                         TextAlignment="Center"
                                         FontSize="9"
-                                        Width="12"
+                                        MinWidth="12"
                                         Height="12"
                                         x:Name="text"
                                         Foreground="White"

@@ -42,6 +42,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,6 +54,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -91,15 +93,19 @@
     <Compile Include="Converters\LayerLabelConverter.cs" />
     <Compile Include="Converters\NullVisibilityConverter.cs" />
     <Compile Include="Converters\TileCanvasGridItemTemplateSelector.cs" />
-    <Compile Include="Source\LegendKey.cs" />
-    <Compile Include="Source\TileMap.cs" />
-    <Compile Include="Source\TileSet.cs" />
+    <Compile Include="Navigation\NavigationControl.xaml.cs">
+      <DependentUpon>NavigationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\NavigationData.cs" />
+    <Compile Include="Navigation\Navigator.cs" />
+    <Compile Include="Navigation\PageResolver.cs" />
     <Compile Include="ViewModel\BuilderFrame.cs" />
     <Compile Include="ViewModel\Canvas.cs" />
     <Compile Include="ViewModel\CanvasTile.cs" />
     <Compile Include="ViewModel\CanvasLayer.cs" />
     <Compile Include="ViewModel\LevelConfiguration.cs" />
     <Compile Include="ViewModel\Core.cs" />
+    <Compile Include="ViewModel\LevelPreviewViewModel.cs" />
     <Compile Include="ViewModel\Mapper.cs" />
     <Compile Include="ViewModel\Palette.cs" />
     <Compile Include="ViewModel\PaletteItem.cs" />
@@ -107,8 +113,14 @@
     <Compile Include="View\LevelCanvas.xaml.cs">
       <DependentUpon>LevelCanvas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LevelPreviewPage.xaml.cs">
+      <DependentUpon>LevelPreviewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NewProjectWindow.xaml.cs">
       <DependentUpon>NewProjectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProjectPage.xaml.cs">
+      <DependentUpon>ProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TileCanvasControl.cs" />
     <Compile Include="View\TileCanvasGrid.xaml.cs">
@@ -131,11 +143,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Source\LevelManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Navigation\NavigationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,11 +183,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\LevelPreviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\NewProjectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ProjectTemplate.xaml">
+    <Page Include="View\ProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,6 +251,14 @@
     <ProjectReference Include="..\LevelManager\LevelManager.csproj">
       <Project>{10ddd4a9-e42f-45a4-98cc-ce4fb2681d60}</Project>
       <Name>LevelManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YetiAdventure.Desktop\YetiAdventure.Desktop.csproj">
+      <Project>{a221483e-0162-44ac-8e9c-f5a48ebc376f}</Project>
+      <Name>YetiAdventure.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YetiAdventure\YetiAdventure.csproj">
+      <Project>{ecdfbc77-c008-4c2e-9301-d4f7e044ba17}</Project>
+      <Name>YetiAdventure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

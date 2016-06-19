@@ -64,8 +64,3 @@
 /processorParam:TextureFormat=Color
 /build:snowball.png
 
-#begin testproject.lpfx
-/importer:LevelPackageImporter
-/processor:LevelPackageProcessor
-/build:testproject.lpfx
-

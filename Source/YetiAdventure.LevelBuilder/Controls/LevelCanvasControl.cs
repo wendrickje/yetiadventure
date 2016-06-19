@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using System.Windows.Forms;
 using YetiAdventure.Engine;
+using OpenTK.Input;
 
 namespace YetiAdventure.LevelBuilder.Controls
 {
     public class LevelCanvasControl : GameControl
     {
         private YetiEngine _engine;
-
         protected override void Initialize()
         {
             base.Initialize();
@@ -26,12 +26,23 @@ namespace YetiAdventure.LevelBuilder.Controls
 
         protected override void Update(GameTime gameTime)
         {
+
             _engine.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)
         {
             _engine.Draw(gameTime);
         }
+
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+         
+        }
+
+
     }
 }

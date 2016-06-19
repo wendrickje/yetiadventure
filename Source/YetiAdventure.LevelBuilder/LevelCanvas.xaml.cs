@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,6 @@ namespace YetiAdventure.LevelBuilder
     /// </summary>
     public partial class LevelCanvas : UserControl
     {
-        
         public LevelCanvas()
         {
             InitializeComponent();
@@ -41,15 +42,14 @@ namespace YetiAdventure.LevelBuilder
             var handle = panel.Handle;
             FormsHost.Child = panel;
             var gameControl = new LevelCanvasControl();
-            FormsHost.SizeChanged += (s, a) => 
+            FormsHost.SizeChanged += (s, a) =>
             {
                 gameControl.ClientSize = new System.Drawing.Size((int)FormsHost.ActualWidth, (int)FormsHost.ActualHeight);
             };
             panel.Controls.Add(gameControl);
-            
 
-            //Application.Current.Dispatcher.BeginInvoke((Action)(() => { engine.Run(); } ));
-            
+
+
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,15 @@ namespace YetiAdventure.Desktop
         public YetiGame()
         {
             _graphics = new GraphicsDeviceManager(this);
-
+            
         }
 
         protected override void Initialize()
         {
-            base.Initialize();
             _engine = new YetiEngine(_graphics);
             _engine.Initialize();
+            IsMouseVisible = _engine.IsMouseVisible;
+            base.Initialize();
         }
 
         protected override void Update(GameTime gameTime)

@@ -83,12 +83,7 @@ namespace YetiAdventure.LevelBuilder.Controls
                 }
             }
         }
-
-
-        protected virtual void OnControlInitialized(IGraphicsDeviceService deviceService)
-        {
-
-        }
+        
 
         protected override void Dispose(bool disposing)
         {

@@ -34,13 +34,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
+    <Compile Include="Common\EditMode.cs" />
+    <Compile Include="Common\PrimitivesExtensions.cs" />
+    <Compile Include="Components\AnimatedSprite.cs" />
+    <Compile Include="EngineTexture.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\NavigationGraph.cs" />
+    <Compile Include="Levels\NavigationGraphBuilder.cs" />
+    <Compile Include="Physics\PhysicalAssembly.cs" />
+    <Compile Include="Physics\PhysicalObject.cs" />
+    <Compile Include="Physics\PhysicalVortex.cs" />
+    <Compile Include="Physics\PhysicsEngine.cs" />
+    <Compile Include="Physics\PhysicsWorldDebugView.cs" />
+    <Compile Include="TextureManager.cs" />
+    <Compile Include="Utilities\GeometryUtil.cs" />
     <Compile Include="YetiEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FarseerPhysics">
+      <HintPath>..\..\Vendor\Farseer\FarseerPhysics.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\Vendor\MonoGame\v3.0\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\..\Vendor\MonoGame\v3.0\DesktopGL\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="Sentius.darkFunction.Core">
+      <HintPath>..\..\Vendor\Sentius\Sentius.darkFunction.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

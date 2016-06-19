@@ -5,22 +5,32 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Threading;
 using YetiAdventure.LevelBuilder.Common;
+using System.Windows.Forms;
 
 namespace YetiAdventure.LevelBuilder.Controls
 {
     public abstract class GameControl : GraphicsDeviceControl
     {
+        DispatcherTimer _timer;
+        Stopwatch _stopWatch;
+        TimeSpan _totalTime = new TimeSpan();
         GameTime _gameTime;
-        Stopwatch _timer;
-        TimeSpan _elapsed;
 
         protected override void Initialize()
         {
-            _timer = Stopwatch.StartNew();
+            _timer = new DispatcherTimer(DispatcherPriority.Background);
 
-            Application.Idle += delegate { GameLoop(); };
+            _timer.Tick += (s, a) =>
+            {
+                var elapsed = _stopWatch.Elapsed;
+                _totalTime = _totalTime + elapsed;
+                _gameTime = new GameTime(_totalTime, elapsed);
+                GameLoop();
+            };
+            _stopWatch = Stopwatch.StartNew();
+            _timer.Start();
         }
 
         protected override void Draw()
@@ -30,14 +40,14 @@ namespace YetiAdventure.LevelBuilder.Controls
 
         private void GameLoop()
         {
-            _gameTime = new GameTime(_timer.Elapsed, _timer.Elapsed - _elapsed);
-            _elapsed = _timer.Elapsed;
-
             Update(_gameTime);
             Invalidate();
         }
 
         protected abstract void Update(GameTime gameTime);
         protected abstract void Draw(GameTime gameTime);
+
+        
+
     }
 }

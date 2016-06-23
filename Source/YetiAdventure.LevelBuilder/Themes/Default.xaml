@@ -1,0 +1,14 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Resources/Icons.xaml"/>
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/TextBlock.xaml"/>
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Toolbar.xaml"/>
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Button.xaml"/>
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Expander.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+
+    
+</ResourceDictionary>

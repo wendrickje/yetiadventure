@@ -70,7 +70,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="LevelCanvas.xaml">
+    <Page Include="Common\LoadingIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\NavigationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Toolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Default.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LevelCanvasPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -82,7 +118,37 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\ResourceKeys.cs" />
+    <Compile Include="Common\Utilities.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ByteToImageSourceConverter.cs" />
+    <Compile Include="Converters\CellContentConverter.cs" />
+    <Compile Include="Converters\ConverterBase.cs" />
+    <Compile Include="Converters\ImageSourceConverter.cs" />
+    <Compile Include="Converters\KeyToImageMapperConverter.cs" />
+    <Compile Include="Converters\LayerLabelConverter.cs" />
+    <Compile Include="Converters\NullVisibilityConverter.cs" />
+    <Compile Include="Converters\TileCanvasGridItemTemplateSelector.cs" />
+    <Compile Include="Resources\Constants.Designer.cs">
+      <DependentUpon>Constants.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ErrorMessages.Designer.cs">
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Resources\HelpText.Designer.cs">
+      <DependentUpon>HelpText.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Common\LoadingIndicator.xaml.cs">
+      <DependentUpon>LoadingIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\GraphicsDeviceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -95,8 +161,17 @@
     <Compile Include="Controls\LevelCanvasControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LevelCanvas.xaml.cs">
-      <DependentUpon>LevelCanvas.xaml</DependentUpon>
+    <Compile Include="Interfaces\INavigationData.cs" />
+    <Compile Include="Navigation\NavigationControl.xaml.cs">
+      <DependentUpon>NavigationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\NavigationData.cs" />
+    <Compile Include="Navigation\Navigator.cs" />
+    <Compile Include="Navigation\PageResolver.cs" />
+    <Compile Include="ViewModel\BuilderFrameViewModel.cs" />
+    <Compile Include="ViewModel\CoreViewModel.cs" />
+    <Compile Include="View\LevelCanvasPage.xaml.cs">
+      <DependentUpon>LevelCanvasPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -117,6 +192,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\Constants.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Constants.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ErrorMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HelpText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HelpText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\GraphicsDeviceControl.resx">
       <DependentUpon>GraphicsDeviceControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,9 +220,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\YetiAdventure.Engine\YetiAdventure.Engine.csproj">
       <Project>{329d8570-7abd-499d-b717-a589c5fa885a}</Project>

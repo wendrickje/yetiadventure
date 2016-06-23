@@ -110,8 +110,9 @@ namespace YetiAdventure.LevelBuilder.Controls
 
         #region Paint
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnInvalidated(InvalidateEventArgs e)
         {
+            base.OnInvalidated(e);
             string beginDrawError = BeginDraw();
 
             if (string.IsNullOrEmpty(beginDrawError))
@@ -120,9 +121,10 @@ namespace YetiAdventure.LevelBuilder.Controls
                 EndDraw();
             }
             else {
-                PaintUsingSystemDrawing(e.Graphics, beginDrawError);
+                PaintUsingSystemDrawing(CreateGraphics(), beginDrawError);
             }
         }
+        
 
         private string BeginDraw()
         {

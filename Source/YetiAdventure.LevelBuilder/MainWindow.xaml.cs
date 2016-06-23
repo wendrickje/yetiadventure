@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YetiAdventure.LevelBuilder.ViewModel;
 
 namespace YetiAdventure.LevelBuilder
 {
@@ -23,7 +24,23 @@ namespace YetiAdventure.LevelBuilder
         public MainWindow()
         {
             InitializeComponent();
-            
+            DataContext = new BuilderFrameViewModel();
+        }
+
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            var grid = sender as Grid;
+            var dx = grid.DataContext as BuilderFrameViewModel;
+            //e.CanExecute = dx.NewCommand.CanExecute(null);
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var grid = sender as Grid;
+            var dx = grid.DataContext as BuilderFrameViewModel;
+            //dx.NewCommand.Execute(null);
+
         }
     }
 }

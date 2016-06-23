@@ -18,10 +18,10 @@ namespace YetiAdventure.LevelBuilder.Controls
         private YetiEngine _engine;
         protected override void Initialize()
         {
-            base.Initialize();
 
             _engine = new YetiEngine(GraphicsDeviceService);
             _engine.Initialize();
+            base.Initialize();
         }
 
         protected override void Update(GameTime gameTime)

@@ -18,14 +18,14 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using YetiAdventure.LevelBuilder.Controls;
 
-namespace YetiAdventure.LevelBuilder
+namespace YetiAdventure.LevelBuilder.View
 {
     /// <summary>
     /// Interaction logic for LevelCanvas.xaml
     /// </summary>
-    public partial class LevelCanvas : UserControl
+    public partial class LevelCanvasPage : Page
     {
-        public LevelCanvas()
+        public LevelCanvasPage()
         {
             InitializeComponent();
         }
@@ -33,10 +33,10 @@ namespace YetiAdventure.LevelBuilder
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            Init();
+            Initialize();
         }
 
-        void Init()
+        void Initialize()
         {
             var panel = new System.Windows.Forms.Panel();
             var handle = panel.Handle;

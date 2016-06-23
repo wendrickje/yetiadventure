@@ -26,6 +26,8 @@ namespace YetiAdventure.Desktop
             _engine = new YetiEngine(_graphics);
             _engine.Initialize();
             IsMouseVisible = _engine.IsMouseVisible;
+            _graphics.PreferredBackBufferHeight = 1017;
+            _graphics.PreferredBackBufferWidth = 1920;
             base.Initialize();
         }
 

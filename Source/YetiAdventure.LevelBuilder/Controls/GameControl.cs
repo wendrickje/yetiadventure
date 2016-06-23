@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using YetiAdventure.LevelBuilder.Common;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace YetiAdventure.LevelBuilder.Controls
 {
@@ -15,18 +16,19 @@ namespace YetiAdventure.LevelBuilder.Controls
     {
         DispatcherTimer _timer;
         Stopwatch _stopWatch;
-        TimeSpan _totalTime = new TimeSpan();
         GameTime _gameTime;
 
         protected override void Initialize()
         {
             _timer = new DispatcherTimer(DispatcherPriority.Background);
 
+            var lastTick = new TimeSpan();
             _timer.Tick += (s, a) =>
             {
-                var elapsed = _stopWatch.Elapsed;
-                _totalTime = _totalTime + elapsed;
-                _gameTime = new GameTime(_totalTime, elapsed);
+                var totalTime = _stopWatch.Elapsed;
+                var elapsed = totalTime - lastTick;
+                lastTick = totalTime;
+                _gameTime = new GameTime(totalTime, elapsed);
                 GameLoop();
             };
             _stopWatch = Stopwatch.StartNew();

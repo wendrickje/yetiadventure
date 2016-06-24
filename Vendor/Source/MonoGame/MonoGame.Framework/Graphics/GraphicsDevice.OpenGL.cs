@@ -96,40 +96,53 @@ namespace Microsoft.Xna.Framework.Graphics
         private void PlatformSetup()
         {
 #if DESKTOPGL || ANGLE
+            var handle = PresentationParameters.DeviceWindowHandle;
+            var usingExternalContext = SdlGameWindow.Instance == null;
 
-            var windowInfo = new WindowInfo(SdlGameWindow.Instance.Handle);
+            var windowInfo = new WindowInfo(usingExternalContext ? handle : SdlGameWindow.Instance.Handle);
 
             if (Context == null || Context.IsDisposed)
             {
-                Context = GL.CreateContext(windowInfo);
+                if (usingExternalContext)
+                {
+                    //var color = new OpenTK.Graphics.ColorFormat(8, 8, 8, 8);
+                    //var depth =
+                    //    PresentationParameters.DepthStencilFormat == DepthFormat.None ? 0 :
+                    //    PresentationParameters.DepthStencilFormat == DepthFormat.Depth16 ? 16 :
+                    //    24;
+                    //var stencil =
+                    //    PresentationParameters.DepthStencilFormat == DepthFormat.Depth24Stencil8 ? 8 :
+                    //    0;
+                    //var samples = 0;
+                    //var major = 1;
+                    //var minor = 0;
+                    //var flags = OpenTK.Graphics.GraphicsContextFlags.Default;
+
+                    try
+                    {
+                        Sdl.Window.Create("gameBuilderGhost", 1, 1, 1, 1, Sdl.Window.State.Hidden);
+                        Context = new GraphicsContext(windowInfo);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine("Failed to create OpenGL context, retrying. Error: " +
+                            e.ToString());
+                    }
+                }
+                else
+                {
+                    Context = GL.CreateContext(windowInfo);
+                }
             }
 
             Context.MakeCurrent(windowInfo);
             Context.SwapInterval = PresentationParameters.PresentationInterval.GetSwapInterval();
-
-            /*if (Threading.BackgroundContext == null)
-            {
-                Threading.BackgroundContext = GL.CreateContext(windowInfo);
-                Threading.WindowInfo = windowInfo;
-                Threading.BackgroundContext.MakeCurrent(null);
-            }*/
 
             Context.MakeCurrent(windowInfo);
 
             /*GraphicsMode mode = GraphicsMode.Default;
             var wnd = OpenTK.Platform.Utilities.CreateSdl2WindowInfo(Game.Instance.Window.Handle);
 
-            #if GLES
-            // Create an OpenGL ES 2.0 context
-            var flags = GraphicsContextFlags.Embedded;
-            int major = 2;
-            int minor = 0;
-            #else
-            // Create an OpenGL compatibility context
-            var flags = GraphicsContextFlags.Default;
-            int major = 1;
-            int minor = 0;
-            #endif
 
             if (Context == null || Context.IsDisposed)
             {

@@ -48,7 +48,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private DisplayModeCollection _supportedDisplayModes;
 
-        
+
+
 #if MONOMAC
 		private NSScreen _screen;
         internal GraphicsAdapter(NSScreen screen)
@@ -92,6 +93,10 @@ namespace Microsoft.Xna.Framework.Graphics
                 View view = ((AndroidGameWindow)Game.Instance.Window).GameView;
                 return new DisplayMode(view.Width, view.Height, SurfaceFormat.Color);
 #elif DESKTOPGL
+                //when not running inside Game context initalize mode to standard format and adjust later using presentation parameters
+                if (SdlGameWindow.Instance == null)
+                    return new DisplayMode(800, 600, SurfaceFormat.Color);
+
                 var displayIndex = Sdl.Display.GetWindowDisplayIndex(SdlGameWindow.Instance.Handle);
 
                 Sdl.Display.Mode mode;

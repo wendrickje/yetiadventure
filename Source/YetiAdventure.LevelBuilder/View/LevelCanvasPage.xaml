@@ -9,6 +9,9 @@
       d:DesignWidth="300">
     <Grid>
 
+        <!--<DockManager>
+            
+        </DockManager>-->
         <WindowsFormsHost x:Name="FormsHost" />
     </Grid>
 </Page>

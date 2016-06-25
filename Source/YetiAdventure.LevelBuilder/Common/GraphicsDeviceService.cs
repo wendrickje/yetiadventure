@@ -86,8 +86,9 @@ namespace YetiAdventure.LevelBuilder.Common
                 BackBufferHeight = Math.Max(height, 1),
                 BackBufferFormat = SurfaceFormat.Color,
                 RenderTargetUsage = RenderTargetUsage.PlatformContents,
-                DepthStencilFormat = DepthFormat.Depth24,
-                PresentationInterval = PresentInterval.Default
+                DepthStencilFormat = DepthFormat.Depth16,
+                PresentationInterval = PresentInterval.Default,
+                
             };
            
 

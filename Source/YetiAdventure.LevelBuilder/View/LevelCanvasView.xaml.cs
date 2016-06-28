@@ -17,17 +17,26 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using YetiAdventure.LevelBuilder.Controls;
+using YetiAdventure.LevelBuilder.ViewModel;
+using Prism.Regions;
 
 namespace YetiAdventure.LevelBuilder.View
 {
     /// <summary>
     /// Interaction logic for LevelCanvas.xaml
     /// </summary>
-    public partial class LevelCanvasPage : Page
+    public partial class LevelCanvasView : UserControl
     {
-        public LevelCanvasPage()
+
+        public LevelCanvasView()
         {
             InitializeComponent();
+        }
+
+
+        public LevelCanvasView(LevelCanvasViewModel vm) : this()
+        {
+            DataContext = vm;
         }
 
         public override void OnApplyTemplate()

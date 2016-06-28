@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
 
 namespace YetiAdventure.LevelBuilder
 {
@@ -34,6 +35,9 @@ namespace YetiAdventure.LevelBuilder
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
+            var bootstrapper = new Bootstrapper();
+            bootstrapper.Run();
+
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -44,7 +48,7 @@ namespace YetiAdventure.LevelBuilder
 
         private void ApplicationDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            App.Current.Dispatcher.Invoke(new Action(() =>
+            App.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 Common.Utilities.ExceptionUtilities.HandleException(e.Exception);
             }));

@@ -37,10 +37,12 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Common\EditMode.cs" />
     <Compile Include="Common\PrimitivesExtensions.cs" />
+    <Compile Include="Common\Texture2DExtensions.cs" />
     <Compile Include="Components\AnimatedSprite.cs" />
     <Compile Include="EngineTexture.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelBuilderContext.cs" />
     <Compile Include="Levels\NavigationGraph.cs" />
     <Compile Include="Levels\NavigationGraphBuilder.cs" />
     <Compile Include="Physics\PhysicalAssembly.cs" />
@@ -74,6 +76,12 @@
     <None Include="SDL2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YetiAdventure.Shared\YetiAdventure.Shared.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>YetiAdventure.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

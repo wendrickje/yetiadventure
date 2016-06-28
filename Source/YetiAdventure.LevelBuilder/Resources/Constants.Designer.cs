@@ -61,29 +61,74 @@ namespace YetiAdventure.LevelBuilder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to brush.
+        ///   Looks up a localized string similar to canvas.
         /// </summary>
-        public static string BrushTileBrush_ToolTip {
+        public static string Controls_LevelCanvasControl_Header {
             get {
-                return ResourceManager.GetString("BrushTileBrush_ToolTip", resourceCulture);
+                return ResourceManager.GetString("Controls_LevelCanvasControl_Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cancel.
+        ///   Looks up a localized string similar to toolbox.
         /// </summary>
-        public static string CancelButton {
+        public static string Controls_ToolboxControl_Header {
             get {
-                return ResourceManager.GetString("CancelButton", resourceCulture);
+                return ResourceManager.GetString("Controls_ToolboxControl_Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to canvas size:.
+        ///   Looks up a localized string similar to selection tool.
         /// </summary>
-        public static string CanvasSize {
+        public static string Controls_ToolboxItem_Cursor_Caption {
             get {
-                return ResourceManager.GetString("CanvasSize", resourceCulture);
+                return ResourceManager.GetString("Controls_ToolboxItem_Cursor_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to selects object.
+        /// </summary>
+        public static string Controls_ToolboxItem_Cursor_Tooltip {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_Cursor_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to polygon tool.
+        /// </summary>
+        public static string Controls_ToolboxItem_Polygon_Caption {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_Polygon_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to draws polygons.
+        /// </summary>
+        public static string Controls_ToolboxItem_Polygon_Tooltip {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_Polygon_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to move tool.
+        /// </summary>
+        public static string Controls_ToolboxItem_SelectionMove_Caption {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_SelectionMove_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to moves objects.
+        /// </summary>
+        public static string Controls_ToolboxItem_SelectionMove_Tooltip {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_SelectionMove_Tooltip", resourceCulture);
             }
         }
         
@@ -111,24 +156,6 @@ namespace YetiAdventure.LevelBuilder.Resources {
         public static string editmenucaption {
             get {
                 return ResourceManager.GetString("editmenucaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to eraser.
-        /// </summary>
-        public static string EmptyTileBrush_ToolTip {
-            get {
-                return ResourceManager.GetString("EmptyTileBrush_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to event trigger brush.
-        /// </summary>
-        public static string EventTileBrush_ToolTip {
-            get {
-                return ResourceManager.GetString("EventTileBrush_ToolTip", resourceCulture);
             }
         }
         
@@ -250,15 +277,6 @@ namespace YetiAdventure.LevelBuilder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to fill tool.
-        /// </summary>
-        public static string FillBucketTileBrush_ToolTip {
-            get {
-                return ResourceManager.GetString("FillBucketTileBrush_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to about.
         /// </summary>
         public static string helpmenu_about {
@@ -286,290 +304,11 @@ namespace YetiAdventure.LevelBuilder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to backdrop.
-        /// </summary>
-        public static string LayerLabel_Backdrop {
-            get {
-                return ResourceManager.GetString("LayerLabel_Backdrop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to background.
-        /// </summary>
-        public static string LayerLabel_Background {
-            get {
-                return ResourceManager.GetString("LayerLabel_Background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to foreground.
-        /// </summary>
-        public static string LayerLabel_Foreground {
-            get {
-                return ResourceManager.GetString("LayerLabel_Foreground", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to middleground.
-        /// </summary>
-        public static string LayerLabel_Middleground {
-            get {
-                return ResourceManager.GetString("LayerLabel_Middleground", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .lev.config.
-        /// </summary>
-        public static string levelconfigurationextension {
-            get {
-                return ResourceManager.GetString("levelconfigurationextension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to apply changes.
-        /// </summary>
-        public static string LevelDetails_ApplyChanges_ToolTip {
-            get {
-                return ResourceManager.GetString("LevelDetails_ApplyChanges_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to browse for tile set.
-        /// </summary>
-        public static string LevelDetails_BrowseForTileSet_ToolTip {
-            get {
-                return ResourceManager.GetString("LevelDetails_BrowseForTileSet_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to level details.
-        /// </summary>
-        public static string LevelDetails_Header {
-            get {
-                return ResourceManager.GetString("LevelDetails_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to level name:.
-        /// </summary>
-        public static string LevelDetails_LevelName_Label {
-            get {
-                return ResourceManager.GetString("LevelDetails_LevelName_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tile sheet:.
-        /// </summary>
-        public static string LevelDetails_TileSet_Label {
-            get {
-                return ResourceManager.GetString("LevelDetails_TileSet_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tile size:.
-        /// </summary>
-        public static string LevelDetails_TileSize_Label {
-            get {
-                return ResourceManager.GetString("LevelDetails_TileSize_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .lev.
         /// </summary>
         public static string levellayoutextension {
             get {
                 return ResourceManager.GetString("levellayoutextension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to end.
-        /// </summary>
-        public static string LevelTest_EndTest {
-            get {
-                return ResourceManager.GetString("LevelTest_EndTest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to preview.
-        /// </summary>
-        public static string LevelTest_StartTest {
-            get {
-                return ResourceManager.GetString("LevelTest_StartTest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to canvas height:.
-        /// </summary>
-        public static string NewProject_CanvasHeight {
-            get {
-                return ResourceManager.GetString("NewProject_CanvasHeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to canvas width:.
-        /// </summary>
-        public static string NewProject_CanvasWidth {
-            get {
-                return ResourceManager.GetString("NewProject_CanvasWidth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ok.
-        /// </summary>
-        public static string OkButton {
-            get {
-                return ResourceManager.GetString("OkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to output.
-        /// </summary>
-        public static string OutputDirectoryName {
-            get {
-                return ResourceManager.GetString("OutputDirectoryName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tile picker.
-        /// </summary>
-        public static string PickerTileBrush_ToolTip {
-            get {
-                return ResourceManager.GetString("PickerTileBrush_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to pixels.
-        /// </summary>
-        public static string Pixels_Label {
-            get {
-                return ResourceManager.GetString("Pixels_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .lvlp.
-        /// </summary>
-        public static string projectFileExtension {
-            get {
-                return ResourceManager.GetString("projectFileExtension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Level Builder Project File.
-        /// </summary>
-        public static string projectFileTypeName {
-            get {
-                return ResourceManager.GetString("projectFileTypeName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to start position brush.
-        /// </summary>
-        public static string StartTileBrush_ToolTip {
-            get {
-                return ResourceManager.GetString("StartTileBrush_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to start.
-        /// </summary>
-        public static string starttilecaption {
-            get {
-                return ResourceManager.GetString("starttilecaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to loading.
-        /// </summary>
-        public static string StatusUpdate_LoadingFile {
-            get {
-                return ResourceManager.GetString("StatusUpdate_LoadingFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to warning. tile size is too small or file does not exist. cannot proceed.
-        /// </summary>
-        public static string TilePalette_EmptyWarning {
-            get {
-                return ResourceManager.GetString("TilePalette_EmptyWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to warning. tile size exceeds sheet dimensions. some tiles may have been cropped.
-        /// </summary>
-        public static string TilePalette_ExceedsWarning {
-            get {
-                return ResourceManager.GetString("TilePalette_ExceedsWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to warning. tile size exceeds sheet dimensions. some tiles may have been cropped.
-        /// </summary>
-        public static string TilePalette_ExceedsWarning1 {
-            get {
-                return ResourceManager.GetString("TilePalette_ExceedsWarning1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tile palette.
-        /// </summary>
-        public static string TilePalette_Header {
-            get {
-                return ResourceManager.GetString("TilePalette_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tiles.
-        /// </summary>
-        public static string Tiles_Label {
-            get {
-                return ResourceManager.GetString("Tiles_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tilesheet.
-        /// </summary>
-        public static string TileSheetName {
-            get {
-                return ResourceManager.GetString("TileSheetName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to event manager.
-        /// </summary>
-        public static string viewmenu_eventmanager {
-            get {
-                return ResourceManager.GetString("viewmenu_eventmanager", resourceCulture);
             }
         }
         
@@ -588,15 +327,6 @@ namespace YetiAdventure.LevelBuilder.Resources {
         public static string viewmenucaption {
             get {
                 return ResourceManager.GetString("viewmenucaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to projects.
-        /// </summary>
-        public static string WorkingProjectDirectoryName {
-            get {
-                return ResourceManager.GetString("WorkingProjectDirectoryName", resourceCulture);
             }
         }
     }

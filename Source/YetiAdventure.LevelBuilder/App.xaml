@@ -5,8 +5,7 @@
              xmlns:common="clr-namespace:YetiAdventure.LevelBuilder.Common"
              xmlns:resourceKeys="clr-namespace:YetiAdventure.LevelBuilder.Common.ResourceKeys"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             DispatcherUnhandledException="ApplicationDispatcherUnhandledException"
-             StartupUri="MainWindow.xaml">
+             DispatcherUnhandledException="ApplicationDispatcherUnhandledException">
     <Application.Resources>
          
         <ResourceDictionary>

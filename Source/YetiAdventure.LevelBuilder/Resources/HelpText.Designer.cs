@@ -86,23 +86,5 @@ namespace YetiAdventure.LevelBuilder.Resources {
                 return ResourceManager.GetString("newproject_name", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to sprite sheet for brush palette.
-        /// </summary>
-        public static string newproject_spritesheet {
-            get {
-                return ResourceManager.GetString("newproject_spritesheet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tile size for the level.
-        /// </summary>
-        public static string newproject_tilesize {
-            get {
-                return ResourceManager.GetString("newproject_tilesize", resourceCulture);
-            }
-        }
     }
 }

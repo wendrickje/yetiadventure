@@ -12,30 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Practices.Unity;
 using Prism.Regions;
 using YetiAdventure.LevelBuilder.ViewModel;
+using YetiAdventure.Shared.Icons;
 
-namespace YetiAdventure.LevelBuilder
+namespace YetiAdventure.LevelBuilder.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ToolboxView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ToolboxView : UserControl
     {
-        public MainWindow()
+        public ToolboxView()
         {
             InitializeComponent();
         }
 
-        public MainWindow(MainWindowViewModel vm) : this()
+        public ToolboxView(ToolboxViewModel vm) : this()
         {
             DataContext = vm;
-
-            
-
-
         }
-
     }
 }

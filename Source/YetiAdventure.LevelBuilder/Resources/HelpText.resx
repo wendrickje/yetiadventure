@@ -126,10 +126,4 @@
   <data name="newproject_name" xml:space="preserve">
     <value>name of the level</value>
   </data>
-  <data name="newproject_spritesheet" xml:space="preserve">
-    <value>sprite sheet for brush palette</value>
-  </data>
-  <data name="newproject_tilesize" xml:space="preserve">
-    <value>tile size for the level</value>
-  </data>
 </root>

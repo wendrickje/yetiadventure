@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YetiAdventure.LevelBuilder.Converters;
 
-namespace YetiAdventure.LevelBuilder.Common
+namespace YetiAdventure.LevelBuilder.Controls
 {
     /// <summary>
     /// Interaction logic for LoadingIndicator.xaml

@@ -37,6 +37,12 @@ namespace YetiAdventure.Engine
         EditMode _editMode;
         Vector2 _mousePosition;
 
+        // Camera panning with middle mouse button
+        bool _bPanningCamera;
+        Vector2 _panStartPosition;
+        Vector2 _panCurrentDisplacement;
+        Vector2 _previousMousePosition;
+
         Random _random;
         MouseState _lastMouseState;
 
@@ -88,19 +94,8 @@ namespace YetiAdventure.Engine
             _mainLevel = new Level();
         }
 
-        public void Initialize()
+        private void CreateGroundAndPlayer(World physicalWorld)
         {
-            _content.RootDirectory = RootContentPath;
-            TextureManager.Initialize(_content);
-
-            _camera = new Camera(_graphicsDevice);
-            _camera.Zoom = 22.0f;
-            _camera.TargetPosition = Vector2.Zero;
-
-            _spriteFont = _content.Load<SpriteFont>("Arial");
-
-            World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
-
             _groundBody = BodyFactory.CreateRectangle(physicalWorld, 100, 10.0f, 1.0f);
             _groundBody.Friction = 10.0f;
             _groundBody.SetTransform(new Vector2(0.0f, 0.0f), 0.0f);
@@ -111,6 +106,23 @@ namespace YetiAdventure.Engine
             _fallingBody.Friction = 10.0f;
             _fallingBody.SetTransform(new Vector2(0.0f, -20.0f), 0.0f);
             _fallingBody.IsStatic = false;
+        }
+
+        public void Initialize()
+        {
+            _content.RootDirectory = RootContentPath;
+            TextureManager.Initialize(_content);
+
+            _camera = new Camera(_graphicsDevice);
+            _camera.Zoom = 20.0f;
+            _camera.TargetPosition = Vector2.Zero;
+
+            _spriteFont = _content.Load<SpriteFont>("Arial");
+
+            World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
+
+            CreateGroundAndPlayer(physicalWorld);
+
         }
 
         /// <summary>
@@ -131,6 +143,31 @@ namespace YetiAdventure.Engine
         public void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+        }
+
+        private void HandleEditorPanning(ref MouseState mouseState)
+        {
+            if (mouseState.MiddleButton == ButtonState.Pressed)
+            {
+                if (_bPanningCamera == false)
+                {
+                    _bPanningCamera = true;
+                    _panStartPosition = _previousMousePosition = _mousePosition;
+                }
+                else if (_bPanningCamera == true)
+                {
+                    // Compute the camera displacement based on screenspace mouse position.
+                    Vector2 worldSpaceStartPanPos = _camera.ConvertScreenToWorld(_previousMousePosition);
+                    Vector2 worldSpaceCurrentPanPos = _camera.ConvertScreenToWorld(_mousePosition);
+                    Vector2 worldspacePanDisplacement = (_previousMousePosition - _mousePosition) / _camera.Zoom;
+                    _camera.TargetPosition += worldspacePanDisplacement;
+                }
+
+            }
+            else if (mouseState.MiddleButton == ButtonState.Released)
+            {
+                _bPanningCamera = false;
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -197,15 +234,10 @@ namespace YetiAdventure.Engine
                     }, currentStartPoint, currentEndPoint);
             }
 
-
             _camera.Update(gameTime);
-            //_camera.TargetPosition = fallingBody.Position;
-
             MouseState mouseState = Mouse.GetState();
 
             Vector2 worldPosition = _camera.ConvertScreenToWorld(_mousePosition);
-            //Debug.WriteLine(string.Format("MousePos: ({0}, {1}) WorldPos: ({2}, {3})", mouseState.X, mouseState.Y, worldPosition.X, worldPosition.Y));
-
             if (_editMode == EditMode.CreateJunk)
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
@@ -238,6 +270,8 @@ namespace YetiAdventure.Engine
                 }
             }
 
+            HandleEditorPanning(ref mouseState);
+
             if (mouseState.ScrollWheelValue > _lastMouseState.ScrollWheelValue)
             {
                 _camera.Zoom = _camera.Zoom + 2.0f;
@@ -252,16 +286,19 @@ namespace YetiAdventure.Engine
             PhysicsEngine.GetSingleton().Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             _lastMouseState = mouseState;
-
+            _previousMousePosition = _mousePosition;
         }
 
         public void Draw(GameTime gameTime)
         {
             _graphicsDevice.Clear(Color.CadetBlue);
+            DrawLevel();
+            DrawInterface();
+        }
 
+        private void DrawLevel()
+        {
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
-
-
             if (_polygonVertices != null)
             {
                 if (_polygonVertices.Count >= 2)
@@ -270,6 +307,18 @@ namespace YetiAdventure.Engine
                 }
             }
 
+            PhysicsEngine.GetSingleton().Draw(_spriteBatch);
+
+            for (int collisionIndex = 0; collisionIndex < _navCollisions.Count; collisionIndex++)
+            {
+                _spriteBatch.DrawCircle(_navCollisions[collisionIndex], 0.2f, 10, Color.Purple);
+            }
+            _spriteBatch.End();
+        }
+
+        public void DrawInterface()
+        {
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             if (IsInEditor)
             {
                 _spriteBatch.DrawString(_spriteFont, "Editor Mode", Vector2.One * 10.0f, Color.Black);
@@ -278,14 +327,6 @@ namespace YetiAdventure.Engine
             {
                 _spriteBatch.DrawString(_spriteFont, "Gameplay Mode", Vector2.One * 10.0f, Color.Black);
             }
-
-            PhysicsEngine.GetSingleton().Draw(_spriteBatch);
-
-            for (int collisionIndex = 0; collisionIndex < _navCollisions.Count; collisionIndex++)
-            {
-                _spriteBatch.DrawCircle(_navCollisions[collisionIndex], 0.2f, 10, Color.Purple);
-            }
-
             _spriteBatch.End();
         }
 

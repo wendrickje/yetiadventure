@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using YetiAdventure.Engine.Common;
 using YetiAdventure.Engine.Components;
 using YetiAdventure.Engine.Levels;
@@ -34,6 +35,7 @@ namespace YetiAdventure.Engine
         Camera _camera;
 
         EditMode _editMode;
+        Vector2 _mousePosition;
 
         Random _random;
         MouseState _lastMouseState;
@@ -48,12 +50,19 @@ namespace YetiAdventure.Engine
         SimpleExplosion _explosion;
         PhysicalVortex _vortex;
 
+        SpriteFont _spriteFont;
+
         List<Vector2> _polygonVertices;
         List<Vector2> _navCollisions = new List<Vector2>();
 
-
         public bool IsMouseVisible { get; set; }
 
+        public string RootContentPath { get; set; }
+
+        /// <summary>
+        /// Switch used to determine which mouse input method to use, because Standalone vs. Embedded in the editor mouse behaves differently.
+        /// </summary>
+        public bool IsInEditor { get; set; }
 
         public YetiEngine(IGraphicsDeviceService graphics)
         {
@@ -65,7 +74,7 @@ namespace YetiAdventure.Engine
             _content = new ContentManager(_services);
 
             _spriteBatch = new SpriteBatch(_graphicsDevice);
-
+            _mousePosition = new Vector2();
 
             _random = new Random();
             _polygonVertices = new List<Vector2>();
@@ -81,14 +90,16 @@ namespace YetiAdventure.Engine
 
         public void Initialize()
         {
+            _content.RootDirectory = RootContentPath;
             TextureManager.Initialize(_content);
 
             _camera = new Camera(_graphicsDevice);
             _camera.Zoom = 22.0f;
             _camera.TargetPosition = Vector2.Zero;
 
-            World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
+            _spriteFont = _content.Load<SpriteFont>("Arial");
 
+            World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
 
             _groundBody = BodyFactory.CreateRectangle(physicalWorld, 100, 10.0f, 1.0f);
             _groundBody.Friction = 10.0f;
@@ -110,6 +121,7 @@ namespace YetiAdventure.Engine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             //_eddySprites.LoadContent(_content);
+
         }
 
         /// <summary>
@@ -170,7 +182,6 @@ namespace YetiAdventure.Engine
 
             Vector2 sweepLine = endPoint - startPoint;
 
-
             _navCollisions.Clear();
             for (int probeIndex = 0; probeIndex < probeCount; probeIndex++)
             {
@@ -191,9 +202,9 @@ namespace YetiAdventure.Engine
             //_camera.TargetPosition = fallingBody.Position;
 
             MouseState mouseState = Mouse.GetState();
-            var mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            Vector2 worldPosition = _camera.ConvertScreenToWorld(mousePosition);
-            Debug.WriteLine(string.Format("World pos: ({0}, {1})", worldPosition.X, worldPosition.Y));
+
+            Vector2 worldPosition = _camera.ConvertScreenToWorld(_mousePosition);
+            //Debug.WriteLine(string.Format("MousePos: ({0}, {1}) WorldPos: ({2}, {3})", mouseState.X, mouseState.Y, worldPosition.X, worldPosition.Y));
 
             if (_editMode == EditMode.CreateJunk)
             {
@@ -259,6 +270,15 @@ namespace YetiAdventure.Engine
                 }
             }
 
+            if (IsInEditor)
+            {
+                _spriteBatch.DrawString(_spriteFont, "Editor Mode", Vector2.One * 10.0f, Color.Black);
+            }
+            else
+            {
+                _spriteBatch.DrawString(_spriteFont, "Gameplay Mode", Vector2.One * 10.0f, Color.Black);
+            }
+
             PhysicsEngine.GetSingleton().Draw(_spriteBatch);
 
             for (int collisionIndex = 0; collisionIndex < _navCollisions.Count; collisionIndex++)
@@ -321,6 +341,12 @@ namespace YetiAdventure.Engine
         public void Exit()
         {
             //platform specific exit 
+        }
+
+        public void UpdateMousePosition(int inX, int inY)
+        {
+            _mousePosition.X = inX;
+            _mousePosition.Y = inY;
         }
     }
 }

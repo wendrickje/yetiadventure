@@ -65,6 +65,9 @@
     <Reference Include="OpenTK">
       <HintPath>..\..\Vendor\MonoGame\v3.0\DesktopGL\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\PresentationFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Sentius.darkFunction.Core">
       <HintPath>..\..\Vendor\Sentius\Sentius.darkFunction.Core.dll</HintPath>
     </Reference>

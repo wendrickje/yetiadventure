@@ -18,8 +18,14 @@ namespace YetiAdventure.LevelBuilder.Controls
         private YetiEngine _engine;
         protected override void Initialize()
         {
-
             _engine = new YetiEngine(GraphicsDeviceService);
+            // Need to tell the engine that it's in editor mode
+            _engine.IsInEditor = true;
+
+            // Provide the desktop content content path.
+            string executableRoot = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            _engine.RootContentPath = string.Format("{0}{1}", executableRoot, "/../../../YetiAdventure.Desktop/Content/bin/DesktopGL/");
+
             _engine.Initialize();
             base.Initialize();
         }
@@ -40,9 +46,12 @@ namespace YetiAdventure.LevelBuilder.Controls
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
-         
+
         }
 
-
+        protected override void SetEditorMousePosition(int inX, int inY)
+        {
+            _engine.UpdateMousePosition(inX, inY);
+        }
     }
 }

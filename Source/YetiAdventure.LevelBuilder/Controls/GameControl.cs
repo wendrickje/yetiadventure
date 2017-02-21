@@ -62,10 +62,15 @@ namespace YetiAdventure.LevelBuilder.Controls
             Invalidate();
         }
 
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            SetEditorMousePosition(e.X, e.Y);
+            base.OnMouseMove(e);
+        }
+
         protected abstract void Update(GameTime gameTime);
         protected abstract void Draw(GameTime gameTime);
-
-        
+        protected abstract void SetEditorMousePosition(int inX, int inY);
 
     }
 }

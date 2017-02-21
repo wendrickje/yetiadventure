@@ -18,15 +18,15 @@ namespace YetiAdventure.Desktop
         public YetiGame()
         {
             _graphics = new GraphicsDeviceManager(this);
-            
         }
 
         protected override void Initialize()
         {
             _engine = new YetiEngine(_graphics);
+            _engine.RootContentPath = "Content";
             _engine.Initialize();
             IsMouseVisible = _engine.IsMouseVisible;
-            _graphics.PreferredBackBufferHeight = 1017;
+            _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             base.Initialize();
         }
@@ -34,6 +34,8 @@ namespace YetiAdventure.Desktop
         protected override void Update(GameTime gameTime)
         {
             _engine.Update(gameTime);
+            MouseState mouseState = Mouse.GetState();
+            _engine.UpdateMousePosition(mouseState.X, mouseState.Y);
             base.Update(gameTime);
         }
 
@@ -42,6 +44,5 @@ namespace YetiAdventure.Desktop
             _engine.Draw(gameTime);
             base.Draw(gameTime);
         }
-
     }
 }

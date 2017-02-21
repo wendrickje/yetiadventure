@@ -20,6 +20,4 @@ namespace YetiAdventure.Shared.Events
         public Primitive NewItem { get; set; }
 
     }
-
-
 }

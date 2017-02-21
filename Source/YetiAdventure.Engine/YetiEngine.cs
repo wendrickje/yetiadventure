@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using YetiAdventure.Engine.Common;
 using YetiAdventure.Engine.Levels;
 using YetiAdventure.Engine.Physics;
@@ -37,6 +38,13 @@ namespace YetiAdventure.Engine
         Camera _camera;
 
         EditMode _editMode;
+        Vector2 _mousePosition;
+
+        // Camera panning with middle mouse button
+        bool _bPanningCamera;
+        Vector2 _panStartPosition;
+        Vector2 _panCurrentDisplacement;
+        Vector2 _previousMousePosition;
 
         Random _random;
         MouseState _lastMouseState;
@@ -59,6 +67,12 @@ namespace YetiAdventure.Engine
 
         public bool IsMouseVisible { get; set; }
 
+        public string RootContentPath { get; set; }
+
+        /// <summary>
+        /// Switch used to determine which mouse input method to use, because Standalone vs. Embedded in the editor mouse behaves differently.
+        /// </summary>
+        public bool IsInEditor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YetiEngine"/> class.
@@ -74,11 +88,11 @@ namespace YetiAdventure.Engine
             _content = new ContentManager(_services);
             _content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(_graphicsDevice);
+            _mousePosition = new Vector2();
 
             _polygonVertices = new List<Vector2>();
             _primitives = new Dictionary<int, Primitive>();
 
-            _random = new Random();
             _editMode = EditMode.CreatePolygon;
 
             //_eddySprites = new AnimatedSprite("Characters", "Eddy");
@@ -89,20 +103,8 @@ namespace YetiAdventure.Engine
             _toolStateManager = new ToolStateManager();
         }
 
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public void Initialize()
+        private void CreateGroundAndPlayer(World physicalWorld)
         {
-            TextureManager.Initialize(_content);
-
-            _camera = new Camera(_graphicsDevice);
-            _camera.Zoom = 22.0f;
-            _camera.TargetPosition = Vector2.Zero;
-
-            World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
-
-
             _groundBody = BodyFactory.CreateRectangle(physicalWorld, 100, 10.0f, 1.0f);
             _groundBody.Friction = 10.0f;
             _groundBody.SetTransform(new Vector2(0.0f, 0.0f), 0.0f);
@@ -113,6 +115,23 @@ namespace YetiAdventure.Engine
             _fallingBody.Friction = 10.0f;
             _fallingBody.SetTransform(new Vector2(0.0f, -20.0f), 0.0f);
             _fallingBody.IsStatic = false;
+
+        }
+
+        public void Initialize()
+        {
+            _content.RootDirectory = RootContentPath;
+            TextureManager.Initialize(_content);
+
+            _camera = new Camera(_graphicsDevice);
+            _camera.Zoom = 20.0f;
+            _camera.TargetPosition = Vector2.Zero;
+
+            _spriteFont = _content.Load<SpriteFont>("Arial");
+
+            World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
+
+            CreateGroundAndPlayer(physicalWorld);
 
         }
 
@@ -134,6 +153,31 @@ namespace YetiAdventure.Engine
         public void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+        }
+
+        private void HandleEditorPanning(ref MouseState mouseState)
+        {
+            if (mouseState.MiddleButton == ButtonState.Pressed)
+            {
+                if (_bPanningCamera == false)
+                {
+                    _bPanningCamera = true;
+                    _panStartPosition = _previousMousePosition = _mousePosition;
+                }
+                else if (_bPanningCamera == true)
+                {
+                    // Compute the camera displacement based on screenspace mouse position.
+                    Vector2 worldSpaceStartPanPos = _camera.ConvertScreenToWorld(_previousMousePosition);
+                    Vector2 worldSpaceCurrentPanPos = _camera.ConvertScreenToWorld(_mousePosition);
+                    Vector2 worldspacePanDisplacement = (_previousMousePosition - _mousePosition) / _camera.Zoom;
+                    _camera.TargetPosition += worldspacePanDisplacement;
+                }
+
+            }
+            else if (mouseState.MiddleButton == ButtonState.Released)
+            {
+                _bPanningCamera = false;
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -185,7 +229,6 @@ namespace YetiAdventure.Engine
 
             Vector2 sweepLine = endPoint - startPoint;
 
-
             _navCollisions.Clear();
             for (int probeIndex = 0; probeIndex < probeCount; probeIndex++)
             {
@@ -201,12 +244,11 @@ namespace YetiAdventure.Engine
                     }, currentStartPoint, currentEndPoint);
             }
 
-
             _camera.Update(gameTime);
             //_camera.TargetPosition = fallingBody.Position;
             MouseState mouseState = Mouse.GetCursorState();
-            var mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            var mouseWorldPosition = _camera.ConvertScreenToWorld(mousePosition);
+            _mousePosition = new Vector2(mouseState.X, mouseState.Y);
+            var mouseWorldPosition = _camera.ConvertScreenToWorld(_mousePosition);
 
             _toolStateManager.Update(mouseWorldPosition, mouseState);
 
@@ -247,6 +289,8 @@ namespace YetiAdventure.Engine
             //    }
             //}
 
+            HandleEditorPanning(ref mouseState);
+
             if (mouseState.ScrollWheelValue > _lastMouseState.ScrollWheelValue)
             {
                 _camera.Zoom = _camera.Zoom + 2.0f;
@@ -261,14 +305,19 @@ namespace YetiAdventure.Engine
             PhysicsEngine.GetSingleton().Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             _lastMouseState = mouseState;
-
+            _previousMousePosition = _mousePosition;
         }
 
 
         public void Draw(GameTime gameTime)
         {
             _graphicsDevice.Clear(Color.CadetBlue);
+            DrawLevel(gameTime);
+            DrawInterface();
+        }
 
+        private void DrawLevel(GameTime gameTime)
+        {
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
 
             _toolStateManager.Draw(_spriteBatch, gameTime);
@@ -281,7 +330,20 @@ namespace YetiAdventure.Engine
             {
                 _spriteBatch.DrawCircle(_navCollisions[collisionIndex], 0.2f, 10, Color.Purple);
             }
+            _spriteBatch.End();
+        }
 
+        public void DrawInterface()
+        {
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            if (IsInEditor)
+            {
+                _spriteBatch.DrawString(_spriteFont, "Editor Mode", Vector2.One * 10.0f, Color.Black);
+            }
+            else
+            {
+                _spriteBatch.DrawString(_spriteFont, "Gameplay Mode", Vector2.One * 10.0f, Color.Black);
+            }
             _spriteBatch.End();
         }
 
@@ -374,5 +436,11 @@ namespace YetiAdventure.Engine
 
 
         #endregion
+
+        public void UpdateMousePosition(int inX, int inY)
+        {
+            _mousePosition.X = inX;
+            _mousePosition.Y = inY;
+        }
     }
 }

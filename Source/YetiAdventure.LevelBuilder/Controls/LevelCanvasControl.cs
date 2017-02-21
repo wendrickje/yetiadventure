@@ -31,6 +31,13 @@ namespace YetiAdventure.LevelBuilder.Controls
 
             base.Initialize();
             _engine = new YetiEngine(GraphicsDeviceService);
+            // Need to tell the engine that it's in editor mode
+            _engine.IsInEditor = true;
+
+            // Provide the desktop content content path.
+            string executableRoot = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            _engine.RootContentPath = string.Format("{0}{1}", executableRoot, "/../../../YetiAdventure.Desktop/Content/bin/DesktopGL/");
+
             _engine.Initialize();
             _container.RegisterInstance<ILevelBuilderService>(_engine);
             _engine.LoadContent();
@@ -53,10 +60,12 @@ namespace YetiAdventure.LevelBuilder.Controls
         protected override void OnMouseDown(System.Windows.Forms.MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            
+         
         }
 
-
-
+        protected override void SetEditorMousePosition(int inX, int inY)
+        {
+            _engine.UpdateMousePosition(inX, inY);
+        }
     }
 }

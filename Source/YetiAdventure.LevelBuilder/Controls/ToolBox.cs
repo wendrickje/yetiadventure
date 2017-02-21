@@ -86,8 +86,9 @@ namespace YetiAdventure.LevelBuilder.Controls
         private void OnToggleChecked(object sender, RoutedEventArgs e)
         {
             if (_updatingBySelectionChangedInteraction) return;
-            ResetCheckedItems();
-            var data = ItemContainerGenerator.ItemFromContainer(sender as DependencyObject);
+            var button = sender as RadioButtonTool;
+            ResetCheckedItems(button);
+            var data = ItemContainerGenerator.ItemFromContainer(button);
             _updatingByUserInteraction = true;
             SelectedItem = data;
             _updatingByUserInteraction = false;
@@ -116,10 +117,10 @@ namespace YetiAdventure.LevelBuilder.Controls
 
             _updatingBySelectionChangedInteraction = true;
 
-            //reset
-            ResetCheckedItems();
             var button = ItemContainerGenerator.ContainerFromItem(data) as RadioButtonTool;
 
+            //reset
+            ResetCheckedItems(button);
             button.IsChecked = true;
             _updatingBySelectionChangedInteraction = false;
         }
@@ -127,12 +128,13 @@ namespace YetiAdventure.LevelBuilder.Controls
         /// <summary>
         /// Resets the checked items.
         /// </summary>
-        private void ResetCheckedItems()
+        private void ResetCheckedItems(RadioButtonTool active)
         {
             for (var i = 0; i < Items.Count; i++)
             {
                 var item = ItemContainerGenerator.ContainerFromIndex(i) as RadioButtonTool;
-                item.IsChecked = false;
+                if(item != active)
+                    item.IsChecked = false;
 
             }
         }

@@ -18,6 +18,11 @@ namespace YetiAdventure.LevelBuilder.Controls
         Stopwatch _stopWatch;
         GameTime _gameTime;
 
+        public GameControl() : base()
+        {
+
+        }
+
         protected override void Initialize()
         {
             _timer = new DispatcherTimer(DispatcherPriority.Background);
@@ -25,9 +30,20 @@ namespace YetiAdventure.LevelBuilder.Controls
             var lastTick = new TimeSpan();
             _timer.Tick += (s, a) =>
             {
+
+                if (!Focused)
+                {
+                    _stopWatch.Stop();
+                    return;
+                }
+                if (!_stopWatch.IsRunning)
+                {
+                    _stopWatch.Start();
+                }
                 var totalTime = _stopWatch.Elapsed;
                 var elapsed = totalTime - lastTick;
                 lastTick = totalTime;
+
                 _gameTime = new GameTime(totalTime, elapsed);
                 GameLoop();
             };

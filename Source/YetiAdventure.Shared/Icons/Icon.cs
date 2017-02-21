@@ -41,7 +41,7 @@ namespace YetiAdventure.Shared.Icons
             var value = new Dictionary<IconType, Icon>();
             value.Add(IconType.Polygon, new Icon(IconType.Polygon));
             value.Add(IconType.Cursor, new Icon(IconType.Cursor));
-            value.Add(IconType.MoveSelection, new Icon(IconType.MoveSelection));
+            value.Add(IconType.Transform, new Icon(IconType.Transform));
             return value;
         }
     }
@@ -52,7 +52,7 @@ namespace YetiAdventure.Shared.Icons
         // Name must match embedded file name
         Cursor,
         Polygon,
-        MoveSelection
+        Transform
 
     }
 }

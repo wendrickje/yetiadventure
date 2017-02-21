@@ -10,18 +10,32 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using YetiAdventure.Engine;
 using OpenTK.Input;
+using Microsoft.Practices.Unity;
+using YetiAdventure.Shared.Interfaces;
+using YetiAdventure.Engine.Levels;
 
 namespace YetiAdventure.LevelBuilder.Controls
 {
     public class LevelCanvasControl : GameControl
     {
         private YetiEngine _engine;
+        private IUnityContainer _container;
+
+        public LevelCanvasControl(IUnityContainer container) : base()
+        {
+            _container = container;
+        }
+
         protected override void Initialize()
         {
 
+            base.Initialize();
             _engine = new YetiEngine(GraphicsDeviceService);
             _engine.Initialize();
-            base.Initialize();
+            _container.RegisterInstance<ILevelBuilderService>(_engine);
+            _engine.LoadContent();
+
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -36,12 +50,12 @@ namespace YetiAdventure.LevelBuilder.Controls
             _engine.Draw(gameTime);
         }
 
-
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnMouseDown(System.Windows.Forms.MouseEventArgs e)
         {
-            base.OnKeyDown(e);
-         
+            base.OnMouseDown(e);
+            
         }
+
 
 
     }

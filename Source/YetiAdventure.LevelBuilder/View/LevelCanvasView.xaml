@@ -24,9 +24,9 @@
                         </xcad:LayoutDocument>
 
                     </xcad:LayoutDocumentPane>
-                    <xcad:LayoutAnchorablePane>
-                        <xcad:LayoutAnchorable Title="{x:Static resources:Constants.Controls_ToolboxControl_Header}">
-                            <ContentControl prism:RegionManager.RegionName="{x:Static viewModel:ToolboxViewModel.RegionName}" />
+                    <xcad:LayoutAnchorablePane DockWidth="250" >
+                        <xcad:LayoutAnchorable Title="{x:Static resources:Constants.Controls_ToolboxControl_Header}" CanClose="False" CanAutoHide="False" CanHide="False">
+                            <ContentControl prism:RegionManager.RegionName="{x:Static viewModel:ToolBoxViewModel.RegionName}" />
                         </xcad:LayoutAnchorable>
                     </xcad:LayoutAnchorablePane>
                 </xcad:LayoutPanel>

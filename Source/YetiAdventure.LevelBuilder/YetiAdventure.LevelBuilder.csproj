@@ -105,15 +105,29 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\IconImageSourceProvider.cs" />
+    <Compile Include="Controls\ToolBox.cs" />
+    <Compile Include="Controls\RadioButtonTool.cs" />
     <Compile Include="Interfaces\IToolboxItem.cs" />
-    <Compile Include="ViewModel\ToolboxItemViewModel.cs" />
-    <Compile Include="ViewModel\ToolboxViewModel.cs" />
-    <Compile Include="View\ToolboxView.xaml.cs">
-      <DependentUpon>ToolboxView.xaml</DependentUpon>
+    <Compile Include="ViewModel\ToolBoxItemViewModel.cs" />
+    <Compile Include="ViewModel\ToolBoxViewModel.cs" />
+    <Compile Include="View\ToolBoxView.xaml.cs">
+      <DependentUpon>ToolBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\LoadingIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DockManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Global.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\RadioButtonTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Icons\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -206,7 +220,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ToolboxView.xaml">
+    <Page Include="View\ToolBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,6 +269,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\YetiAdventure.Desktop\YetiAdventure.Desktop.csproj">
+      <Project>{a221483e-0162-44ac-8e9c-f5a48ebc376f}</Project>
+      <Name>YetiAdventure.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YetiAdventure.Engine\YetiAdventure.Engine.csproj">
       <Project>{329d8570-7abd-499d-b717-a589c5fa885a}</Project>
       <Name>YetiAdventure.Engine</Name>

@@ -13,9 +13,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using YetiAdventure.Engine.Common;
-using YetiAdventure.Engine.Components;
 using YetiAdventure.Engine.Levels;
 using YetiAdventure.Engine.Physics;
+using YetiAdventure.Shared.Interfaces;
+using YetiAdventure.Engine.Interfaces;
+using YetiAdventure.Shared.Models;
+using YetiAdventure.Engine.Components;
 
 namespace YetiAdventure.Engine
 {
@@ -23,13 +26,13 @@ namespace YetiAdventure.Engine
     /// <summary>
     /// The main class for the engine, handles all of the manager and service updates.
     /// </summary>
-    public class YetiEngine 
+    public class YetiEngine : IEngineProvider, ILevelBuilderService
     {
         private GameServiceContainer _services;
         private GraphicsDevice _graphicsDevice;
         private ContentManager _content;
         private SpriteBatch _spriteBatch;
-
+        private SpriteFont _spriteFont;
         //AnimatedSprite _eddySprites;
         Camera _camera;
 
@@ -50,11 +53,17 @@ namespace YetiAdventure.Engine
 
         List<Vector2> _polygonVertices;
         List<Vector2> _navCollisions = new List<Vector2>();
+        Dictionary<int, Primitive> _primitives;
 
+        IToolStateManager _toolStateManager;
 
         public bool IsMouseVisible { get; set; }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YetiEngine"/> class.
+        /// </summary>
+        /// <param name="graphics">The graphics.</param>
         public YetiEngine(IGraphicsDeviceService graphics)
         {
             _services = new GameServiceContainer();
@@ -63,13 +72,13 @@ namespace YetiAdventure.Engine
             _graphicsDevice = graphics.GraphicsDevice;
 
             _content = new ContentManager(_services);
-
+            _content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(_graphicsDevice);
 
+            _polygonVertices = new List<Vector2>();
+            _primitives = new Dictionary<int, Primitive>();
 
             _random = new Random();
-            _polygonVertices = new List<Vector2>();
-
             _editMode = EditMode.CreatePolygon;
 
             //_eddySprites = new AnimatedSprite("Characters", "Eddy");
@@ -77,8 +86,12 @@ namespace YetiAdventure.Engine
             IsMouseVisible = true;
 
             _mainLevel = new Level();
+            _toolStateManager = new ToolStateManager();
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize()
         {
             TextureManager.Initialize(_content);
@@ -100,6 +113,7 @@ namespace YetiAdventure.Engine
             _fallingBody.Friction = 10.0f;
             _fallingBody.SetTransform(new Vector2(0.0f, -20.0f), 0.0f);
             _fallingBody.IsStatic = false;
+
         }
 
         /// <summary>
@@ -110,6 +124,7 @@ namespace YetiAdventure.Engine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             //_eddySprites.LoadContent(_content);
+            _spriteFont = _content.Load<SpriteFont>("font");
         }
 
         /// <summary>
@@ -189,43 +204,48 @@ namespace YetiAdventure.Engine
 
             _camera.Update(gameTime);
             //_camera.TargetPosition = fallingBody.Position;
-
-            MouseState mouseState = Mouse.GetState();
+            MouseState mouseState = Mouse.GetCursorState();
             var mousePosition = new Vector2(mouseState.X, mouseState.Y);
-            Vector2 worldPosition = _camera.ConvertScreenToWorld(mousePosition);
-            Debug.WriteLine(string.Format("World pos: ({0}, {1})", worldPosition.X, worldPosition.Y));
+            var mouseWorldPosition = _camera.ConvertScreenToWorld(mousePosition);
+
+            _toolStateManager.Update(mouseWorldPosition, mouseState);
+
+            Debug.WriteLine(string.Format("World pos: ({0}, {1})", mouseWorldPosition.X, mouseWorldPosition.Y));
 
             if (_editMode == EditMode.CreateJunk)
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    SpawnBoxAtLocation(worldPosition);
+                    SpawnBoxAtLocation(mouseWorldPosition);
                 }
                 if (mouseState.RightButton == ButtonState.Pressed)
                 {
-                    TriggerExplosion(worldPosition);
+                    TriggerExplosion(mouseWorldPosition);
                 }
                 if (mouseState.MiddleButton == ButtonState.Pressed)
                 {
-                    TriggerVortex(worldPosition);
+                    TriggerVortex(mouseWorldPosition);
                 }
             }
-            else if (_editMode == EditMode.CreatePolygon)
-            {
-                if (mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released)
-                {
-                    _polygonVertices.Add(worldPosition);
-                }
-                if (mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released)
-                {
-                    if (_polygonVertices.Count >= 3)
-                    {
-                        CreateLevelPolygon(_polygonVertices.ToArray());
+            //else if (_editMode == EditMode.CreatePolygon)
+            //{
+            //    if (mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released)
+            //    {
 
-                        _polygonVertices.Clear();
-                    }
-                }
-            }
+            //        _polygonVertices.Add(worldPosition);
+            //    }
+            //    if (mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released)
+            //    {
+            //        if (_polygonVertices.Count >= 3)
+            //        {
+            //            var verts = CreateLevelPolygon(_polygonVertices.ToArray());
+            //            var primitive = CreatePrimitive(_polygonVertices);
+            //            _primitives.Add(_primitives.Count, primitive);
+
+            //            _polygonVertices.Clear();
+            //        }
+            //    }
+            //}
 
             if (mouseState.ScrollWheelValue > _lastMouseState.ScrollWheelValue)
             {
@@ -244,20 +264,16 @@ namespace YetiAdventure.Engine
 
         }
 
+
         public void Draw(GameTime gameTime)
         {
             _graphicsDevice.Clear(Color.CadetBlue);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
 
+            _toolStateManager.Draw(_spriteBatch, gameTime);
 
-            if (_polygonVertices != null)
-            {
-                if (_polygonVertices.Count >= 2)
-                {
-                    _spriteBatch.DrawPolygon(_polygonVertices.ToArray(), Color.Red);
-                }
-            }
+            
 
             PhysicsEngine.GetSingleton().Draw(_spriteBatch);
 
@@ -282,19 +298,6 @@ namespace YetiAdventure.Engine
             boxBody.SetTransform(inLocation, randomAngle);
             _boxBodies.Add(boxBody);
         }
-
-        private void CreateLevelPolygon(Vector2[] inVertices)
-        {
-            Vertices bodyVertices = new Vertices(inVertices);
-
-            List<Vertices> decomposedVertices = Triangulate.ConvexPartition(bodyVertices, TriangulationAlgorithm.Bayazit);
-            for (int bodyIndex = 0; bodyIndex < decomposedVertices.Count; ++bodyIndex)
-            {
-                Body levelBody = BodyFactory.CreatePolygon(PhysicsEngine.GetSingleton().PhysicsWorld, decomposedVertices[bodyIndex], 1.0f);
-                levelBody.IsStatic = true;
-            }
-        }
-
 
         private void TriggerExplosion(Vector2 inLocation)
         {
@@ -322,5 +325,54 @@ namespace YetiAdventure.Engine
         {
             //platform specific exit 
         }
+
+
+        #region level builder actions
+
+        /// <summary>
+        /// Gets the mouse position.
+        /// </summary>
+        /// <returns></returns>
+        public Shared.Common.Point GetMousePosition()
+        {
+            var mouseState = Mouse.GetCursorState();
+            var point = new Shared.Common.Point(mouseState.X, mouseState.Y);
+            return point;
+        }
+
+        /// <summary>
+        /// Draws the string.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="position"></param>
+        /// <param name="color">The color.</param>
+        public void DrawString(string value, Shared.Common.Point position, Shared.Common.Color color)
+        {
+
+            _spriteBatch.Begin();
+            var vector = position.ConvertToVector2();
+            var cc = color.ConvertToColor();
+            _spriteBatch.DrawString(_spriteFont, value, vector, cc);
+            _spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Gets the primitive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public Primitive GetPrimitive(Guid id)
+        {
+            return null;
+        }
+
+        public void SetActiveLevelBuilderTool(Shared.Common.LevelBuilderTool tool)
+        {
+            _toolStateManager.SetActiveTool(tool);
+        }
+
+
+
+        #endregion
     }
 }

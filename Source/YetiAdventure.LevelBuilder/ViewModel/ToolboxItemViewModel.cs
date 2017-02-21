@@ -9,7 +9,7 @@ using YetiAdventure.Shared.Icons;
 
 namespace YetiAdventure.LevelBuilder.ViewModel
 {
-    public class ToolboxItemViewModel : CoreViewModel, IToolboxItem
+    public class ToolBoxItemViewModel : CoreViewModel, IToolboxItem
     {
         /// <summary>
         /// ToolboxItemViewModel Constructor
@@ -18,36 +18,63 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         /// <param name="tooltip">Additional help text</param>
         /// <param name="icon">Icon to use as display</param>
         /// <param name="command">Command to execute</param>
-        public ToolboxItemViewModel(string caption, string tooltip, IconType icon, ICommand command)
+        public ToolBoxItemViewModel(string caption, string tooltip, IconType icon, ICommand command)
         {
             Caption = caption;
-            Tooltip = tooltip;
+            ToolTip = tooltip;
             Command = command;
             Icon = icon;
         }
 
+        /// <summary>
+        /// Gets the caption.
+        /// </summary>
+        /// <value>
+        /// The caption.
+        /// </value>
         public string Caption
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>
+        /// The command.
+        /// </value>
         public ICommand Command
         {
             get;
             private set;
         }
 
+
+        /// <summary>
+        /// Gets the icon.
+        /// </summary>
+        /// <value>
+        /// The icon.
+        /// </value>
         public IconType Icon
         {
             get;
             private set;
         }
 
-        public string Tooltip
+        /// <summary>
+        /// Gets the tooltip.
+        /// </summary>
+        /// <value>
+        /// The tooltip.
+        /// </value>
+        public string ToolTip
         {
             get;
             private set;
         }
+        
+
     }
 }

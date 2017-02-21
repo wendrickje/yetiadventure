@@ -21,14 +21,14 @@ namespace YetiAdventure.LevelBuilder.View
     /// <summary>
     /// Interaction logic for ToolboxView.xaml
     /// </summary>
-    public partial class ToolboxView : UserControl
+    public partial class ToolBoxView : UserControl
     {
-        public ToolboxView()
+        public ToolBoxView()
         {
             InitializeComponent();
         }
 
-        public ToolboxView(ToolboxViewModel vm) : this()
+        public ToolBoxView(ToolBoxViewModel vm) : this()
         {
             DataContext = vm;
         }

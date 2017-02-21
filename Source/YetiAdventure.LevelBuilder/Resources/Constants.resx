@@ -201,10 +201,10 @@
   <data name="Controls_ToolboxItem_Polygon_Tooltip" xml:space="preserve">
     <value>draws polygons</value>
   </data>
-  <data name="Controls_ToolboxItem_SelectionMove_Caption" xml:space="preserve">
-    <value>move tool</value>
+  <data name="Controls_ToolboxItem_Transform_Caption" xml:space="preserve">
+    <value>transform tool</value>
   </data>
-  <data name="Controls_ToolboxItem_SelectionMove_Tooltip" xml:space="preserve">
-    <value>moves objects</value>
+  <data name="Controls_ToolboxItem_Transform_Tooltip" xml:space="preserve">
+    <value>transforms objects</value>
   </data>
 </root>

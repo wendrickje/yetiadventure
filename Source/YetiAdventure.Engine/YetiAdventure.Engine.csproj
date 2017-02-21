@@ -36,13 +36,17 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Common\EditMode.cs" />
+    <Compile Include="Common\ModelConverterExtensions.cs" />
     <Compile Include="Common\PrimitivesExtensions.cs" />
     <Compile Include="Common\Texture2DExtensions.cs" />
+    <Compile Include="Common\ToolOperation.cs" />
     <Compile Include="Components\AnimatedSprite.cs" />
+    <Compile Include="Components\PolygonOperation.cs" />
+    <Compile Include="Components\ToolStateManager.cs" />
     <Compile Include="EngineTexture.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Interfaces\IToolStateManager.cs" />
     <Compile Include="Levels\Level.cs" />
-    <Compile Include="Levels\LevelBuilderContext.cs" />
     <Compile Include="Levels\NavigationGraph.cs" />
     <Compile Include="Levels\NavigationGraphBuilder.cs" />
     <Compile Include="Physics\PhysicalAssembly.cs" />
@@ -69,9 +73,7 @@
       <HintPath>..\..\Vendor\Sentius\Sentius.darkFunction.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="SDL2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

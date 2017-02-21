@@ -115,20 +115,20 @@ namespace YetiAdventure.LevelBuilder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to move tool.
+        ///   Looks up a localized string similar to transform tool.
         /// </summary>
-        public static string Controls_ToolboxItem_SelectionMove_Caption {
+        public static string Controls_ToolboxItem_Transform_Caption {
             get {
-                return ResourceManager.GetString("Controls_ToolboxItem_SelectionMove_Caption", resourceCulture);
+                return ResourceManager.GetString("Controls_ToolboxItem_Transform_Caption", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to moves objects.
+        ///   Looks up a localized string similar to transforms objects.
         /// </summary>
-        public static string Controls_ToolboxItem_SelectionMove_Tooltip {
+        public static string Controls_ToolboxItem_Transform_Tooltip {
             get {
-                return ResourceManager.GetString("Controls_ToolboxItem_SelectionMove_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Controls_ToolboxItem_Transform_Tooltip", resourceCulture);
             }
         }
         

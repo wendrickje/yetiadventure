@@ -1,15 +1,10 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:resourceKeys="clr-namespace:YetiAdventure.LevelBuilder.Common.ResourceKeys">
-
-    <SolidColorBrush x:Key="{x:Static resourceKeys:Button.ButtonFillColor}" Color="#FF606060" />
-    <SolidColorBrush x:Key="{x:Static resourceKeys:Button.ButtonHoverFillColor}" Color="#FFC6C3C6" />
-    <SolidColorBrush x:Key="{x:Static resourceKeys:Button.ButtonPressedFillColor}" Color="#FF999999" />
-    <SolidColorBrush x:Key="{x:Static resourceKeys:Button.ButtonPressedBorderColor}" Color="#FF031A30" />
-
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:YetiAdventure.LevelBuilder.Controls"
+                    xmlns:resourceKeys="clr-namespace:YetiAdventure.LevelBuilder.Common.ResourceKeys">
     
-    <Style TargetType="{x:Type ButtonBase}">
+    
+    <Style TargetType="{x:Type controls:RadioButtonTool}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static resourceKeys:Global.Foreground}}" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="BorderThickness" Value="1" />
@@ -19,10 +14,9 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                <ControlTemplate TargetType="{x:Type controls:RadioButtonTool}">
                     <Border
                         x:Name="Bd"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -36,6 +30,14 @@
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background"
+                                    Value="{DynamicResource {x:Static resourceKeys:Global.DisabledBackground}}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            
+                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource {x:Static resourceKeys:Button.ButtonPressedFillColor}}" />
+                        </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="true"/>
@@ -65,19 +67,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    
-    <Style
-        x:Key="{x:Static ToolBar.ButtonStyleKey}"
-        BasedOn="{StaticResource {x:Type ButtonBase}}"
-        TargetType="{x:Type Button}" />
-    
-    <Style
-        BasedOn="{StaticResource {x:Type ButtonBase}}"
-        TargetType="{x:Type Button}" />
-    
-    <Style
-        BasedOn="{StaticResource {x:Type ButtonBase}}"
-        TargetType="{x:Type ToggleButton}" />
-    
 </ResourceDictionary>

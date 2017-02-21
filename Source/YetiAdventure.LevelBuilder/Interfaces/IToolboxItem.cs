@@ -10,13 +10,12 @@ namespace YetiAdventure.LevelBuilder.Interfaces
 {
     public interface IToolboxItem
     {
-        string Tooltip { get; }
+        string ToolTip { get; }
 
         string Caption { get; }
 
         ICommand Command { get; }
 
         IconType Icon { get; }
-
     }
 }

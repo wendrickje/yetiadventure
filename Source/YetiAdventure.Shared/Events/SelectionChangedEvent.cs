@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Events;
-using YetiAdventure.Shared;
+using YetiAdventure.Shared.Models;
 
 namespace YetiAdventure.Shared.Events
 {

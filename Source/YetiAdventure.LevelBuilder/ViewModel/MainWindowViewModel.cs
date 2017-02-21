@@ -20,6 +20,9 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
+
+            var region = _regionManager.RegisterViewWithRegion(MainRegionName, typeof(LevelCanvasView));
+            region.RegisterViewWithRegion(ToolBoxViewModel.RegionName, typeof(ToolBoxView));
         }
 
         #region newCommand
@@ -53,13 +56,8 @@ namespace YetiAdventure.LevelBuilder.ViewModel
 
             //_project = new Project(newprojectwindow.ProjectName, canvasheight / tilesize, canvaswidth / tilesize, tilesize, newprojectwindow.TileSheetResource);
             //OnPropertyChanged("Project");
-            //Navigator.Navigate(new NavigationData<ProjectPage>(Project));
             //newprojectwindow = null;
-            if (!_regionManager.Regions.ContainsRegionWithName(typeof(LevelCanvasView).ToString()))
-            {
-                var region = _regionManager.RegisterViewWithRegion(MainRegionName, typeof(LevelCanvasView));
-                region.RegisterViewWithRegion(ToolboxViewModel.RegionName, typeof(ToolboxView));
-            }
+            
             _regionManager.RequestNavigate(MainRegionName, typeof(LevelCanvasView).ToString());
         }
 

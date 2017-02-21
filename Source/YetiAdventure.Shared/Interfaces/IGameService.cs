@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YetiAdventure.Shared;
 
 namespace YetiAdventure.Shared.Interfaces
 {
-    public interface ILevelBuilderContext
+    public interface ILevelBuilder
     {
-        void MovePrimitive(Primitive primitive, double x, double y);
+
+        string GetMousePosition();
+
     }
 }

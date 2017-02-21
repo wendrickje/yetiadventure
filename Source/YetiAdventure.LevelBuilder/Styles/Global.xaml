@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:resourceKeys="clr-namespace:YetiAdventure.LevelBuilder.Common.ResourceKeys">
+
+    <ControlTemplate x:Key="{x:Static resourceKeys:Global.ValidationTemplate}">
+        <Grid Focusable="False">
+            <AdornedElementPlaceholder>
+                <Border BorderBrush="Red"
+                        BorderThickness="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
+            </AdornedElementPlaceholder>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="Border">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="ClipToBounds"
+                Value="True" />
+
+    </Style>
+
+    <Style TargetType="Rectangle">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="ClipToBounds"
+                Value="True" />
+
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="MinHeight"
+                Value="22" />
+        <Setter Property="Validation.ErrorTemplate"
+                Value="{StaticResource {x:Static resourceKeys:Global.ValidationTemplate}}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.HasError)}"
+                         Value="True">
+                <DataTrigger.Setters>
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+
+                </DataTrigger.Setters>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

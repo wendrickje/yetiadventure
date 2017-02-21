@@ -1,14 +1,58 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:resourceKeys="clr-namespace:YetiAdventure.LevelBuilder.Common.ResourceKeys"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Themes/Icons/Icons.xaml"/>
-        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/TextBlock.xaml"/>
-        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Toolbar.xaml"/>
-        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Button.xaml"/>
-        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Expander.xaml"/>
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Themes/Icons/Icons.xaml" />
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/TextBlock.xaml" />
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Toolbar.xaml" />
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Button.xaml" />
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/RadioButtonTool.xaml" />
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/Expander.xaml" />
+        <ResourceDictionary Source="/YetiAdventure.LevelBuilder;component/Styles/DockManager.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
 
+    <Color x:Key="Disabled_Foreground">#FFE0E0E0</Color>
+    <Color x:Key="Disabled_Background">#FFAAAAAA</Color>
     
+    <Color x:Key="Primary_Background">#FF606060</Color>
+    <Color x:Key="Secondary_Background">#FFFFFFFFF</Color>
+
+    <Color x:Key="Primary_Foreground">#FF1E1E1E</Color>
+    <Color x:Key="Primary_Foreground_Hover">#FFFFFFFFF</Color>
+
+    <Color x:Key="Gold">#ffffcc33</Color>
+    <Color x:Key="RoyalBlue">RoyalBlue</Color>
+    <Color x:Key="OrangeRed">OrangeRed</Color>
+
+    <FontFamily x:Key="{x:Static resourceKeys:Global.FontFamily}">Tahoma</FontFamily>
+    <system:Double x:Key="{x:Static resourceKeys:Global.FontSize}">12</system:Double>
+    
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="{StaticResource Primary_Background}" />
+    <SolidColorBrush x:Key="PanelBackgroundBrush"
+                     Color="{StaticResource Secondary_Background}" />
+
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.Foreground}"
+                     Color="{StaticResource Primary_Foreground}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.ForegroundHover}"
+                     Color="{StaticResource Primary_Foreground_Hover}" />
+
+
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.DisabledForeground}"
+                     Color="{StaticResource Disabled_Foreground}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.DisabledBackground}"
+                     Color="{StaticResource Disabled_Background}" />
+
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.EmptyTileBrush}"
+                     Color="{StaticResource Gold}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.StartTileBrush}"
+                     Color="{StaticResource RoyalBlue}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.EventTileBrush}"
+                     Color="{StaticResource OrangeRed}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.FillBucketTileBrush}"
+                     Color="{StaticResource Gold}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.PickerTileBrush}"
+                     Color="{StaticResource Gold}" />
+
 </ResourceDictionary>

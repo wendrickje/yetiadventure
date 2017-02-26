@@ -59,6 +59,6 @@ namespace YetiAdventure.Shared.Models
         /// The bounds.
         /// </value>
         public Rectangle Bounds { get; set; }
-        
+
     }
 }

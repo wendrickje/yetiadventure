@@ -13,6 +13,7 @@ using OpenTK.Input;
 using Microsoft.Practices.Unity;
 using YetiAdventure.Shared.Interfaces;
 using YetiAdventure.Engine.Levels;
+using Prism.Events;
 
 namespace YetiAdventure.LevelBuilder.Controls
 {
@@ -20,17 +21,19 @@ namespace YetiAdventure.LevelBuilder.Controls
     {
         private YetiEngine _engine;
         private IUnityContainer _container;
+        private IEventAggregator _eventAggregator;
 
-        public LevelCanvasControl(IUnityContainer container) : base()
+        public LevelCanvasControl(IUnityContainer container, IEventAggregator eventAggregator) : base()
         {
             _container = container;
+            _eventAggregator = eventAggregator;
         }
 
         protected override void Initialize()
         {
 
             base.Initialize();
-            _engine = new YetiEngine(GraphicsDeviceService);
+            _engine = new YetiEngine(GraphicsDeviceService, _eventAggregator);
             // Need to tell the engine that it's in editor mode
             _engine.IsInEditor = true;
 

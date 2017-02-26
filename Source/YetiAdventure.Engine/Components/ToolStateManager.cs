@@ -9,6 +9,8 @@ using YetiAdventure.Engine.Interfaces;
 using Microsoft.Xna.Framework;
 using YetiAdventure.Engine.Common;
 using Microsoft.Xna.Framework.Graphics;
+using Prism.Events;
+using YetiAdventure.Engine.Components.BuilderOperations;
 
 namespace YetiAdventure.Engine.Components
 {
@@ -29,12 +31,14 @@ namespace YetiAdventure.Engine.Components
         private readonly Dictionary<LevelBuilderTool, ToolOperationAction<ToolOperationResult, ToolOperationArgs>> _toolDrawOperations;
 
         MouseState _lastMouseState;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolStateManager"/> class.
         /// </summary>
-        public ToolStateManager()
+        /// <param name="eventAggregator">The event aggregator.</param>
+        public ToolStateManager(IEventAggregator eventAggregator)
         {
-            _polygonOperator = new PolygonOperator();
+            _polygonOperator = new PolygonOperation(eventAggregator);
             _toolUpdateOperations = new Dictionary<LevelBuilderTool, ToolOperationAction<ToolOperationResult, ToolOperationArgs>>()
             {
                 { LevelBuilderTool.DrawPolygon, PerformPolygonUpdateOperation }
@@ -50,7 +54,8 @@ namespace YetiAdventure.Engine.Components
         /// Initializes a new instance of the <see cref="ToolStateManager"/> class.
         /// </summary>
         /// <param name="activeTool">The active tool.</param>
-        public ToolStateManager(LevelBuilderTool activeTool) : this()
+        /// <param name="eventAggregator">The event aggregator.</param>
+        public ToolStateManager(LevelBuilderTool activeTool, IEventAggregator eventAggregator) : this(eventAggregator)
         {
             ActiveTool = activeTool;
         }
@@ -101,7 +106,7 @@ namespace YetiAdventure.Engine.Components
         }
         #region operators
 
-        PolygonOperator _polygonOperator;
+        PolygonOperation _polygonOperator;
 
         /// <summary>
         /// Performs the polygon update operation.

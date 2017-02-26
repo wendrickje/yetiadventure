@@ -10,27 +10,31 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OpenTK.Input;
+using Prism.Events;
 using YetiAdventure.Engine.Common;
 using YetiAdventure.Engine.Physics;
+using YetiAdventure.Shared.Events;
 using YetiAdventure.Shared.Models;
 
-namespace YetiAdventure.Engine.Components
+namespace YetiAdventure.Engine.Components.BuilderOperations
 {
     /// <summary>
     /// draw polygon operation
     /// </summary>
-    public class PolygonOperator : ToolOperationBase
+    public class PolygonOperation : ToolOperationBase
     {
         private List<Vector2> _polygonVertices;
         private Dictionary<int, Primitive> _primitives;
+        IEventAggregator _eventAggregator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonOperator"/> class.
+        /// Initializes a new instance of the <see cref="PolygonOperation"/> class.
         /// </summary>
-        public PolygonOperator()
+        public PolygonOperation(IEventAggregator eventAggregator)
         {
             _polygonVertices = new List<Vector2>();
             _primitives = new Dictionary<int, Primitive>();
+            _eventAggregator = eventAggregator;
         }
 
         /// <summary>
@@ -53,11 +57,23 @@ namespace YetiAdventure.Engine.Components
                 {
                     var verts = CreateLevelPolygon(_polygonVertices.ToArray());
                     var primitive = CreatePrimitive(_polygonVertices);
-                    _primitives.Add(_primitives.Count, primitive);
+                    AddPrimitive(_primitives.Count, primitive);
 
                     _polygonVertices.Clear();
                 }
             }
+        }
+
+        /// <summary>
+        /// Adds the primitive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="primitive">The primitive.</param>
+        internal void AddPrimitive(int id, Primitive primitive)
+        {
+            _primitives.Add(id, primitive);
+            var ev = _eventAggregator.GetEvent<PrimitiveCreatedEvent>();
+            ev.Publish(new PrimitiveCreatedEventArgs() { NewItem = primitive });
         }
 
         /// <summary>
@@ -66,14 +82,6 @@ namespace YetiAdventure.Engine.Components
         /// <param name="args">The arguments.</param>
         public override void Draw(ToolOperationArgs args)
         {
-            var sprintBatch = args.SpriteBatch;
-            if (_polygonVertices != null)
-            {
-                if (_polygonVertices.Count >= 2)
-                {
-                    sprintBatch.DrawPolygon(_polygonVertices.ToArray(), Color.Red);
-                }
-            }
         }
 
         /// <summary>

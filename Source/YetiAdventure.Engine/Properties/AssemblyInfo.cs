@@ -16,6 +16,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
 
+
+[assembly:InternalsVisibleTo("YetiAdventure.Test")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version

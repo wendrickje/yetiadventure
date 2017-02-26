@@ -13,7 +13,9 @@ namespace YetiAdventure.Desktop
         [STAThread]
         static void Main(string[] args)
         {
-            using (var game = new YetiGame())
+            var bootstrapper = new Bootstrapper();
+            bootstrapper.Initalize();
+            using (var game = new YetiGame(bootstrapper.Container))
                 game.Run();
         }
 

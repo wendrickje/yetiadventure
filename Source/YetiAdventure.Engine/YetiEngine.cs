@@ -20,6 +20,9 @@ using YetiAdventure.Shared.Interfaces;
 using YetiAdventure.Engine.Interfaces;
 using YetiAdventure.Shared.Models;
 using YetiAdventure.Engine.Components;
+using Prism.Events;
+using YetiAdventure.Shared.Common;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace YetiAdventure.Engine
 {
@@ -64,7 +67,8 @@ namespace YetiAdventure.Engine
         Dictionary<int, Primitive> _primitives;
 
         IToolStateManager _toolStateManager;
-
+        IPrimitiveManager _primitiveManager;
+        IEventAggregator _eventAggregator;
         public bool IsMouseVisible { get; set; }
 
         public string RootContentPath { get; set; }
@@ -78,8 +82,10 @@ namespace YetiAdventure.Engine
         /// Initializes a new instance of the <see cref="YetiEngine"/> class.
         /// </summary>
         /// <param name="graphics">The graphics.</param>
-        public YetiEngine(IGraphicsDeviceService graphics)
+        /// <param name="eventAggregator">The event aggregator.</param>
+        public YetiEngine(IGraphicsDeviceService graphics, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             _services = new GameServiceContainer();
             _services.AddService(typeof(IGraphicsDeviceService), graphics);
 
@@ -94,13 +100,14 @@ namespace YetiAdventure.Engine
             _primitives = new Dictionary<int, Primitive>();
 
             _editMode = EditMode.CreatePolygon;
-
-            //_eddySprites = new AnimatedSprite("Characters", "Eddy");
+            
 
             IsMouseVisible = true;
 
             _mainLevel = new Level();
-            _toolStateManager = new ToolStateManager();
+
+            _toolStateManager = new ToolStateManager(eventAggregator);
+            _primitiveManager = new PrimitiveManager(eventAggregator);
         }
 
         private void CreateGroundAndPlayer(World physicalWorld)
@@ -118,6 +125,9 @@ namespace YetiAdventure.Engine
 
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize()
         {
             _content.RootDirectory = RootContentPath;
@@ -180,6 +190,11 @@ namespace YetiAdventure.Engine
             }
         }
 
+
+        /// <summary>
+        /// Updates the engine using specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public void Update(GameTime gameTime)
         {
             var kbState = Keyboard.GetState();
@@ -251,6 +266,7 @@ namespace YetiAdventure.Engine
             var mouseWorldPosition = _camera.ConvertScreenToWorld(_mousePosition);
 
             _toolStateManager.Update(mouseWorldPosition, mouseState);
+            
 
             Debug.WriteLine(string.Format("World pos: ({0}, {1})", mouseWorldPosition.X, mouseWorldPosition.Y));
 
@@ -269,26 +285,6 @@ namespace YetiAdventure.Engine
                     TriggerVortex(mouseWorldPosition);
                 }
             }
-            //else if (_editMode == EditMode.CreatePolygon)
-            //{
-            //    if (mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released)
-            //    {
-
-            //        _polygonVertices.Add(worldPosition);
-            //    }
-            //    if (mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released)
-            //    {
-            //        if (_polygonVertices.Count >= 3)
-            //        {
-            //            var verts = CreateLevelPolygon(_polygonVertices.ToArray());
-            //            var primitive = CreatePrimitive(_polygonVertices);
-            //            _primitives.Add(_primitives.Count, primitive);
-
-            //            _polygonVertices.Clear();
-            //        }
-            //    }
-            //}
-
             HandleEditorPanning(ref mouseState);
 
             if (mouseState.ScrollWheelValue > _lastMouseState.ScrollWheelValue)
@@ -308,10 +304,13 @@ namespace YetiAdventure.Engine
             _previousMousePosition = _mousePosition;
         }
 
-
+        /// <summary>
+        /// Draws the specified game time.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public void Draw(GameTime gameTime)
         {
-            _graphicsDevice.Clear(Color.CadetBlue);
+            _graphicsDevice.Clear(Microsoft.Xna.Framework.Color.CadetBlue);
             DrawLevel(gameTime);
             DrawInterface();
         }
@@ -321,8 +320,9 @@ namespace YetiAdventure.Engine
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
 
             _toolStateManager.Draw(_spriteBatch, gameTime);
+            _primitiveManager.Draw(_spriteBatch, gameTime);
 
-            
+
 
             PhysicsEngine.GetSingleton().Draw(_spriteBatch);
 
@@ -338,11 +338,11 @@ namespace YetiAdventure.Engine
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             if (IsInEditor)
             {
-                _spriteBatch.DrawString(_spriteFont, "Editor Mode", Vector2.One * 10.0f, Color.Black);
+                _spriteBatch.DrawString(_spriteFont, "Editor Mode", Vector2.One * 10.0f, Microsoft.Xna.Framework.Color.Black);
             }
             else
             {
-                _spriteBatch.DrawString(_spriteFont, "Gameplay Mode", Vector2.One * 10.0f, Color.Black);
+                _spriteBatch.DrawString(_spriteFont, "Gameplay Mode", Vector2.One * 10.0f, Microsoft.Xna.Framework.Color.Black);
             }
             _spriteBatch.End();
         }
@@ -388,6 +388,12 @@ namespace YetiAdventure.Engine
             //platform specific exit 
         }
 
+        public void UpdateMousePosition(int inX, int inY)
+        {
+            _mousePosition.X = inX;
+            _mousePosition.Y = inY;
+        }
+
 
         #region level builder actions
 
@@ -425,7 +431,7 @@ namespace YetiAdventure.Engine
         /// <returns></returns>
         public Primitive GetPrimitive(Guid id)
         {
-            return null;
+            return _primitiveManager.GetPrimitive(id);
         }
 
         public void SetActiveLevelBuilderTool(Shared.Common.LevelBuilderTool tool)
@@ -434,13 +440,16 @@ namespace YetiAdventure.Engine
         }
 
 
+        /// <summary>
+        /// Moves the primitive.
+        /// </summary>
+        /// <param name="primitive">The primitive.</param>
+        /// <param name="point">The point to move to.</param>
+        public void MovePrimitive(Primitive primitive, Shared.Common.Point point)
+        {
+            _primitiveManager.MovePrimitive(primitive, point);
+        }
 
         #endregion
-
-        public void UpdateMousePosition(int inX, int inY)
-        {
-            _mousePosition.X = inX;
-            _mousePosition.Y = inY;
-        }
     }
 }

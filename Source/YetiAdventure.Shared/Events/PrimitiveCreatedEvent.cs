@@ -9,20 +9,21 @@ using YetiAdventure.Shared.Models;
 namespace YetiAdventure.Shared.Events
 {
     /// <summary>
-    /// selection changed event
+    /// Polygon Created event
     /// </summary>
-    /// <seealso cref="Prism.Events.PubSubEvent{YetiAdventure.Shared.Events.SelectionChangedEventArgs}" />
-    public class SelectionChangedEvent : PubSubEvent<SelectionChangedEventArgs>
+    /// <seealso cref="Prism.Events.PubSubEvent{YetiAdventure.Shared.Events.PrimitiveCreatedEventArgs}" />
+    public class PrimitiveCreatedEvent : PubSubEvent<PrimitiveCreatedEventArgs>
     {
+
     }
 
     /// <summary>
-    /// selection changed args
+    /// Primitive Created args
     /// </summary>
-    public class SelectionChangedEventArgs
+    public class PrimitiveCreatedEventArgs
     {
         /// <summary>
-        /// newly selected item
+        /// newly created item
         /// </summary>
         public Primitive NewItem { get; set; }
 

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YetiAdventure.Engine;
+using Prism.Events;
+using Microsoft.Practices.Unity;
 
 namespace YetiAdventure.Desktop
 {
@@ -14,15 +16,21 @@ namespace YetiAdventure.Desktop
 
         private YetiEngine _engine;
         private GraphicsDeviceManager _graphics;
-
-        public YetiGame()
+        private IUnityContainer _container;
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YetiGame"/> class.
+        /// </summary>
+        public YetiGame(IUnityContainer container)
         {
             _graphics = new GraphicsDeviceManager(this);
+            _container = container;
         }
 
         protected override void Initialize()
         {
-            _engine = new YetiEngine(_graphics);
+            var eventAggregator = _container.Resolve<IEventAggregator>();
+            _engine = new YetiEngine(_graphics, eventAggregator);
             _engine.RootContentPath = "Content";
             _engine.Initialize();
             IsMouseVisible = _engine.IsMouseVisible;

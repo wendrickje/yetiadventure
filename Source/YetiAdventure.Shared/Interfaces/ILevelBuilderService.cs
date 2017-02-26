@@ -34,5 +34,12 @@ namespace YetiAdventure.Shared.Interfaces
         /// </summary>
         /// <param name="tool">The tool.</param>
         void SetActiveLevelBuilderTool(LevelBuilderTool tool);
+
+        /// <summary>
+        /// Moves the primitive.
+        /// </summary>
+        /// <param name="primitive">The primitive.</param>
+        /// <param name="expected">The expected.</param>
+        void MovePrimitive(Primitive primitive, Point expected);
     }
 }

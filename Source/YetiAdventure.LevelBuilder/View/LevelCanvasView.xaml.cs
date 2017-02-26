@@ -20,6 +20,7 @@ using YetiAdventure.LevelBuilder.Controls;
 using YetiAdventure.LevelBuilder.ViewModel;
 using Prism.Regions;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace YetiAdventure.LevelBuilder.View
 {
@@ -37,11 +38,11 @@ namespace YetiAdventure.LevelBuilder.View
         }
 
 
-        public LevelCanvasView(LevelCanvasViewModel vm, IUnityContainer container) : this()
+        public LevelCanvasView(LevelCanvasViewModel vm, IUnityContainer container, IEventAggregator eventAggregator) : this()
         {
             DataContext = vm;
             _container = container;
-            _gameControl = new LevelCanvasControl(container);
+            _gameControl = new LevelCanvasControl(container, eventAggregator);
             _gameControl.Show();
         }
 

@@ -88,5 +88,16 @@ namespace YetiAdventure.Engine.Components
                 spriteBatch.DrawPolygon(verts, Microsoft.Xna.Framework.Color.Red);
             }
         }
+
+        /// <summary>
+        /// Gets the primitive under point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        public Primitive GetPrimitiveUnderPoint(Shared.Common.Point point)
+        {
+
+            var kvp = Primitives.FirstOrDefault(p => p.Value.Bounds.Contains(point));
+            return kvp.Value;
+        }
     }
 }

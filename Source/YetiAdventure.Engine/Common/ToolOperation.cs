@@ -72,6 +72,8 @@ namespace YetiAdventure.Engine.Common
         /// The sprite batch.
         /// </value>
         public SpriteBatch SpriteBatch { get; set; }
+
+
     }
 
     /// <summary>
@@ -88,4 +90,21 @@ namespace YetiAdventure.Engine.Common
     /// <param name="args">The arguments.</param>
     public delegate T ToolOperationAction<T, T1>(T1 args) where T : ToolOperationResult where T1 : ToolOperationArgs;
 
+
+    /// <summary>
+    /// Tool Operation Extensions
+    /// </summary>
+    public static class ToolOperationExtensions
+    {
+        /// <summary>
+        /// Verifies the left mouse click action was performed.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsLeftMouseButtonClicked(this ToolOperationArgs args)
+        {
+            var mouseState = args.MouseState;
+            var prevousMouseState = args.PreviousMouseState;
+            return prevousMouseState != null && mouseState != null && (mouseState.LeftButton == ButtonState.Pressed && prevousMouseState.LeftButton == ButtonState.Released);
+        }
+    }
 }

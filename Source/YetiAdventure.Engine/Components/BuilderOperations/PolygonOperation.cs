@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OpenTK.Input;
 using Prism.Events;
 using YetiAdventure.Engine.Common;
+using YetiAdventure.Engine.Interfaces;
 using YetiAdventure.Engine.Physics;
 using YetiAdventure.Shared.Events;
 using YetiAdventure.Shared.Models;
@@ -25,17 +26,20 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
     {
         private List<Vector2> _polygonVertices;
         private Dictionary<int, Primitive> _primitives;
-        IEventAggregator _eventAggregator;
+        private IEventAggregator _eventAggregator;
+        private IPrimitiveManager _primitiveManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonOperation"/> class.
         /// </summary>
-        public PolygonOperation(IEventAggregator eventAggregator)
+        public PolygonOperation(IEventAggregator eventAggregator, IPrimitiveManager primitiveManager)
         {
             _polygonVertices = new List<Vector2>();
             _primitives = new Dictionary<int, Primitive>();
             _eventAggregator = eventAggregator;
+            _primitiveManager = primitiveManager;
         }
+        
 
         /// <summary>
         /// Updates this instance.
@@ -46,9 +50,8 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
             var position = args.MousePoint;
             var mouseState = args.MouseState;
             var prevousMouseState = args.PreviousMouseState;
-            if (mouseState.LeftButton == ButtonState.Pressed && prevousMouseState.LeftButton == ButtonState.Released)
+            if (args.IsLeftMouseButtonClicked())
             {
-
                 _polygonVertices.Add(position);
             }
             if (mouseState.RightButton == ButtonState.Pressed && prevousMouseState.RightButton == ButtonState.Released)

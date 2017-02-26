@@ -36,30 +36,27 @@ namespace YetiAdventure.Engine.Components
         /// Initializes a new instance of the <see cref="ToolStateManager"/> class.
         /// </summary>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public ToolStateManager(IEventAggregator eventAggregator)
+        /// <param name="primitiveManager">The primitive manager.</param>
+        /// <param name="activeTool">The active tool.</param>
+        public ToolStateManager(IEventAggregator eventAggregator, IPrimitiveManager primitiveManager, LevelBuilderTool activeTool = LevelBuilderTool.Selector)
         {
-            _polygonOperator = new PolygonOperation(eventAggregator);
+            _polygonOperator = new PolygonOperation(eventAggregator, primitiveManager);
+            _selectionOperator = new SelectionOperation(eventAggregator, primitiveManager);
             _toolUpdateOperations = new Dictionary<LevelBuilderTool, ToolOperationAction<ToolOperationResult, ToolOperationArgs>>()
             {
-                { LevelBuilderTool.DrawPolygon, PerformPolygonUpdateOperation }
+                { LevelBuilderTool.DrawPolygon, PerformPolygonUpdateOperation },
+                { LevelBuilderTool.Selector,  PerformSelectionUpdateOperation }
             };
             _toolDrawOperations = new Dictionary<LevelBuilderTool, ToolOperationAction<ToolOperationResult, ToolOperationArgs>>()
             {
-                { LevelBuilderTool.DrawPolygon, PerformPolygonDrawOperation }
+                { LevelBuilderTool.DrawPolygon, PerformPolygonDrawOperation },
+                { LevelBuilderTool.Selector,  PerformSelectionDrawOperation }
             };
         }
 
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ToolStateManager"/> class.
-        /// </summary>
-        /// <param name="activeTool">The active tool.</param>
-        /// <param name="eventAggregator">The event aggregator.</param>
-        public ToolStateManager(LevelBuilderTool activeTool, IEventAggregator eventAggregator) : this(eventAggregator)
-        {
-            ActiveTool = activeTool;
-        }
-        
+
+
         /// <summary>
         /// Gets or sets the active tool.
         /// </summary>
@@ -106,7 +103,8 @@ namespace YetiAdventure.Engine.Components
         }
         #region operators
 
-        PolygonOperation _polygonOperator;
+        private PolygonOperation _polygonOperator;
+        private SelectionOperation _selectionOperator;
 
         /// <summary>
         /// Performs the polygon update operation.
@@ -130,6 +128,29 @@ namespace YetiAdventure.Engine.Components
             _polygonOperator.Draw(args);
             return new ToolOperationResult();
         }
+
+        /// <summary>
+        /// Performs the selection update operation.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        private ToolOperationResult PerformSelectionUpdateOperation(ToolOperationArgs args)
+        {
+            _selectionOperator.Update(args);
+            return new ToolOperationResult();
+        }
+
+        /// <summary>
+        /// Performs the selection draw operation.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        private ToolOperationResult PerformSelectionDrawOperation(ToolOperationArgs args)
+        {
+            _selectionOperator.Draw(args);
+            return new ToolOperationResult();
+        }
+
         #endregion
 
 

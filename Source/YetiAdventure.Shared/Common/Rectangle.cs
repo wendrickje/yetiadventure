@@ -25,7 +25,7 @@ namespace YetiAdventure.Shared.Common
         /// <param name="width">The width.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        public Rectangle(float height, float width, float x, float y) 
+        public Rectangle(float height, float width, float x, float y)
         {
             Height = height;
             Width = width;
@@ -109,5 +109,49 @@ namespace YetiAdventure.Shared.Common
             return new Point(X + Width, Y + Height);
         }
 
+        /// <summary>
+        /// Determines whether this [contains] [the specified point].
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified point]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool Contains(Point point)
+        {
+            return point.X >= X &&
+                point.X <= (X + Width) &&
+                point.Y >= Y &&
+                point.Y <= (Y + Height);
+        }
+
+
+        /// <summary>
+        /// Determines whether this rectangle [contains] [the specified rectangle].
+        /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified rect]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool Contains(Rectangle rect)
+        {
+            return (rect.X >= this.X) && (rect.Y >= this.Y) &&
+                    (rect.X + rect.Width <= this.X + this.Width) && (rect.Y + rect.Height <= this.Y + this.Height);
+        }
+
+
+        /// <summary>
+        /// Determines whether this rectangle [Intersects] [the specified rectangle].
+        /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <returns>
+        ///     <c>true</c> if [Intersects] [the specified rect]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool Intersects(Rectangle rect)
+        {
+            return !((rect.X + rect.Width <= this.X) ||
+                    (rect.Y + rect.Height <= this.Y) ||
+                    (rect.X >= this.X + this.Width) ||
+                    (rect.Y >= this.Y + this.Height));
+        }
     }
 }

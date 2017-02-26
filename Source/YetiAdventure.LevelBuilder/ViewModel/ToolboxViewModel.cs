@@ -241,7 +241,7 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         /// <param name="obj">The object.</param>
         private void DoUseCursor(object obj)
         {
-            LevelBuilderService.SetActiveLevelBuilderTool(LevelBuilderTool.Transform);
+            LevelBuilderService.SetActiveLevelBuilderTool(LevelBuilderTool.Selector);
         }
         #endregion
     }

@@ -9,6 +9,7 @@ using Moq;
 using Prism.Events;
 using YetiAdventure.Engine.Components;
 using YetiAdventure.Engine.Components.BuilderOperations;
+using YetiAdventure.Engine.Interfaces;
 using YetiAdventure.Engine.Levels;
 using YetiAdventure.LevelBuilder.ViewModel;
 using YetiAdventure.Shared;
@@ -27,7 +28,7 @@ namespace YetiAdventure.Test
         //Assert
 
         [TestMethod]
-        public void ValidPrimitive_Move_ValidPosition()
+        public void Operation_ValidPrimitive_Move_ValidPosition()
         {
             var primitive = new Primitive(new Shared.Common.Rectangle());
             var expected = new Shared.Common.Point(20, 20);
@@ -37,6 +38,21 @@ namespace YetiAdventure.Test
             var service = new PrimitiveManager(eventagg.Object);
             service.MovePrimitive(primitive, expected);
             Assert.AreEqual(expected, primitive.Bounds.UpperLeft());
+        }
+
+
+        [TestMethod]
+        public void Operation_ValidPrimitive_Select()
+        {
+            var eventagg = new Mock<IEventAggregator>();
+            eventagg.Setup(mock => mock.GetEvent<PrimitiveCreatedEvent>()).Returns(new PrimitiveCreatedEvent());
+            var service = new PrimitiveManager(eventagg.Object);
+            var expected = new Primitive(new Shared.Common.Rectangle(100, 100, 0, 0)) { };
+            service.Primitives.Add(Guid.NewGuid(), expected);
+            var operation = new SelectionOperation(eventagg.Object, service);
+            var actual = operation.GetOperationTarget(new Shared.Common.Point(50, 50));
+
+            Assert.AreEqual(expected, actual);
         }
 
 
@@ -65,11 +81,15 @@ namespace YetiAdventure.Test
             primEvent.Subscribe(handler);
             
             var eventagg = new Mock<IEventAggregator>();
-
             eventagg.Setup(mock => mock.GetEvent<PrimitiveCreatedEvent>()).Returns(primEvent);
-            var polygonOperation = new PolygonOperation(eventagg.Object);
+
+            var primMgr = new Mock<IPrimitiveManager>();
+
+            var polygonOperation = new PolygonOperation(eventagg.Object, primMgr.Object);
             polygonOperation.AddPrimitive(0, expectedPrim);
             Assert.AreEqual(expectedPrim, actualPrim);
         }
+
+
     }
 }

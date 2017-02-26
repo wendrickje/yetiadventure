@@ -35,5 +35,11 @@ namespace YetiAdventure.Engine.Interfaces
         /// <param name="_spriteBatch">The sprite batch.</param>
         /// <param name="gameTime">The game time.</param>
         void Draw(SpriteBatch _spriteBatch, GameTime gameTime);
+
+        /// <summary>
+        /// Gets the primitive under point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        Primitive GetPrimitiveUnderPoint(Shared.Common.Point point);
     }
 }

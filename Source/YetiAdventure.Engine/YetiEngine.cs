@@ -106,8 +106,8 @@ namespace YetiAdventure.Engine
 
             _mainLevel = new Level();
 
-            _toolStateManager = new ToolStateManager(eventAggregator);
             _primitiveManager = new PrimitiveManager(eventAggregator);
+            _toolStateManager = new ToolStateManager(eventAggregator, _primitiveManager);
         }
 
         private void CreateGroundAndPlayer(World physicalWorld)

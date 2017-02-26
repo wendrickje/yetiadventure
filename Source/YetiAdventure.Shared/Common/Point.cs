@@ -66,6 +66,63 @@ namespace YetiAdventure.Shared.Common
         }
 
         /// <summary>
+        /// Implements the operator &gt;.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator > (Point first, Point second)
+        {
+            return first.X > second.X && first.Y > second.Y;
+        }
+
+        /// <summary>
+        /// Implements the operator &gt;=.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator >= (Point first, Point second)
+        {
+            return first.X >= second.X && first.Y >= second.Y;
+        }
+
+        /// <summary>
+        /// Implements the operator &lt;.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator < (Point first, Point second)
+        {
+            return first.X < second.X && first.Y < second.Y;
+        }
+    
+
+        /// <summary>
+        /// Implements the operator &lt;=.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator <= (Point first, Point second)
+        {
+            return first.X <= second.X && first.Y <= second.Y;
+   
+        }
+
+
+
+
+        /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>

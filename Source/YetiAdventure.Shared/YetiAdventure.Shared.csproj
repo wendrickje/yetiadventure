@@ -64,6 +64,9 @@
     <EmbeddedResource Include="Resources\Polygon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FarseerPhysics">
+      <HintPath>..\..\Vendor\Farseer\FarseerPhysics.dll</HintPath>
+    </Reference>
     <Reference Include="Prism">
       <HintPath>..\..\Vendor\Microsoft\Prism.dll</HintPath>
     </Reference>

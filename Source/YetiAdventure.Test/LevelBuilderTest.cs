@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FarseerPhysics.Dynamics;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -30,7 +31,8 @@ namespace YetiAdventure.Test
         [TestMethod]
         public void Operation_ValidPrimitive_Move_ValidPosition()
         {
-            var primitive = new Primitive(new Shared.Common.Rectangle());
+            var world = new Mock<World>(new Microsoft.Xna.Framework.Vector2());
+            var primitive = new Primitive(new Shared.Common.Rectangle(), new Body(world.Object));
             var expected = new Shared.Common.Point(20, 20);
 
             var eventagg = new Mock<IEventAggregator>();
@@ -44,10 +46,11 @@ namespace YetiAdventure.Test
         [TestMethod]
         public void Operation_ValidPrimitive_Select()
         {
+            var world = new Mock<World>(new Microsoft.Xna.Framework.Vector2());
             var eventagg = new Mock<IEventAggregator>();
             eventagg.Setup(mock => mock.GetEvent<PrimitiveCreatedEvent>()).Returns(new PrimitiveCreatedEvent());
             var service = new PrimitiveManager(eventagg.Object);
-            var expected = new Primitive(new Shared.Common.Rectangle(100, 100, 0, 0)) { };
+            var expected = new Primitive(new Shared.Common.Rectangle(100, 100, 0, 0), new Body(world.Object)) { };
             service.Primitives.Add(Guid.NewGuid(), expected);
             var operation = new SelectionOperation(eventagg.Object, service);
             var actual = operation.GetOperationTarget(new Shared.Common.Point(50, 50));
@@ -75,7 +78,8 @@ namespace YetiAdventure.Test
         public void PrimitiveManager_EventPublish_OnAddNewPolygon()
         {
             var primEvent = new PrimitiveCreatedEvent();
-            var expectedPrim = new Primitive(new Shared.Common.Rectangle(5,6,7,898));
+            var world = new Mock<World>(new Microsoft.Xna.Framework.Vector2());
+            var expectedPrim = new Primitive(new Shared.Common.Rectangle(5,6,7,898), new Body(world.Object));
             Primitive actualPrim = null;
             Action<PrimitiveCreatedEventArgs> handler = arg => { actualPrim = arg.NewItem; };
             primEvent.Subscribe(handler);
@@ -86,7 +90,7 @@ namespace YetiAdventure.Test
             var primMgr = new Mock<IPrimitiveManager>();
 
             var polygonOperation = new PolygonOperation(eventagg.Object, primMgr.Object);
-            polygonOperation.AddPrimitive(0, expectedPrim);
+            polygonOperation.AddPrimitive(expectedPrim);
             Assert.AreEqual(expectedPrim, actualPrim);
         }
 

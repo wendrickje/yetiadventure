@@ -47,7 +47,7 @@ namespace YetiAdventure.Engine.Common
         /// <value>
         /// The mouse point.
         /// </value>
-        public Vector2 MousePoint { get; set; }
+        public Shared.Common.Point MousePoint { get; set; }
 
         /// <summary>
         /// Gets the state of the mouse.
@@ -73,7 +73,13 @@ namespace YetiAdventure.Engine.Common
         /// </value>
         public SpriteBatch SpriteBatch { get; set; }
 
-
+        /// <summary>
+        /// Gets the sprite font.
+        /// </summary>
+        /// <value>
+        /// The sprite font.
+        /// </value>
+        public SpriteFont SpriteFont { get; set; }
     }
 
     /// <summary>

@@ -58,6 +58,16 @@ namespace YetiAdventure.Engine.Common
         }
 
         /// <summary>
+        /// Converts the rectangle to shared rectangle.
+        /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <returns></returns>
+        public static Rectangle ConvertSharedRectangleToRectangle(this Shared.Common.Rectangle rect)
+        {
+            var box = new Rectangle((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
+            return box;
+        }
+        /// <summary>
         /// Converts the color to shared color.
         /// </summary>
         /// <param name="color">The color.</param>

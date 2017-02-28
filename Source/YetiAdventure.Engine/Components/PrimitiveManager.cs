@@ -53,6 +53,31 @@ namespace YetiAdventure.Engine.Components
             }
         }
 
+
+
+        /// <summary>
+        /// Draws the specified sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
+        /// <param name="gameTime">The game time.</param>
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, SpriteFont font)
+        {
+
+            //foreach (var prim in Primitives)
+            //{
+            //    var verts = prim.Value.Verticies.Select(v => v.ConvertToVector2()).ToArray();
+            //    var pos = new Vector2(prim.Value.Bounds.X, prim.Value.Bounds.Y);
+            //    foreach (var vert in verts)
+            //    {
+
+            //        var str = String.Format("x{0}, y{0}", vert.X, vert.Y);
+            //        spriteBatch.DrawString(font, str, new Vector2(pos.X, pos.Y), Microsoft.Xna.Framework.Color.White);
+            //        pos.Y = pos.Y + 25f;
+            //    }
+            //    spriteBatch.DrawPolygon(verts, Microsoft.Xna.Framework.Color.Red);
+            //}
+        }
+
         /// <summary>
         /// Gets the primitive.
         /// </summary>
@@ -70,23 +95,25 @@ namespace YetiAdventure.Engine.Components
         /// <param name="point">The point.</param>
         public void MovePrimitive(Primitive primitive, Shared.Common.Point point)
         {
+            //need to get top-left use point as reference
             var previousBounds = primitive.Bounds;
+            var previousPoint = new Shared.Common.Point(previousBounds.X, previousBounds.Y);
             primitive.Bounds = new Shared.Common.Rectangle(previousBounds.Height, previousBounds.Width, point.X, point.Y);
-        }
+            var deltaX = point.X - previousPoint.X;
+            var deltaY = point.Y - previousPoint.Y;
 
-        /// <summary>
-        /// Draws the specified sprite batch.
-        /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="gameTime">The game time.</param>
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            
-            foreach (var prim in Primitives)
+            //move each vert using point of reference
+            foreach (var verticy in primitive.Verticies)
             {
-                var verts = prim.Value.Verticies.Select(v => v.ConvertToVector2()).ToArray();
-                spriteBatch.DrawPolygon(verts, Microsoft.Xna.Framework.Color.Red);
+                var vert = verticy;
+                var x = (verticy.X + deltaX);
+                var y = (verticy.Y + deltaY);
+                vert.X = x;
+                vert.Y = y;
+                
             }
+
+            primitive.Body.Position = primitive.Body.Position + new Vector2(deltaX, deltaY);
         }
 
         /// <summary>
@@ -98,6 +125,28 @@ namespace YetiAdventure.Engine.Components
 
             var kvp = Primitives.FirstOrDefault(p => p.Value.Bounds.Contains(point));
             return kvp.Value;
+        }
+
+        /// <summary>
+        /// Gets the primitive under point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        public Guid GetPrimitiveIdUnderPoint(Shared.Common.Point point)
+        {
+
+            var kvp = Primitives.FirstOrDefault(p => p.Value.Bounds.Contains(point));
+            return kvp.Key;
+        }
+
+        /// <summary>
+        /// Moves the primitive by identifier
+        /// </summary>
+        /// <param name="primitiveId">identifier</param>
+        /// <param name="point">point</param>
+        public void MovePrimitiveById(Guid primitiveId, Shared.Common.Point point)
+        {
+            var prim = GetPrimitive(primitiveId);
+            MovePrimitive(prim, point);
         }
     }
 }

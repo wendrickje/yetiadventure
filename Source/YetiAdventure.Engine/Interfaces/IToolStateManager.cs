@@ -39,8 +39,9 @@ namespace YetiAdventure.Engine.Interfaces
         /// <summary>
         /// Draws the specified sprite batch.
         /// </summary>
-        /// <param name="_spriteBatch">The sprite batch.</param>
+        /// <param name="spriteBatch">The sprite batch.</param>
         /// <param name="gameTime">The game time.</param>
-        void Draw(SpriteBatch _spriteBatch, GameTime gameTime);
+        /// <param name="font">The font.</param>
+        void Draw(SpriteBatch spriteBatch, GameTime gameTime, SpriteFont font);
     }
 }

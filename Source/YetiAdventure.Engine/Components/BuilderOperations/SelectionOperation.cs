@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Prism.Events;
 using YetiAdventure.Engine.Common;
 using YetiAdventure.Engine.Interfaces;
+using YetiAdventure.Shared.Common;
 using YetiAdventure.Shared.Events;
 using YetiAdventure.Shared.Models;
 
@@ -18,7 +19,7 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
     /// <seealso cref="YetiAdventure.Engine.Common.ToolOperationBase" />
     public class SelectionOperation : ToolOperationBase
     {
-        private List<Primitive> OperationTargets = new List<Primitive>();
+        private List<Primitive> _operationTargets = new List<Primitive>();
         private IEventAggregator _eventAggregator;
         private IPrimitiveManager _primitiveManager;
 
@@ -42,7 +43,7 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
             var position = args.MousePoint;
             if(args.IsLeftMouseButtonClicked())
             {
-                var target = GetOperationTarget(args.MousePoint.ConvertToSharedPoint());
+                var target = GetOperationTarget(args.MousePoint);
                 if(target != null)
                 {
                     AddOperationTarget(target);
@@ -58,16 +59,26 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         {
             base.Draw(args);
             var spriteBatch = args.SpriteBatch;
-            foreach(var prim in OperationTargets)
+            foreach(var prim in _operationTargets)
             {
-                spriteBatch.DrawPolygon(prim.Verticies.Select(v => v.ConvertToVector2()).ToArray(), Color.ForestGreen);
+                //cache the binding box or not?
+                var box = prim.Bounds.ConvertSharedRectangleToRectangle();
+#if Debug
+                var boxDimensions = String.Format("X {0}, Y {1} | H {2} W {3}", box.X, box.Y, box.Height, box.Width);
+                spriteBatch.DrawString(args.SpriteFont, boxDimensions, new Vector2(box.Center.X, box.Center.Y), Microsoft.Xna.Framework.Color.White);
+#endif
+                spriteBatch.DrawRectangle(box, Microsoft.Xna.Framework.Color.ForestGreen);
+
+               
+
             }
+
         }
 
         internal void AddOperationTarget(Primitive target)
         {
-            if(OperationTargets.Contains(target)) return;
-            OperationTargets.Add(target);
+            if(_operationTargets.Contains(target)) return;
+            _operationTargets.Add(target);
             _eventAggregator.GetEvent<SelectionChangedEvent>().Publish(new SelectionChangedEventArgs() { NewItem = target });
             
         }

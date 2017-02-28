@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FarseerPhysics.Dynamics;
 using YetiAdventure.Shared.Common;
 
 namespace YetiAdventure.Shared.Models
@@ -12,31 +13,20 @@ namespace YetiAdventure.Shared.Models
     /// </summary>
     public class Primitive
     {
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Primitive"/> class.
         /// </summary>
         /// <param name="bounds">The bounds.</param>
-        public Primitive(Rectangle bounds)
+        /// <param name="levelBody">The level body.</param>
+        public Primitive(Rectangle bounds, Body levelBody)
         {
+            _body = levelBody;
             Bounds = bounds;
         }
 
-        private Guid _guid;
-
-        /// <summary>
-        /// Primitive ID
-        /// /// </summary>
-        public Guid Guid
-        {
-            get
-            {
-                return _guid == null || _guid == Guid.Empty ? (_guid = Guid.NewGuid()) : _guid;
-            }
-        }
-        
-
         private List<Point> _verticies;
+        private Body _body;
 
         /// <summary>
         /// Gets the verticies.
@@ -59,6 +49,14 @@ namespace YetiAdventure.Shared.Models
         /// The bounds.
         /// </value>
         public Rectangle Bounds { get; set; }
+
+        /// <summary>
+        /// Gets the body.
+        /// </summary>
+        /// <value>
+        /// The body.
+        /// </value>
+        public Body Body { get { return _body;  } }
 
     }
 }

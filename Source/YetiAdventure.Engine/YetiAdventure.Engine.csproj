@@ -41,7 +41,7 @@
     <Compile Include="Common\Texture2DExtensions.cs" />
     <Compile Include="Common\ToolOperation.cs" />
     <Compile Include="Components\AnimatedSprite.cs" />
-    <Compile Include="Components\BuilderOperations\MoveOperation.cs" />
+    <Compile Include="Components\BuilderOperations\TransformOperation.cs" />
     <Compile Include="Components\BuilderOperations\SelectionOperation.cs" />
     <Compile Include="Components\PrimitiveManager.cs" />
     <Compile Include="Components\BuilderOperations\PolygonOperation.cs" />

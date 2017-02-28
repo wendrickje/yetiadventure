@@ -105,9 +105,6 @@ namespace YetiAdventure.Engine
             IsMouseVisible = true;
 
             _mainLevel = new Level();
-
-            _primitiveManager = new PrimitiveManager(eventAggregator);
-            _toolStateManager = new ToolStateManager(eventAggregator, _primitiveManager);
         }
 
         private void CreateGroundAndPlayer(World physicalWorld)
@@ -139,6 +136,9 @@ namespace YetiAdventure.Engine
 
             _spriteFont = _content.Load<SpriteFont>("Arial");
 
+            _primitiveManager = new PrimitiveManager(_eventAggregator);
+            _toolStateManager = new ToolStateManager(_eventAggregator, _primitiveManager);
+
             World physicalWorld = PhysicsEngine.GetSingleton().PhysicsWorld;
 
             CreateGroundAndPlayer(physicalWorld);
@@ -152,8 +152,6 @@ namespace YetiAdventure.Engine
         public void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            //_eddySprites.LoadContent(_content);
-            _spriteFont = _content.Load<SpriteFont>("font");
         }
 
         /// <summary>
@@ -319,8 +317,8 @@ namespace YetiAdventure.Engine
         {
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
 
-            _toolStateManager.Draw(_spriteBatch, gameTime);
-            _primitiveManager.Draw(_spriteBatch, gameTime);
+            _toolStateManager.Draw(_spriteBatch, gameTime, _spriteFont);
+            _primitiveManager.Draw(_spriteBatch, gameTime, _spriteFont);
 
 
 

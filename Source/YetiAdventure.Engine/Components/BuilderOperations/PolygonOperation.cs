@@ -25,7 +25,6 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
     public class PolygonOperation : ToolOperationBase
     {
         private List<Vector2> _polygonVertices;
-        private Dictionary<int, Primitive> _primitives;
         private IEventAggregator _eventAggregator;
         private IPrimitiveManager _primitiveManager;
 
@@ -35,7 +34,6 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         public PolygonOperation(IEventAggregator eventAggregator, IPrimitiveManager primitiveManager)
         {
             _polygonVertices = new List<Vector2>();
-            _primitives = new Dictionary<int, Primitive>();
             _eventAggregator = eventAggregator;
             _primitiveManager = primitiveManager;
         }
@@ -47,7 +45,7 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         /// <param name="args"></param>
         public override void Update(ToolOperationArgs args)
         {
-            var position = args.MousePoint;
+            var position = args.MousePoint.ConvertToVector2();
             var mouseState = args.MouseState;
             var prevousMouseState = args.PreviousMouseState;
             if (args.IsLeftMouseButtonClicked())
@@ -58,9 +56,9 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
             {
                 if (_polygonVertices.Count >= 3)
                 {
-                    var verts = CreateLevelPolygon(_polygonVertices.ToArray());
+                    //var verts = CreateLevelPolygon(_polygonVertices.ToArray());
                     var primitive = CreatePrimitive(_polygonVertices);
-                    AddPrimitive(_primitives.Count, primitive);
+                    AddPrimitive(primitive);
 
                     _polygonVertices.Clear();
                 }
@@ -70,40 +68,31 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         /// <summary>
         /// Adds the primitive.
         /// </summary>
-        /// <param name="id">The identifier.</param>
         /// <param name="primitive">The primitive.</param>
-        internal void AddPrimitive(int id, Primitive primitive)
+        internal void AddPrimitive(Primitive primitive)
         {
-            _primitives.Add(id, primitive);
             var ev = _eventAggregator.GetEvent<PrimitiveCreatedEvent>();
             ev.Publish(new PrimitiveCreatedEventArgs() { NewItem = primitive });
         }
 
-        /// <summary>
-        /// Draws the specified arguments.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        public override void Draw(ToolOperationArgs args)
-        {
-        }
 
-        /// <summary>
-        /// Creates the level polygon.
-        /// </summary>
-        /// <param name="inVertices">The in vertices.</param>
-        /// <returns></returns>
-        private Vertices CreateLevelPolygon(Vector2[] inVertices)
-        {
-            Vertices bodyVertices = new Vertices(inVertices);
+        ///// <summary>
+        ///// Creates the level polygon.
+        ///// </summary>
+        ///// <param name="inVertices">The in vertices.</param>
+        ///// <returns></returns>
+        //private Vertices CreateLevelPolygon(Vector2[] inVertices)
+        //{
+        //    Vertices bodyVertices = new Vertices(inVertices);
 
-            List<Vertices> decomposedVertices = Triangulate.ConvexPartition(bodyVertices, TriangulationAlgorithm.Bayazit);
-            for (int bodyIndex = 0; bodyIndex < decomposedVertices.Count; ++bodyIndex)
-            {
-                var levelBody = BodyFactory.CreatePolygon(PhysicsEngine.GetSingleton().PhysicsWorld, decomposedVertices[bodyIndex], 1.0f);
-                levelBody.IsStatic = true;
-            }
-            return bodyVertices;
-        }
+        //    List<Vertices> decomposedVertices = Triangulate.ConvexPartition(bodyVertices, TriangulationAlgorithm.Bayazit);
+        //    for (int bodyIndex = 0; bodyIndex < decomposedVertices.Count; ++bodyIndex)
+        //    {
+        //        var levelBody = BodyFactory.CreatePolygon(PhysicsEngine.GetSingleton().PhysicsWorld, decomposedVertices[bodyIndex], 1.0f);
+        //        levelBody.IsStatic = true;
+        //    }
+        //    return bodyVertices;
+        //}
 
 
         /// <summary>
@@ -113,9 +102,9 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         /// <returns></returns>
         public Primitive CreatePrimitive(List<Vector2> verts)
         {
-
+            
             var bodyVertices = new Vertices(verts);
-            Body levelBody;
+            Body levelBody = null;
             List<Vertices> decomposedVertices = Triangulate.ConvexPartition(bodyVertices, TriangulationAlgorithm.Bayazit);
             for (int bodyIndex = 0; bodyIndex < decomposedVertices.Count; ++bodyIndex)
             {
@@ -132,7 +121,7 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
             var height = bottomMost.Y - topMost.Y;
             var rect = new Microsoft.Xna.Framework.Rectangle((int)leftMost.X, (int)topMost.Y, (int)width, (int)height);
             var center = rect.Center;
-            var primitive = new Primitive(rect.ConvertToSharedRectangle());
+            var primitive = new Primitive(rect.ConvertToSharedRectangle(), levelBody);
 
             primitive.Verticies.AddRange(verts.Select(v => new Shared.Common.Point(v.X, v.Y)));
             return primitive;

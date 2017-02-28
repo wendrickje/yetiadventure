@@ -38,6 +38,10 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\Vendor\Castle\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FarseerPhysics, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Vendor\Farseer\FarseerPhysics.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Vendor\Microsoft\Microsoft.Practices.Unity.dll</HintPath>

@@ -34,12 +34,26 @@ namespace YetiAdventure.Engine.Interfaces
         /// </summary>
         /// <param name="_spriteBatch">The sprite batch.</param>
         /// <param name="gameTime">The game time.</param>
-        void Draw(SpriteBatch _spriteBatch, GameTime gameTime);
+        void Draw(SpriteBatch _spriteBatch, GameTime gameTime, SpriteFont font);
 
         /// <summary>
         /// Gets the primitive under point.
         /// </summary>
         /// <param name="point">The point.</param>
         Primitive GetPrimitiveUnderPoint(Shared.Common.Point point);
+
+        /// <summary>
+        /// Gets the primitive identifier under point.
+        /// </summary>
+        /// <param name="mousePoint">The mouse point.</param>
+        /// <returns></returns>
+        Guid GetPrimitiveIdUnderPoint(Shared.Common.Point mousePoint);
+
+        /// <summary>
+        /// Moves the primitive by identifier.
+        /// </summary>
+        /// <param name="primitiveId">The primitive identifier.</param>
+        /// <param name="point">The point.</param>
+        void MovePrimitiveById(Guid primitiveId, Shared.Common.Point point);
     }
 }

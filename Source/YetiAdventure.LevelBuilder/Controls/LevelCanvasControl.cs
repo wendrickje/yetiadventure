@@ -33,6 +33,7 @@ namespace YetiAdventure.LevelBuilder.Controls
         {
 
             base.Initialize();
+            
             _engine = new YetiEngine(GraphicsDeviceService, _eventAggregator);
             // Need to tell the engine that it's in editor mode
             _engine.IsInEditor = true;

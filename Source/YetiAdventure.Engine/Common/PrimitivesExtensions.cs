@@ -10,9 +10,6 @@ namespace YetiAdventure.Engine.Common
 {
     public static class PrimitivesExtensions
     {
-
-        public static float LINE_THICKNESS_COEFFICIENT = 0.05f;
-
         #region Private Members
 
         private static readonly Dictionary<String, List<Vector2>> circleCache = new Dictionary<string, List<Vector2>>();
@@ -413,6 +410,8 @@ namespace YetiAdventure.Engine.Common
                 CreateThePixel(spriteBatch);
             }
 
+            float scaledLineThickness = thickness / YetiEngine.Instance.Camera.Zoom;
+
             // stretch the pixel between the two vectors
             spriteBatch.Draw(pixel,
                              point,
@@ -420,7 +419,7 @@ namespace YetiAdventure.Engine.Common
                              color,
                              angle,
                              Vector2.Zero,
-                             new Vector2(length, thickness * LINE_THICKNESS_COEFFICIENT),
+                             new Vector2(length, scaledLineThickness),
                              SpriteEffects.None,
                              0);
         }

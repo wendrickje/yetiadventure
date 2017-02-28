@@ -32,6 +32,8 @@ namespace YetiAdventure.Engine
     /// </summary>
     public class YetiEngine : IEngineProvider, ILevelBuilderService
     {
+        private static YetiEngine _sInstance;
+
         private GameServiceContainer _services;
         private GraphicsDevice _graphicsDevice;
         private ContentManager _content;
@@ -78,6 +80,13 @@ namespace YetiAdventure.Engine
         /// </summary>
         public bool IsInEditor { get; set; }
 
+        public Camera Camera { get { return _camera; } }
+        
+        /// <summary>
+        /// Retrieve the static instance of the YetiEngine.
+        /// </summary>
+        public static YetiEngine Instance { get { return _sInstance; } }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="YetiEngine"/> class.
         /// </summary>
@@ -85,6 +94,8 @@ namespace YetiAdventure.Engine
         /// <param name="eventAggregator">The event aggregator.</param>
         public YetiEngine(IGraphicsDeviceService graphics, IEventAggregator eventAggregator)
         {
+            _sInstance = this;
+
             _eventAggregator = eventAggregator;
             _services = new GameServiceContainer();
             _services.AddService(typeof(IGraphicsDeviceService), graphics);

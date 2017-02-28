@@ -29,7 +29,12 @@ namespace YetiAdventure.Shared.Common
         /// <summary>
         /// The panner/hand tool (moves viewport around)
         /// </summary>
-        Panner
+        Panner,
+
+        /// <summary>
+        /// A ruler tool to measure distances in the level editor.
+        /// </summary>
+        Ruler,
 
     }
 }

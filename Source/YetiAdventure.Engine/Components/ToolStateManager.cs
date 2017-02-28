@@ -37,18 +37,21 @@ namespace YetiAdventure.Engine.Components
             _polygonOperator = new PolygonOperation(eventAggregator, primitiveManager);
             _selectionOperator = new SelectionOperation(eventAggregator, primitiveManager);
             _transformOperator = new TransformOperation(eventAggregator, primitiveManager);
+            _rulerOperator = new RulerOperation();
 
             _toolUpdateOperations = new Dictionary<LevelBuilderTool, ToolOperationAction<ToolOperationResult, ToolOperationArgs>>()
             {
                 { LevelBuilderTool.DrawPolygon, PerformPolygonUpdateOperation },
                 { LevelBuilderTool.Selector,  PerformSelectionUpdateOperation },
-                { LevelBuilderTool.Transform,  PerformTransformUpdateOperation }
+                { LevelBuilderTool.Transform,  PerformTransformUpdateOperation },
+                { LevelBuilderTool.Ruler,  PerformRulerUpdateOperation }
             };
             _toolDrawOperations = new Dictionary<LevelBuilderTool, ToolOperationAction<ToolOperationResult, ToolOperationArgs>>()
             {
                 { LevelBuilderTool.DrawPolygon, PerformPolygonDrawOperation },
                 { LevelBuilderTool.Selector,  PerformSelectionDrawOperation },
-                { LevelBuilderTool.Transform,  PerformTransformDrawOperation }
+                { LevelBuilderTool.Transform,  PerformTransformDrawOperation },
+                { LevelBuilderTool.Ruler,  PerformRulerDrawOperation }
             };
         }
 
@@ -57,6 +60,7 @@ namespace YetiAdventure.Engine.Components
         private PolygonOperation _polygonOperator;
         private SelectionOperation _selectionOperator;
         private TransformOperation _transformOperator;
+        private RulerOperation _rulerOperator;
 
         /// <summary>
         /// Performs the polygon update operation.
@@ -123,7 +127,28 @@ namespace YetiAdventure.Engine.Components
         {
             _transformOperator.Update(args);
             return new ToolOperationResult();
+        }
 
+        /// <summary>
+        /// Performs the transform draw operation.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        private ToolOperationResult PerformRulerDrawOperation(ToolOperationArgs args)
+        {
+            _rulerOperator.Draw(args);
+            return new ToolOperationResult();
+        }
+
+        /// <summary>
+        /// Performs the transform update operation.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        private ToolOperationResult PerformRulerUpdateOperation(ToolOperationArgs args)
+        {
+            _rulerOperator.Update(args);
+            return new ToolOperationResult();
         }
         #endregion
 

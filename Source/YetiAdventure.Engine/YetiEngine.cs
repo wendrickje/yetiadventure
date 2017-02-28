@@ -280,16 +280,16 @@ namespace YetiAdventure.Engine
             }
             HandleEditorPanning(ref mouseState);
 
+            float zoomVariance = 0.25f;
+
             if (mouseState.ScrollWheelValue > _lastMouseState.ScrollWheelValue)
             {
-                _camera.Zoom = _camera.Zoom + 2.0f;
+                _camera.Zoom = _camera.Zoom * (1.0f + zoomVariance);
             }
             if (mouseState.ScrollWheelValue < _lastMouseState.ScrollWheelValue)
             {
-                _camera.Zoom = _camera.Zoom - 2.0f;
+                _camera.Zoom = _camera.Zoom * (1.0f - zoomVariance);
             }
-
-            //_eddySprites.Update(gameTime);
 
             PhysicsEngine.GetSingleton().Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 

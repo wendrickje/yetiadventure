@@ -102,6 +102,12 @@ namespace YetiAdventure.LevelBuilder.ViewModel
                 IconType.Transform,
                 TransformCommand));
 
+            //ruler tool
+            items.Add(new ToolBoxItemViewModel(Resources.Constants.Controls_ToolboxItem_Transform_Caption,
+                Resources.Constants.Controls_ToolboxItem_Transform_Tooltip,
+                IconType.Transform,
+                UseRulerCommand));
+
             return items;
         }
 
@@ -242,6 +248,42 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         private void DoUseCursor(object obj)
         {
             LevelBuilderService.SetActiveLevelBuilderTool(LevelBuilderTool.Selector);
+        }
+        #endregion
+
+        #region Ruler command
+        private ICommand _rulerCommand;
+
+        /// <summary>
+        /// Gets the use ruler command.
+        /// </summary>
+        /// <value>
+        /// The use ruler command.
+        /// </value>
+        public ICommand UseRulerCommand
+        {
+            get { return _rulerCommand ?? (_rulerCommand = new RelayCommand(DoUseRuler, CanUseRuler)); }
+        }
+
+        /// <summary>
+        /// Determines whether this instance [can use ruler] the specified object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>
+        ///   <c>true</c> if this instance [can use ruler] the specified object; otherwise, <c>false</c>.
+        /// </returns>
+        private bool CanUseRuler(object obj)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Does the use ruler.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void DoUseRuler(object obj)
+        {
+            LevelBuilderService.SetActiveLevelBuilderTool(LevelBuilderTool.Ruler);
         }
         #endregion
     }

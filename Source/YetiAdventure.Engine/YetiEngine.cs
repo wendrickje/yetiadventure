@@ -258,15 +258,10 @@ namespace YetiAdventure.Engine
             }
 
             _camera.Update(gameTime);
-            //_camera.TargetPosition = fallingBody.Position;
             MouseState mouseState = Mouse.GetCursorState();
-            _mousePosition = new Vector2(mouseState.X, mouseState.Y);
             var mouseWorldPosition = _camera.ConvertScreenToWorld(_mousePosition);
 
             _toolStateManager.Update(mouseWorldPosition, mouseState);
-            
-
-            Debug.WriteLine(string.Format("World pos: ({0}, {1})", mouseWorldPosition.X, mouseWorldPosition.Y));
 
             if (_editMode == EditMode.CreateJunk)
             {
@@ -342,6 +337,11 @@ namespace YetiAdventure.Engine
             {
                 _spriteBatch.DrawString(_spriteFont, "Gameplay Mode", Vector2.One * 10.0f, Microsoft.Xna.Framework.Color.Black);
             }
+
+            // Diplay the world position of the cursor within the editor control.
+            Vector2 worldSpaceStartPanPos = _camera.ConvertScreenToWorld(_mousePosition);
+            string worldPosString = string.Format("World Position: ({0}, {1})", worldSpaceStartPanPos.X, worldSpaceStartPanPos.Y);
+            _spriteBatch.DrawString(_spriteFont, worldPosString, new Vector2(10.0f, 30.0f), Microsoft.Xna.Framework.Color.Black);
             _spriteBatch.End();
         }
 

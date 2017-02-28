@@ -66,6 +66,18 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         }
 
         /// <summary>
+        /// Draws the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        public override void Draw(ToolOperationArgs args)
+        {
+            if (_polygonVertices.Count >=3)
+            {
+                args.SpriteBatch.DrawPolygon(_polygonVertices.ToArray(), Color.Red);
+            }
+        }
+
+        /// <summary>
         /// Adds the primitive.
         /// </summary>
         /// <param name="primitive">The primitive.</param>

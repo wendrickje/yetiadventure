@@ -57,6 +57,7 @@
     <Content Include="Resources\appbar.disk.png" />
     <Content Include="Resources\appbar.layer.png" />
     <Content Include="Resources\appbar.question.png" />
+    <EmbeddedResource Include="Resources\Ruler.png" />
     <Content Include="Resources\appbar.vector.rectangle.png" />
     <EmbeddedResource Include="Resources\Transform.png" />
   </ItemGroup>

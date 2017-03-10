@@ -60,9 +60,9 @@
         </Grid.RowDefinitions>
 
         <Menu Background="{StaticResource BackgroundBrush}">
-            <MenuItem Header="{x:Static resources:Constants.filemenucaption}">
+            <MenuItem Header="{x:Static resources:Strings.filemenucaption}">
                 <MenuItem.Items>
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_new}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_new}"
                               Command="{Binding NewCommand}"
                               InputGestureText="Ctrl + N">
                         <!--<MenuItem.Icon>
@@ -70,7 +70,7 @@
                                      Template="{StaticResource {x:Static resourceKeys:Icons.New}}" />
                         </MenuItem.Icon>-->
                     </MenuItem>
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_open}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_open}"
                               Command="{Binding OpenCommand}"
                               InputGestureText="Ctrl + O">
                         <!--<MenuItem.Icon>
@@ -79,10 +79,10 @@
                         </MenuItem.Icon>-->
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_close}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_close}"
                               Command="{Binding CloseCommand}" />
                     <Separator />
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_save}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_save}"
                               Command="{Binding SaveCommand}"
                               InputGestureText="Ctrl + S">
                         <!--<MenuItem.Icon>
@@ -90,7 +90,7 @@
                                      Template="{StaticResource {x:Static resourceKeys:Icons.Save}}" />
                         </MenuItem.Icon>-->
                     </MenuItem>
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_saveas}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_saveas}"
                               Command="{Binding SaveAsCommand}"
                               InputGestureText="Shift + Ctrl + S">
                         <!--<MenuItem.Icon>
@@ -99,7 +99,7 @@
                         </MenuItem.Icon>-->
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_export}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_export}"
                               Command="{Binding ExportCommand}">
                         <!--<MenuItem.Icon>
                             <Control Style="{StaticResource MenuItemStyle}"
@@ -107,25 +107,25 @@
                         </MenuItem.Icon>-->
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="{x:Static resources:Constants.filemenu_exit}"
+                    <MenuItem Header="{x:Static resources:Strings.filemenu_exit}"
                               Command="{Binding ExitCommand}"
                               InputGestureText="Alt + F4" />
                 </MenuItem.Items>
             </MenuItem>
-            <!--<MenuItem Header="{x:Static resources:Constants.editmenucaption}">
-                <MenuItem Header="{x:Static resources:Constants.editmenu_canvassize}"
+            <!--<MenuItem Header="{x:Static resources:Strings.editmenucaption}">
+                <MenuItem Header="{x:Static resources:Strings.editmenu_canvassize}"
                           Command="{Binding ChangeCanvasSizeCommand}"
                           InputGestureText="Shift + Ctrl + C" />
             </MenuItem>-->
-            <!--<MenuItem Header="{x:Static resources:Constants.viewmenucaption}">
+            <!--<MenuItem Header="{x:Static resources:Strings.viewmenucaption}">
                 <MenuItem IsCheckable="True"
                           IsChecked="{Binding ShowCanvasLines}"
-                          Header="{x:Static resources:Constants.viewmenu_gridlines}" />
+                          Header="{x:Static resources:Strings.viewmenu_gridlines}" />
             </MenuItem>-->
-            <MenuItem Header="{x:Static resources:Constants.helpmenucaption}">
-                <MenuItem Header="{x:Static resources:Constants.helpmenu_documentation}" />
+            <MenuItem Header="{x:Static resources:Strings.helpmenucaption}">
+                <MenuItem Header="{x:Static resources:Strings.helpmenu_documentation}" />
                 <Separator />
-                <MenuItem Header="{x:Static resources:Constants.helpmenu_about}" />
+                <MenuItem Header="{x:Static resources:Strings.helpmenu_about}" />
             </MenuItem>
         </Menu>
 

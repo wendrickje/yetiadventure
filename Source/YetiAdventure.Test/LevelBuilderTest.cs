@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Prism.Events;
+using YetiAdventure.Engine.Common;
 using YetiAdventure.Engine.Components;
 using YetiAdventure.Engine.Components.BuilderOperations;
 using YetiAdventure.Engine.Interfaces;
@@ -56,6 +57,21 @@ namespace YetiAdventure.Test
             var actual = operation.GetOperationTarget(new Shared.Common.Point(50, 50));
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Operation_ValidPrimitive_Transform_SetTarget()
+        {
+            //var world = new Mock<World>(new Microsoft.Xna.Framework.Vector2());
+            //var eventagg = new Mock<IEventAggregator>();
+            //eventagg.Setup(mock => mock.GetEvent<PrimitiveCreatedEvent>()).Returns(new PrimitiveCreatedEvent());
+            //var service = new PrimitiveManager(eventagg.Object);
+            //var expected = new Primitive(new Shared.Common.Rectangle(100, 100, 0, 0), new Body(world.Object)) { };
+            //service.Primitives.Add(Guid.NewGuid(), expected);
+            //var operation = new TransformOperation(eventagg.Object, service);
+            //var args = new ToolOperationArgs();
+            //operation.Update(args);
+            
         }
 
 

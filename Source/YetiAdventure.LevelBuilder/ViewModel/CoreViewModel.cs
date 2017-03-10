@@ -82,7 +82,6 @@ namespace YetiAdventure.LevelBuilder.ViewModel
             OnPropertyChanged(target.Member.Name);
         }
 
-
         #endregion
     }
 }

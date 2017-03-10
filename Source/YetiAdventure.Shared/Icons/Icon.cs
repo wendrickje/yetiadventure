@@ -42,6 +42,7 @@ namespace YetiAdventure.Shared.Icons
             value.Add(IconType.Polygon, new Icon(IconType.Polygon));
             value.Add(IconType.Cursor, new Icon(IconType.Cursor));
             value.Add(IconType.Transform, new Icon(IconType.Transform));
+            value.Add(IconType.Ruler, new Icon(IconType.Ruler));
             return value;
         }
     }
@@ -52,7 +53,8 @@ namespace YetiAdventure.Shared.Icons
         // Name must match embedded file name
         Cursor,
         Polygon,
-        Transform
+        Transform,
+        Ruler
 
     }
 }

@@ -165,8 +165,7 @@ namespace YetiAdventure.LevelBuilder.Controls
 
             return null;
         }
-
-        private static Random rand = new Random();
+        
 
         private void EndDraw()
         {

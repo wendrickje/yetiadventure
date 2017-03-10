@@ -18,6 +18,9 @@ namespace YetiAdventure.LevelBuilder.Common
             public static string DisabledBackground = "disabledcolorbackground";
             public static string ValidationTemplate = "ValidationTemplate";
 
+            public static string IconFill = "IconFill";
+            public static string IconFillHover = "IconFillHover";
+
             public const int EmptyTileKey = 0;
             public const int StartTileKey = -1;
             public const int EventTileKey = -2;

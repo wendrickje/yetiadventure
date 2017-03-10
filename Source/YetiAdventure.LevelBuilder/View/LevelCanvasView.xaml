@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:YetiAdventure.LevelBuilder.View"
+             xmlns:controls="clr-namespace:YetiAdventure.LevelBuilder.Controls"
              xmlns:viewModel="clr-namespace:YetiAdventure.LevelBuilder.ViewModel"
              xmlns:resources="clr-namespace:YetiAdventure.LevelBuilder.Resources"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -18,17 +19,41 @@
             <xcad:LayoutRoot>
                 <xcad:LayoutPanel>
                     <xcad:LayoutDocumentPane ShowHeader="False" CanRepositionItems="False">
-                        <xcad:LayoutDocument CanClose="False" Title="{x:Static resources:Constants.Controls_LevelCanvasControl_Header}" >
+                        <xcad:LayoutDocument CanClose="False" Title="{x:Static resources:Strings.Controls_LevelCanvasControl_Header}" >
                             
                             <WindowsFormsHost x:Name="FormsHost" />
                         </xcad:LayoutDocument>
 
                     </xcad:LayoutDocumentPane>
-                    <xcad:LayoutAnchorablePane DockWidth="250" >
-                        <xcad:LayoutAnchorable Title="{x:Static resources:Constants.Controls_ToolboxControl_Header}" CanClose="False" CanAutoHide="False" CanHide="False">
-                            <ContentControl prism:RegionManager.RegionName="{x:Static viewModel:ToolBoxViewModel.RegionName}" />
-                        </xcad:LayoutAnchorable>
-                    </xcad:LayoutAnchorablePane>
+                    <xcad:LayoutPanel Orientation="Vertical" DockWidth="250">
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable Title="{x:Static resources:Strings.Controls_ToolboxControl_Header}"
+                                                   CanClose="False"
+                                                   CanAutoHide="False"
+                                                   CanHide="False">
+                                <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                    <!--<controls:DockPanePopupButton Host="{Binding RelativeSource={RelativeSource AncestorType={x:Type xcad:LayoutAnchorable}}}"
+                                                                  Grid.Row="0"
+                                                                  HorizontalAlignment="Right" />-->
+                                    <ContentControl prism:RegionManager.RegionName="{x:Static viewModel:ToolBoxViewModel.RegionName}" Grid.Row="1" />
+                                    </Grid>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+
+                        <xcad:LayoutAnchorablePane >
+                            <xcad:LayoutAnchorable Title="{x:Static resources:Strings.PropertiesPanelHeader}"
+                                                   CanClose="False"
+                                                   CanAutoHide="False"
+                                                   CanHide="False">
+                                <ContentControl prism:RegionManager.RegionName="{x:Static viewModel:PropertiesViewModel.RegionName}" />
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutPanel>
                 </xcad:LayoutPanel>
             </xcad:LayoutRoot>
         </xcad:DockingManager>

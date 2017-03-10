@@ -51,18 +51,19 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         public override void Update(ToolOperationArgs args)
         {
             base.Update(args);
+
+            //when operation completed reset
             if (args.MouseState.LeftButton == OpenTK.Input.ButtonState.Released)
             {
                 _isOperating = false;
+                _target = null;
             }
 
             //get selected item
-            if (args.MouseState.LeftButton == OpenTK.Input.ButtonState.Pressed)
+            //target should only be set once
+            if (args.MouseState.LeftButton == OpenTK.Input.ButtonState.Pressed && _target == null)
             {
                 _target = _primitiveManager.GetPrimitiveUnderPoint(args.MousePoint);
-                //calculate the top-left of the prim using mouse point as a reference
-                var point = args.MousePoint;
-                var reference = new Shared.Common.Point(point.X, point.Y);
                 _isOperating = _target != null;
             }
 
@@ -71,13 +72,19 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
 
             //point will be somewhere inside the prim
             //when draging around prim update position
-            
 
-            _primitiveManager.MovePrimitive(_target, args.MousePoint);
 
-            
+            //calculate the top-left of the prim using mouse point as a reference
+            var point = args.MousePoint;
+            var topleft = _target.Bounds.UpperLeft();
+            var delta = topleft - point;
 
-            
+            var destination = args.MousePoint - delta;
+            _primitiveManager.MovePrimitive(_target, destination);
+
+
+
+
         }
 
 

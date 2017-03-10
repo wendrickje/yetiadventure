@@ -92,7 +92,7 @@ namespace YetiAdventure.LevelBuilder.Common
                 {
                     var msg = e.Message;
                     var details = e.ToString();
-                    MessageBox.Show(String.Format("{0}\n{1}", msg, details), Resources.Constants.ExceptionDialogTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(String.Format("{0}\n{1}", msg, details), Resources.Strings.ExceptionDialogTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 }), DispatcherPriority.Normal);
             }
         }

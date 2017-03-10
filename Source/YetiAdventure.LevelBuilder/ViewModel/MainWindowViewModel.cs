@@ -17,12 +17,17 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         IRegionManager _regionManager;
         public const string MainRegionName = "MainRegion";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
+        /// <param name="regionManager">The region manager.</param>
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
 
             var region = _regionManager.RegisterViewWithRegion(MainRegionName, typeof(LevelCanvasView));
             region.RegisterViewWithRegion(ToolBoxViewModel.RegionName, typeof(ToolBoxView));
+            region.RegisterViewWithRegion(PropertiesViewModel.RegionName, typeof(PropertiesView));
         }
 
         #region newCommand

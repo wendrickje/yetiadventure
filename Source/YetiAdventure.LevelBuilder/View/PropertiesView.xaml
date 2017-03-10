@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="YetiAdventure.LevelBuilder.View.PropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:YetiAdventure.LevelBuilder.View"
+             xmlns:modelCommon="clr-namespace:YetiAdventure.Shared.Common;assembly=YetiAdventure.Shared"
+             xmlns:viewmodel="clr-namespace:YetiAdventure.LevelBuilder.ViewModel"
+             xmlns:resources="clr-namespace:YetiAdventure.LevelBuilder.Resources"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/PrimitivePropertiesDataEditors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid d:DataContext="{x:Type viewmodel:PropertiesViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            
+        </Grid.RowDefinitions>
+
+        <xctk:PropertyGrid SnapsToDevicePixels="True"
+                           x:Name="propertyGrid"
+                           AutoGenerateProperties="True"
+                           SelectedObject="{Binding Target}"
+                           EditorDefinitions="{StaticResource {x:Static resources:StaticKeys.PropertyGrid_EditorDefinitions}}"
+                           >
+            <!--<xctk:PropertyGrid.PropertyDefinitions>
+                    <xctk:PropertyDefinition TargetProperties="Bounds" />
+                    <xctk:PropertyDefinition TargetProperties="Point" />
+                    <xctk:PropertyDefinition TargetProperties="Vertices" />
+                </xctk:PropertyGrid.PropertyDefinitions>-->
+        </xctk:PropertyGrid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button Command="{Binding SaveCommand}"
+                    Margin="4,4,0,4"
+                    Content="{x:Static resources:Strings.PrimProps_SaveCaption}" />
+            <Button Command="{Binding CancelCommand}"
+                    Margin="4"
+                    Content="{x:Static resources:Strings.PrimProps_CancelCaption}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

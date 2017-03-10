@@ -89,18 +89,18 @@ namespace YetiAdventure.Engine.Components
         }
 
         /// <summary>
-        /// Moves the primitive.
+        /// Moves the primitive to <paramref name="destination" />; where <paramref name="destination" /> will become the top left of the primitive.
         /// </summary>
         /// <param name="primitive">The primitive.</param>
-        /// <param name="point">The point.</param>
-        public void MovePrimitive(Primitive primitive, Shared.Common.Point point)
+        /// <param name="destination">The top left destination point.</param>
+        public void MovePrimitive(Primitive primitive, Shared.Common.Point destination)
         {
             //need to get top-left use point as reference
             var previousBounds = primitive.Bounds;
             var previousPoint = new Shared.Common.Point(previousBounds.X, previousBounds.Y);
-            primitive.Bounds = new Shared.Common.Rectangle(previousBounds.Height, previousBounds.Width, point.X, point.Y);
-            var deltaX = point.X - previousPoint.X;
-            var deltaY = point.Y - previousPoint.Y;
+            primitive.Bounds = new Shared.Common.Rectangle(previousBounds.Height, previousBounds.Width, destination.X, destination.Y);
+            var deltaX = destination.X - previousPoint.X;
+            var deltaY = destination.Y - previousPoint.Y;
 
             //move each vert using point of reference
             foreach (var verticy in primitive.Verticies)

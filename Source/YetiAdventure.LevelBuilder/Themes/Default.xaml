@@ -19,7 +19,7 @@
     <Color x:Key="Secondary_Background">#FFFFFFFFF</Color>
 
     <Color x:Key="Primary_Foreground">#FF1E1E1E</Color>
-    <Color x:Key="Primary_Foreground_Hover">#FFFFFFFFF</Color>
+    <Color x:Key="Primary_Foreground_Hover">#FFFFFFFF</Color>
 
     <Color x:Key="Gold">#ffffcc33</Color>
     <Color x:Key="RoyalBlue">RoyalBlue</Color>
@@ -38,6 +38,7 @@
     <SolidColorBrush x:Key="{x:Static resourceKeys:Global.ForegroundHover}"
                      Color="{StaticResource Primary_Foreground_Hover}" />
 
+    
 
     <SolidColorBrush x:Key="{x:Static resourceKeys:Global.DisabledForeground}"
                      Color="{StaticResource Disabled_Foreground}" />
@@ -54,5 +55,10 @@
                      Color="{StaticResource Gold}" />
     <SolidColorBrush x:Key="{x:Static resourceKeys:Global.PickerTileBrush}"
                      Color="{StaticResource Gold}" />
+
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.IconFill}"
+                     Color="{StaticResource Primary_Foreground_Hover}" />
+    <SolidColorBrush x:Key="{x:Static resourceKeys:Global.IconFillHover}"
+                     Color="{StaticResource Primary_Foreground}" />
 
 </ResourceDictionary>

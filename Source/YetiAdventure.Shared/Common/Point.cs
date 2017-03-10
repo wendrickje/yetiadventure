@@ -119,8 +119,31 @@ namespace YetiAdventure.Shared.Common
    
         }
 
+        /// <summary>
+        /// Implements the operator -.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static Point operator - (Point first, Point second)
+        {
+            return new Point(first.X - second.X, first.Y - second.Y);
+        }
 
-
+        /// <summary>
+        /// Implements the operator +.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static Point operator + (Point first, Point second)
+        {
+            return new Point(first.X + second.X, first.Y + second.Y);
+        }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
@@ -164,6 +187,17 @@ namespace YetiAdventure.Shared.Common
         public bool Equals(Point other)
         {
             return Equals(other);
+        }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return String.Format("{0},{1}", X,Y);
         }
     }
 }

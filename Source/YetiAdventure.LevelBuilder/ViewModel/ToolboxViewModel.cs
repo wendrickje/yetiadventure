@@ -85,27 +85,27 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         {
             var items = new List<IToolboxItem>();
             //cursor tool
-            items.Add(new ToolBoxItemViewModel(Resources.Constants.Controls_ToolboxItem_Cursor_Caption,
-                Resources.Constants.Controls_ToolboxItem_Cursor_Tooltip,
+            items.Add(new ToolBoxItemViewModel(Resources.Strings.Controls_ToolboxItem_Cursor_Caption,
+                Resources.Strings.Controls_ToolboxItem_Cursor_Tooltip,
                 IconType.Cursor,
                 UseCursorCommand));
 
             //polygon tool
-            items.Add(new ToolBoxItemViewModel(Resources.Constants.Controls_ToolboxItem_Polygon_Caption,
-                Resources.Constants.Controls_ToolboxItem_Polygon_Tooltip,
+            items.Add(new ToolBoxItemViewModel(Resources.Strings.Controls_ToolboxItem_Polygon_Caption,
+                Resources.Strings.Controls_ToolboxItem_Polygon_Tooltip,
                 IconType.Polygon,
                 DrawPolygonCommand));
 
-            //selection-move tool
-            items.Add(new ToolBoxItemViewModel(Resources.Constants.Controls_ToolboxItem_Transform_Caption,
-                Resources.Constants.Controls_ToolboxItem_Transform_Tooltip,
+            //moves rotates and resize tool
+            items.Add(new ToolBoxItemViewModel(Resources.Strings.Controls_ToolboxItem_Transform_Caption,
+                Resources.Strings.Controls_ToolboxItem_Transform_Tooltip,
                 IconType.Transform,
                 TransformCommand));
 
             //ruler tool
-            items.Add(new ToolBoxItemViewModel(Resources.Constants.Controls_ToolboxItem_Transform_Caption,
-                Resources.Constants.Controls_ToolboxItem_Transform_Tooltip,
-                IconType.Transform,
+            items.Add(new ToolBoxItemViewModel(Resources.Strings.Controls_ToolboxItem_Ruler_Caption,
+                Resources.Strings.Controls_ToolboxItem_Ruler_ToolTip,
+                IconType.Ruler,
                 UseRulerCommand));
 
             return items;

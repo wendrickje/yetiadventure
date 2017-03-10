@@ -105,17 +105,33 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\IconImageSourceProvider.cs" />
+    <Compile Include="Controls\DockPanePopupButton.cs" />
     <Compile Include="Controls\ToolBox.cs" />
     <Compile Include="Controls\RadioButtonTool.cs" />
+    <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Interfaces\IToolboxItem.cs" />
+    <Compile Include="Resources\StaticKeys.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaticKeys.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\PrimitiveViewModel.cs" />
+    <Compile Include="ViewModel\PropertiesViewModel.cs" />
     <Compile Include="ViewModel\ToolBoxItemViewModel.cs" />
     <Compile Include="ViewModel\ToolBoxViewModel.cs" />
+    <Compile Include="View\PropertiesView.xaml.cs">
+      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ToolBoxView.xaml.cs">
       <DependentUpon>ToolBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\LoadingIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\PrimitivePropertiesDataEditors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\DockManager.xaml">
       <SubType>Designer</SubType>
@@ -178,8 +194,8 @@
     <Compile Include="Converters\ConverterBase.cs" />
     <Compile Include="Converters\IconImageSourceConverter.cs" />
     <Compile Include="Converters\NullVisibilityConverter.cs" />
-    <Compile Include="Resources\Constants.Designer.cs">
-      <DependentUpon>Constants.resx</DependentUpon>
+    <Compile Include="Resources\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -220,6 +236,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PropertiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ToolBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,9 +259,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Resources\Constants.resx">
+    <EmbeddedResource Include="Resources\StaticKeys.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Constants.Designer.cs</LastGenOutput>
+      <LastGenOutput>StaticKeys.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ErrorMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

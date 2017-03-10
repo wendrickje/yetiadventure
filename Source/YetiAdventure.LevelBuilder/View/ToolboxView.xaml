@@ -12,8 +12,9 @@
              d:DesignHeight="300"
              d:DesignWidth="300">
     <Grid d:DataContext="{x:Type viewModel:ToolBoxViewModel}">
-
+        
         <controls:ToolBox ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          Grid.Row="1"
                           VirtualizingPanel.IsVirtualizing="False"
                           CommandMemberPath="Command"
                           SelectedItem="{Binding ActiveToolBoxItem}"
@@ -45,5 +46,8 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>-->
         </controls:ToolBox>
+        
+        
+        
     </Grid>
 </UserControl>

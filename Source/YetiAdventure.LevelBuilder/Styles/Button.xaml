@@ -10,6 +10,7 @@
 
     
     <Style TargetType="{x:Type ButtonBase}">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static resourceKeys:Global.Foreground}}" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="BorderThickness" Value="1" />

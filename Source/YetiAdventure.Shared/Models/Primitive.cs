@@ -58,5 +58,7 @@ namespace YetiAdventure.Shared.Models
         /// </value>
         public Body Body { get { return _body;  } }
 
+
+        public int test { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace YetiAdventure.LevelBuilder.Controls
 
         public GameControl() : base()
         {
-
+            
         }
 
         protected override void Initialize()

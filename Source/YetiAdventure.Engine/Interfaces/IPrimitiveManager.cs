@@ -23,11 +23,11 @@ namespace YetiAdventure.Engine.Interfaces
         Primitive GetPrimitive(Guid id);
 
         /// <summary>
-        /// Moves the primitive.
+        /// Moves the primitive to <paramref name="destination"/>; where <paramref name="destination"/> will become the top left of the primitive.
         /// </summary>
         /// <param name="primitive">The primitive.</param>
-        /// <param name="point">The point.</param>
-        void MovePrimitive(Primitive primitive, Shared.Common.Point point);
+        /// <param name="destination">The top left destination point.</param>
+        void MovePrimitive(Primitive primitive, Shared.Common.Point destination);
 
         /// <summary>
         /// Draws the specified sprite batch.

@@ -22,14 +22,14 @@ namespace YetiAdventure.LevelBuilder.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Constants {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Constants() {
+        internal Strings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace YetiAdventure.LevelBuilder.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("YetiAdventure.LevelBuilder.Resources.Constants", typeof(Constants).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("YetiAdventure.LevelBuilder.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace YetiAdventure.LevelBuilder.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to properties.
+        /// </summary>
+        public static string _xcad_LayoutPanel_ {
+            get {
+                return ResourceManager.GetString("<xcad:LayoutPanel>", resourceCulture);
             }
         }
         
@@ -111,6 +120,24 @@ namespace YetiAdventure.LevelBuilder.Resources {
         public static string Controls_ToolboxItem_Polygon_Tooltip {
             get {
                 return ResourceManager.GetString("Controls_ToolboxItem_Polygon_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ruler tool.
+        /// </summary>
+        public static string Controls_ToolboxItem_Ruler_Caption {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_Ruler_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to measures stuff.
+        /// </summary>
+        public static string Controls_ToolboxItem_Ruler_ToolTip {
+            get {
+                return ResourceManager.GetString("Controls_ToolboxItem_Ruler_ToolTip", resourceCulture);
             }
         }
         
@@ -309,6 +336,33 @@ namespace YetiAdventure.LevelBuilder.Resources {
         public static string levellayoutextension {
             get {
                 return ResourceManager.GetString("levellayoutextension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        public static string PrimProps_CancelCaption {
+            get {
+                return ResourceManager.GetString("PrimProps_CancelCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to save.
+        /// </summary>
+        public static string PrimProps_SaveCaption {
+            get {
+                return ResourceManager.GetString("PrimProps_SaveCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to properties.
+        /// </summary>
+        public static string PropertiesPanelHeader {
+            get {
+                return ResourceManager.GetString("PropertiesPanelHeader", resourceCulture);
             }
         }
         

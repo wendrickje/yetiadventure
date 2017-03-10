@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:YetiAdventure.LevelBuilder.Resources"
+                    xmlns:model="clr-namespace:YetiAdventure.Shared.Models;assembly=YetiAdventure.Shared"
+                    xmlns:modelCommon="clr-namespace:YetiAdventure.Shared.Common;assembly=YetiAdventure.Shared"
+                    xmlns:resources="clr-namespace:YetiAdventure.LevelBuilder.Resources"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+
+    <xctk:EditorDefinitionCollection x:Key="{x:Static resources:StaticKeys.PropertyGrid_EditorDefinitions}">
+
+        <xctk:EditorTemplateDefinition TargetProperties="{x:Type modelCommon:Rectangle}">
+            <xctk:EditorTemplateDefinition.EditingTemplate>
+                <DataTemplate>
+
+                    <StackPanel Orientation="Vertical">
+                        <xctk:DecimalUpDown Margin="0,0,0,2"
+                                           Name="height"
+                                           Value="{Binding Height}" />
+                        <xctk:DecimalUpDown Margin="0,0,0,2"
+                                           Name="width"
+                                           Value="{Binding Width}" />
+                        <xctk:DecimalUpDown Margin="0,0,0,2"
+                                           Name="x"
+                                           Value="{Binding X}" />
+                        <xctk:DecimalUpDown Margin="0,0,0,0"
+                                           Name="y"
+                                           Value="{Binding Y}" />
+
+                    </StackPanel>
+                </DataTemplate>
+            </xctk:EditorTemplateDefinition.EditingTemplate>
+        </xctk:EditorTemplateDefinition>
+
+    </xctk:EditorDefinitionCollection>
+    
+    
+</ResourceDictionary>

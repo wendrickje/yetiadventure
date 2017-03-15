@@ -17,6 +17,12 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
     {
         private Vector2? _startPosition;
         private Vector2 _currentPosition;
+        private string _lastLengthString;
+
+        // Constants for visual tuning.
+        private const float kTickLength = 1.0f;
+        private const float kDistanceBetweenTickMarks = 1.5f;
+        private const float kLabelScale = 0.05f;
 
         /// <summary>
         /// The ruler constructor.
@@ -24,6 +30,7 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         public RulerOperation()
         {
             _startPosition = null;
+            _lastLengthString = null;
         }
 
         /// <summary>
@@ -31,25 +38,26 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         /// </summary>
         public override void Update(ToolOperationArgs args)
         {
-            _currentPosition = new Vector2(args.MouseState.X, args.MouseState.Y);
+            _currentPosition = args.MousePoint.ConvertToVector2();
 
             if (_startPosition == null)
             {
                 // Start point hasn't been selected yet.
                 if (args.IsLeftMouseButtonClicked())
                 {
-                    _startPosition = new Vector2(args.MouseState.X, args.MouseState.Y);
+                    _startPosition = args.MousePoint.ConvertToVector2();
                 }
             }
             else
             {
-                // The user has selected a start position. Only reset the state when the mouselick is released.
+                // The user has selected a start position. Only reset the state when the mouseclick is released.
                 if (args.MouseState.LeftButton == OpenTK.Input.ButtonState.Released)
                 {
                     _startPosition = null;
                 }
             }
         }
+
         /// <summary>
         /// Draws the specified arguments.
         /// </summary>
@@ -58,10 +66,6 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         {
             if (_startPosition != null)
             {
-                // Test constants for tuning.
-                float tickLength = 2.0f;
-                int numMarks = 10;
-
                 Vector2 rulerDispacement = _currentPosition - _startPosition.Value;
                 float worldDistance = rulerDispacement.Length();
 
@@ -73,14 +77,40 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
                 // Draw the ruler line from the start to end position.
                 args.SpriteBatch.DrawLine(_startPosition.Value, _currentPosition, Color.Blue);
 
+                int numMarks = (int)(worldDistance / kDistanceBetweenTickMarks);
+                numMarks = numMarks > 0 ? numMarks : 1;
+
+                // The displacement between each tick mark.
+                Vector2 tickOffset = rulerDispacement / (float)numMarks;
+
                 // Draw tick marks along the line.
                 rulerDispacement.Normalize();
                 Vector2 tickStart = _startPosition.Value;
                 for (int markIndex = 0; markIndex <= numMarks; ++markIndex)
                 {
-                    Vector2 tickEnd = tickStart + (perpendicular * tickLength);
+                    // Alternate between big and small tick marks.
+                    float currentTickLength = kTickLength;
+                    if (markIndex != 0 && markIndex != numMarks)
+                    {
+                        if (markIndex % 2 == 1)
+                        {
+                            // Small tick marks are half the size of the big ones.
+                            currentTickLength = kTickLength / 2.0f;
+                        }
+                    }
+                    
+                    Vector2 tickEnd = tickStart + (perpendicular * currentTickLength);
                     args.SpriteBatch.DrawLine(tickStart, tickEnd, Color.Blue);
+                    tickStart += tickOffset;
                 }
+
+                // Draw a string with the length that the ruler is measuring.
+                _lastLengthString = string.Format("Length: {0}", worldDistance);
+                args.SpriteBatch.DrawString(args.SpriteFont, _lastLengthString, _currentPosition, Microsoft.Xna.Framework.Color.Black, 0.0f, Vector2.Zero, kLabelScale, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1.0f);
+            }
+            else
+            {
+                _lastLengthString = null;
             }
         }
     }

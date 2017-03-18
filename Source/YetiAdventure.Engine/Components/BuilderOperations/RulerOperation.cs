@@ -2,6 +2,7 @@
 using Prism.Events;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,8 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         private string _lastLengthString;
 
         // Constants for visual tuning.
-        private const float kTickLength = 1.0f;
-        private const float kDistanceBetweenTickMarks = 1.5f;
+        private const float kTickLength = 0.5f;
+        private const float kDistanceBetweenTickMarks = 1.0f;
         private const float kLabelScale = 0.05f;
 
         /// <summary>
@@ -74,23 +75,30 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
                 Vector2 perpendicular = new Vector2(rulerDispacement.Y, -tempX);
                 perpendicular.Normalize();
 
-                // Draw the ruler line from the start to end position.
-                args.SpriteBatch.DrawLine(_startPosition.Value, _currentPosition, Color.Blue);
+                // If necessary, flip the tick marks to always make them point up.
+                float angleCheck = Vector2.Dot(rulerDispacement, Vector2.UnitX);
+                if (angleCheck < 0)
+                {
+                    perpendicular = -perpendicular;
+                }
 
                 int numMarks = (int)(worldDistance / kDistanceBetweenTickMarks);
                 numMarks = numMarks > 0 ? numMarks : 1;
 
                 // The displacement between each tick mark.
-                Vector2 tickOffset = rulerDispacement / (float)numMarks;
+                Vector2 normalizedDisplacement = rulerDispacement;
+                normalizedDisplacement.Normalize();
+                Vector2 tickOffset = normalizedDisplacement * kDistanceBetweenTickMarks;
 
-                // Draw tick marks along the line.
+                // Draw tick marks along the ruler.
                 rulerDispacement.Normalize();
+
                 Vector2 tickStart = _startPosition.Value;
                 for (int markIndex = 0; markIndex <= numMarks; ++markIndex)
                 {
                     // Alternate between big and small tick marks.
                     float currentTickLength = kTickLength;
-                    if (markIndex != 0 && markIndex != numMarks)
+                    if (markIndex != 0)
                     {
                         if (markIndex % 2 == 1)
                         {
@@ -98,11 +106,26 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
                             currentTickLength = kTickLength / 2.0f;
                         }
                     }
-                    
+
+                    if (markIndex == numMarks)
+                    {
+                        float percentageToNextMark = (_currentPosition - tickStart).Length() / kDistanceBetweenTickMarks;
+                        currentTickLength *= percentageToNextMark;
+                    }
+
                     Vector2 tickEnd = tickStart + (perpendicular * currentTickLength);
                     args.SpriteBatch.DrawLine(tickStart, tickEnd, Color.Blue);
                     tickStart += tickOffset;
+
+                    // If the ruler is shorter than the tick mark distance, we're done.
+                    if (worldDistance < kDistanceBetweenTickMarks)
+                    {
+                        break;
+                    }
                 }
+
+                // Draw the ruler line from the start to end position.
+                args.SpriteBatch.DrawLine(_startPosition.Value, _currentPosition, Color.Blue);
 
                 // Draw a string with the length that the ruler is measuring.
                 _lastLengthString = string.Format("Length: {0}", worldDistance);

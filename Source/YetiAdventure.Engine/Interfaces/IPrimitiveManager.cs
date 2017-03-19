@@ -55,5 +55,13 @@ namespace YetiAdventure.Engine.Interfaces
         /// <param name="primitiveId">The primitive identifier.</param>
         /// <param name="point">The point.</param>
         void MovePrimitiveById(Guid primitiveId, Shared.Common.Point point);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="destination"></param>
+        /// <param name="rect"></param>
+        void Resize(Primitive target, Shared.Common.Point destination, Shared.Common.Rectangle rect);
     }
 }

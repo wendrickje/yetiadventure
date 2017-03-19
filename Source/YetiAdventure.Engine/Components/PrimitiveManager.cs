@@ -148,5 +148,18 @@ namespace YetiAdventure.Engine.Components
             var prim = GetPrimitive(primitiveId);
             MovePrimitive(prim, point);
         }
+
+
+        /// <summary>
+        /// Resizes the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="destination">The destination.</param>
+        /// <param name="rect">The rect.</param>
+        public void Resize(Primitive target, Shared.Common.Point destination, Shared.Common.Rectangle rect)
+        {
+            //resize...
+            //rect is some 
+        }
     }
 }

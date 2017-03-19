@@ -15,6 +15,15 @@ namespace YetiAdventure.Engine.Common
     /// </summary>
     public class ToolOperationBase
     {
+        /// <summary>
+        /// The selected color
+        /// </summary>
+        public static Microsoft.Xna.Framework.Color SelectedColor = Microsoft.Xna.Framework.Color.Blue;
+
+        /// <summary>
+        /// The handle color
+        /// </summary>
+        public static Microsoft.Xna.Framework.Color HandleColor = Microsoft.Xna.Framework.Color.Silver;
 
         /// <summary>
         /// Updates this instance.

@@ -67,9 +67,9 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
                 var boxDimensions = String.Format("X {0}, Y {1} | H {2} W {3}", box.X, box.Y, box.Height, box.Width);
                 spriteBatch.DrawString(args.SpriteFont, boxDimensions, new Vector2(box.Center.X, box.Center.Y), Microsoft.Xna.Framework.Color.White);
 #endif
-                spriteBatch.DrawRectangle(box, Microsoft.Xna.Framework.Color.ForestGreen);
+                spriteBatch.DrawRectangle(box, SelectedColor);
 
-               
+
 
             }
 

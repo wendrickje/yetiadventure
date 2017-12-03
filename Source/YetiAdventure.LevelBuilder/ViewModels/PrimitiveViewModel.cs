@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
     /// <summary>
     /// primitive view model
     /// </summary>
-    public class PrimitiveViewModel : CoreViewModel
+    public class PrimitiveViewModel : BaseViewModel
     {
     }
 }

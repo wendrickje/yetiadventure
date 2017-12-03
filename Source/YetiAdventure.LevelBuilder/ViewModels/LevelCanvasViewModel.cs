@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Events;
 using Prism.Regions;
-using YetiAdventure.LevelBuilder.View;
+using YetiAdventure.LevelBuilder.Views;
 
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
     /// <summary>
     /// data context of level canvas view
     /// </summary>
-    public class LevelCanvasViewModel : CoreViewModel
+    public class LevelCanvasViewModel : BaseViewModel
     {
         public LevelCanvasViewModel(IEventAggregator eventManager)
         {

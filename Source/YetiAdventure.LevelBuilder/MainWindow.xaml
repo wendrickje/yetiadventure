@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:view="clr-namespace:YetiAdventure.LevelBuilder.View"
-        xmlns:viewModel="clr-namespace:YetiAdventure.LevelBuilder.ViewModel"
+        xmlns:view="clr-namespace:YetiAdventure.LevelBuilder.Views"
+        xmlns:viewModel="clr-namespace:YetiAdventure.LevelBuilder.ViewModels"
         xmlns:resources="clr-namespace:YetiAdventure.LevelBuilder.Resources"
         xmlns:resourceKeys="clr-namespace:YetiAdventure.LevelBuilder.Common.ResourceKeys"
         xmlns:prism="http://prismlibrary.com/"
@@ -129,7 +129,7 @@
             </MenuItem>
         </Menu>
 
-        <ContentControl prism:RegionManager.RegionName="{x:Static viewModel:MainWindowViewModel.MainRegionName}" Grid.Row="1" />
+        <ContentControl x:Name="mainRegion" prism:RegionManager.RegionName="{x:Static viewModel:MainWindowViewModel.MainRegionName}" Grid.Row="1" />
 
 
         <Grid Grid.Row="2">

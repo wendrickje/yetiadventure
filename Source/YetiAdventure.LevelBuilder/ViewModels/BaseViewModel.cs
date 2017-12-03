@@ -7,12 +7,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
     /// <summary>
     /// base viewmodel
     /// </summary>
-    public class CoreViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
 
         private bool _isLoading;

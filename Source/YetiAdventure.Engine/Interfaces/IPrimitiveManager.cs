@@ -63,5 +63,13 @@ namespace YetiAdventure.Engine.Interfaces
         /// <param name="destination"></param>
         /// <param name="rect"></param>
         void Resize(Primitive target, Shared.Common.Point destination, Shared.Common.Rectangle rect);
+
+        /// <summary>
+        /// Updates the primitive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        Task UpdatePrimitive(Guid id, Primitive source);
     }
 }

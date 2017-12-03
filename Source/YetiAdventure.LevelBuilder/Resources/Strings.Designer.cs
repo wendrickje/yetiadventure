@@ -61,15 +61,6 @@ namespace YetiAdventure.LevelBuilder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to properties.
-        /// </summary>
-        public static string _xcad_LayoutPanel_ {
-            get {
-                return ResourceManager.GetString("<xcad:LayoutPanel>", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to canvas.
         /// </summary>
         public static string Controls_LevelCanvasControl_Header {
@@ -358,11 +349,56 @@ namespace YetiAdventure.LevelBuilder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to height:.
+        /// </summary>
+        public static string PropertiesPanel_label_rect_height {
+            get {
+                return ResourceManager.GetString("PropertiesPanel_label_rect_height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to width:.
+        /// </summary>
+        public static string PropertiesPanel_label_rect_width {
+            get {
+                return ResourceManager.GetString("PropertiesPanel_label_rect_width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to x:.
+        /// </summary>
+        public static string PropertiesPanel_label_rect_x {
+            get {
+                return ResourceManager.GetString("PropertiesPanel_label_rect_x", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to y:.
+        /// </summary>
+        public static string PropertiesPanel_label_rect_y {
+            get {
+                return ResourceManager.GetString("PropertiesPanel_label_rect_y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to properties.
         /// </summary>
         public static string PropertiesPanelHeader {
             get {
                 return ResourceManager.GetString("PropertiesPanelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to utilities.
+        /// </summary>
+        public static string UtilityBelt_Header {
+            get {
+                return ResourceManager.GetString("UtilityBelt_Header", resourceCulture);
             }
         }
         

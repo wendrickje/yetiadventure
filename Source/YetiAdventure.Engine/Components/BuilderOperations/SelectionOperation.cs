@@ -79,6 +79,7 @@ namespace YetiAdventure.Engine.Components.BuilderOperations
         {
             if(_operationTargets.Contains(target)) return;
             _operationTargets.Add(target);
+            
             _eventAggregator.GetEvent<SelectionChangedEvent>().Publish(new SelectionChangedEventArgs() { NewItem = target });
             
         }

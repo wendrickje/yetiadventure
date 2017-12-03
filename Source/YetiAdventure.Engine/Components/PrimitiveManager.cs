@@ -149,7 +149,7 @@ namespace YetiAdventure.Engine.Components
             MovePrimitive(prim, point);
         }
 
-
+        const int Threshold = 2;
         /// <summary>
         /// Resizes the specified target.
         /// </summary>
@@ -159,7 +159,51 @@ namespace YetiAdventure.Engine.Components
         public void Resize(Primitive target, Shared.Common.Point destination, Shared.Common.Rectangle rect)
         {
             //resize...
-            //rect is some 
+            //rect is either a corner or an edge
+            var center = target.Bounds.Center();
+
+            //left or right
+            if(center.X - Threshold >= rect.X && center.X + Threshold <= rect.X)
+            {
+                //center
+            }
+            else if (center.X - Threshold < rect.X)
+            {
+                //left
+            }
+            else if(center.X + Threshold > rect.X)
+            {
+                //right
+            }
+
+            //top or bottom
+            if (center.Y - Threshold >= rect.Y && center.Y + Threshold <= rect.Y)
+            {
+                //center
+            }
+            else if(center.Y - Threshold < rect.Y)
+            {
+                //top
+            }
+            else if (center.Y + Threshold > rect.Y)
+            {
+                //bottom
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// Updates the primitive.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="source">The source.</param>
+        /// <returns></returns>
+        public async Task UpdatePrimitive(Guid id, Primitive source)
+        {
+            if (!Primitives.ContainsKey(id)) return;
+            await Task.Run(()=> Primitives[id] = source);
         }
     }
 }

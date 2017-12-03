@@ -13,7 +13,7 @@ using YetiAdventure.Engine.Components;
 using YetiAdventure.Engine.Components.BuilderOperations;
 using YetiAdventure.Engine.Interfaces;
 using YetiAdventure.Engine.Levels;
-using YetiAdventure.LevelBuilder.ViewModel;
+using YetiAdventure.LevelBuilder.ViewModels;
 using YetiAdventure.Shared;
 using YetiAdventure.Shared.Events;
 using YetiAdventure.Shared.Interfaces;

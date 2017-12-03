@@ -12,6 +12,8 @@ using YetiAdventure.Engine;
 using YetiAdventure.LevelBuilder.Common;
 using YetiAdventure.LevelBuilder.Controls;
 using YetiAdventure.Shared.Interfaces;
+using Unity;
+using CommonServiceLocator;
 
 namespace YetiAdventure.LevelBuilder
 {
@@ -19,7 +21,7 @@ namespace YetiAdventure.LevelBuilder
     /// boot strapper
     /// </summary>
     /// <seealso cref="Prism.Unity.UnityBootstrapper" />
-    public class Bootstrapper : UnityBootstrapper
+    public class Bootstrapper : Prism.Unity.UnityBootstrapper
     {
         /// <summary>
         /// Configures the container.
@@ -27,7 +29,8 @@ namespace YetiAdventure.LevelBuilder
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
+            Container.RegisterTypeForNavigation<Views.UtilityBeltView>(Common.ViewNames.UtilityBeltView);
+            Container.RegisterType<ViewModels.UtilityBeltViewModel>(Common.ViewNames.UtilityBeltView);
         }
 
         /// <summary>

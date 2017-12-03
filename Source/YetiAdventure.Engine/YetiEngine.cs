@@ -23,6 +23,7 @@ using YetiAdventure.Engine.Components;
 using Prism.Events;
 using YetiAdventure.Shared.Common;
 using Color = Microsoft.Xna.Framework.Color;
+using System.Threading.Tasks;
 
 namespace YetiAdventure.Engine
 {
@@ -457,6 +458,12 @@ namespace YetiAdventure.Engine
         public void MovePrimitive(Primitive primitive, Shared.Common.Point point)
         {
             _primitiveManager.MovePrimitive(primitive, point);
+        }
+
+        public async Task UpdatePrimitive(Guid id, Primitive source)
+        {
+            await _primitiveManager.UpdatePrimitive(id, source);
+
         }
 
         #endregion

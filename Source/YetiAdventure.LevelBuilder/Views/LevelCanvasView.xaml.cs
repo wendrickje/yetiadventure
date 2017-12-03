@@ -17,12 +17,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using YetiAdventure.LevelBuilder.Controls;
-using YetiAdventure.LevelBuilder.ViewModel;
+using YetiAdventure.LevelBuilder.ViewModels;
 using Prism.Regions;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace YetiAdventure.LevelBuilder.View
+namespace YetiAdventure.LevelBuilder.Views
 {
     /// <summary>
     /// Interaction logic for LevelCanvas.xaml

@@ -219,10 +219,22 @@
   <data name="PrimProps_SaveCaption" xml:space="preserve">
     <value>save</value>
   </data>
-  <data name="&lt;xcad:LayoutPanel&gt;" xml:space="preserve">
-    <value>properties</value>
-  </data>
   <data name="PropertiesPanelHeader" xml:space="preserve">
     <value>properties</value>
+  </data>
+  <data name="PropertiesPanel_label_rect_height" xml:space="preserve">
+    <value>height:</value>
+  </data>
+  <data name="PropertiesPanel_label_rect_width" xml:space="preserve">
+    <value>width:</value>
+  </data>
+  <data name="PropertiesPanel_label_rect_x" xml:space="preserve">
+    <value>x:</value>
+  </data>
+  <data name="PropertiesPanel_label_rect_y" xml:space="preserve">
+    <value>y:</value>
+  </data>
+  <data name="UtilityBelt_Header" xml:space="preserve">
+    <value>utilities</value>
   </data>
 </root>

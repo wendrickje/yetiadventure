@@ -58,6 +58,12 @@ namespace YetiAdventure.Shared.Models
         /// </value>
         public Body Body { get { return _body;  } }
 
-        
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public Guid Id { get; set; }
     }
 }

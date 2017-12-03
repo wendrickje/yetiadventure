@@ -41,5 +41,13 @@ namespace YetiAdventure.Shared.Interfaces
         /// <param name="primitive">The primitive.</param>
         /// <param name="expected">The expected.</param>
         void MovePrimitive(Primitive primitive, Point expected);
+
+        /// <summary>
+        /// Updates the properties of a primitive with given ID.
+        /// </summary>
+        /// <param name="id">The identifier of the primitive to update.</param>
+        /// <param name="source">The source data to use for update.</param>
+        /// <returns></returns>
+        Task UpdatePrimitive(Guid id, Primitive source);
     }
 }

@@ -12,28 +12,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using YetiAdventure.LevelBuilder.ViewModel;
+using Prism.Regions;
+using YetiAdventure.LevelBuilder.ViewModels;
+using YetiAdventure.Shared.Icons;
 
-namespace YetiAdventure.LevelBuilder.View
+namespace YetiAdventure.LevelBuilder.Views
 {
     /// <summary>
-    /// Interaction logic for PropertiesView.xaml
+    /// Interaction logic for ToolboxView.xaml
     /// </summary>
-    public partial class PropertiesView : UserControl
+    public partial class ToolBoxView : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertiesView"/> class.
+        /// Initializes a new instance of the <see cref="ToolBoxView"/> class.
         /// </summary>
-        public PropertiesView()
+        public ToolBoxView()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertiesView"/> class.
+        /// Initializes a new instance of the <see cref="ToolBoxView"/> class.
         /// </summary>
         /// <param name="vm">The vm.</param>
-        public PropertiesView(PropertiesViewModel vm) : this()
+        public ToolBoxView(ToolBoxViewModel vm) : this()
         {
             DataContext = vm;
         }

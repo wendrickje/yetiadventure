@@ -7,22 +7,27 @@ using System.Windows.Input;
 using Prism.Events;
 using YetiAdventure.LevelBuilder.Common;
 using YetiAdventure.Shared.Events;
+using YetiAdventure.Shared.Interfaces;
+using YetiAdventure.Shared.Models;
 
-
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
     /// <summary>
     /// properties view model
     /// </summary>
-    public class PropertiesViewModel : CoreViewModel
+    public class PropertiesViewModel : BaseViewModel
     {
+        ILevelBuilderService _levelBuilderService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertiesViewModel"/> class.
         /// </summary>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public PropertiesViewModel(IEventAggregator eventAggregator)
+        /// <param name="levelBuilderService">The level builder service.</param>
+        public PropertiesViewModel(IEventAggregator eventAggregator, ILevelBuilderService levelBuilderService)
         {
             eventAggregator.GetEvent<SelectionChangedEvent>().Subscribe(OnPrimitiveSelectionChangedEventHandler);
+            _levelBuilderService = levelBuilderService;
         }
 
         /// <summary>
@@ -44,7 +49,7 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         /// <value>
         /// The save command.
         /// </value>
-        public ICommand SaveCommand { get { return _saveCommand ?? (_saveCommand = new RelayCommand(DoSave, CanSave)); } }
+        public ICommand SaveCommand { get { return _saveCommand ?? (_saveCommand = new RelayCommand(async param => await DoSave(param), CanSave)); } }
 
         /// <summary>
         /// Determines whether this instance can save the specified object.
@@ -62,12 +67,12 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         /// Does the save.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        private void DoSave(object obj)
+        private async Task DoSave(object obj)
         {
+            await _levelBuilderService.UpdatePrimitive(Target.Id, Target);
         }
 
-        private object _target;
+        private Primitive _target;
 
         /// <summary>
         /// Gets or sets the target.
@@ -75,7 +80,7 @@ namespace YetiAdventure.LevelBuilder.ViewModel
         /// <value>
         /// The target.
         /// </value>
-        public object Target
+        public Primitive Target
         {
             get { return _target; }
             set { SetProperty(ref _target, value); }

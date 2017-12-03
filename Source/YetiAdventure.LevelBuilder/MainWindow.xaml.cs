@@ -16,7 +16,7 @@ using Microsoft.Practices.Unity;
 using OpenTK.Platform;
 using Prism.Regions;
 using Xceed.Wpf.Toolkit.PropertyGrid;
-using YetiAdventure.LevelBuilder.ViewModel;
+using YetiAdventure.LevelBuilder.ViewModels;
 
 namespace YetiAdventure.LevelBuilder
 {
@@ -53,6 +53,7 @@ namespace YetiAdventure.LevelBuilder
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            
         }
     }
 }

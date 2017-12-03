@@ -17,13 +17,13 @@ using System.Windows;
 using YetiAdventure.Shared.Models;
 using YetiAdventure.Shared.Common;
 
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
     /// <summary>
     /// tool box view model
     /// </summary>
-    /// <seealso cref="YetiAdventure.LevelBuilder.ViewModel.CoreViewModel" />
-    public class ToolBoxViewModel : CoreViewModel
+    /// <seealso cref="YetiAdventure.LevelBuilder.ViewModel.BaseViewModel" />
+    public class ToolBoxViewModel : BaseViewModel
     {
         public const string RegionName = "ToolBoxViewModel";
         ILevelBuilderService _levelBuilderService;

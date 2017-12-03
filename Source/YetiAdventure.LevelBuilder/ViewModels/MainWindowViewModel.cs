@@ -7,11 +7,11 @@ using System.Windows;
 using System.Windows.Input;
 using Prism.Regions;
 using YetiAdventure.LevelBuilder.Common;
-using YetiAdventure.LevelBuilder.View;
+using YetiAdventure.LevelBuilder.Views;
 
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
-    public class MainWindowViewModel : CoreViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
 
         IRegionManager _regionManager;

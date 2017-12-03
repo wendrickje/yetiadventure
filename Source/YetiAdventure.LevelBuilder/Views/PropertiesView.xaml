@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="YetiAdventure.LevelBuilder.View.PropertiesView"
+﻿<UserControl x:Class="YetiAdventure.LevelBuilder.Views.PropertiesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:YetiAdventure.LevelBuilder.View"
+             xmlns:local="clr-namespace:YetiAdventure.LevelBuilder.Views"
              xmlns:modelCommon="clr-namespace:YetiAdventure.Shared.Common;assembly=YetiAdventure.Shared"
-             xmlns:viewmodel="clr-namespace:YetiAdventure.LevelBuilder.ViewModel"
+             xmlns:viewmodel="clr-namespace:YetiAdventure.LevelBuilder.ViewModels"
              xmlns:resources="clr-namespace:YetiAdventure.LevelBuilder.Resources"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/PrimitivePropertiesDataEditors.xaml" />
+                <ResourceDictionary Source="../Templates/PrimitivePropertiesDataEditors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

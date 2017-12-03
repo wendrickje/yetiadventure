@@ -7,9 +7,9 @@ using System.Windows.Input;
 using YetiAdventure.LevelBuilder.Interfaces;
 using YetiAdventure.Shared.Icons;
 
-namespace YetiAdventure.LevelBuilder.ViewModel
+namespace YetiAdventure.LevelBuilder.ViewModels
 {
-    public class ToolBoxItemViewModel : CoreViewModel, IToolboxItem
+    public class ToolBoxItemViewModel : BaseViewModel, IToolboxItem
     {
         /// <summary>
         /// ToolboxItemViewModel Constructor
